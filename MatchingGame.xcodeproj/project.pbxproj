@@ -13,6 +13,7 @@
 		EABACF3E19D5A90300FDEEAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3D19D5A90300FDEEAB /* Images.xcassets */; };
 		EABACF4119D5A90300FDEEAB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3F19D5A90300FDEEAB /* LaunchScreen.xib */; };
 		EABACF4D19D5A90300FDEEAB /* MatchingGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF4C19D5A90300FDEEAB /* MatchingGameTests.swift */; };
+		EABACF5819D5AF6F00FDEEAB /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5719D5AF6F00FDEEAB /* PlayingCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +30,14 @@
 		EABACF3119D5A90300FDEEAB /* MatchingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF3519D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EABACF3619D5A90300FDEEAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EABACF3819D5A90300FDEEAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EABACF3819D5A90300FDEEAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EABACF3B19D5A90300FDEEAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EABACF3D19D5A90300FDEEAB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EABACF4019D5A90300FDEEAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EABACF4619D5A90300FDEEAB /* MatchingGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchingGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF4B19D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EABACF4C19D5A90300FDEEAB /* MatchingGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingGameTests.swift; sourceTree = "<group>"; };
+		EABACF5719D5AF6F00FDEEAB /* PlayingCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayingCardView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +79,10 @@
 		EABACF3319D5A90300FDEEAB /* MatchingGame */ = {
 			isa = PBXGroup;
 			children = (
+				EABACF5619D5AF0400FDEEAB /* UI */,
 				EABACF3619D5A90300FDEEAB /* AppDelegate.swift */,
-				EABACF3819D5A90300FDEEAB /* ViewController.swift */,
-				EABACF3A19D5A90300FDEEAB /* Main.storyboard */,
-				EABACF3D19D5A90300FDEEAB /* Images.xcassets */,
 				EABACF3F19D5A90300FDEEAB /* LaunchScreen.xib */,
+				EABACF3D19D5A90300FDEEAB /* Images.xcassets */,
 				EABACF3419D5A90300FDEEAB /* Supporting Files */,
 			);
 			path = MatchingGame;
@@ -110,6 +111,16 @@
 				EABACF4B19D5A90300FDEEAB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EABACF5619D5AF0400FDEEAB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EABACF3819D5A90300FDEEAB /* ViewController.swift */,
+				EABACF3A19D5A90300FDEEAB /* Main.storyboard */,
+				EABACF5719D5AF6F00FDEEAB /* PlayingCardView.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EABACF3919D5A90300FDEEAB /* ViewController.swift in Sources */,
+				EABACF5819D5AF6F00FDEEAB /* PlayingCardView.swift in Sources */,
 				EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

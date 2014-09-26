@@ -10,8 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var cardView: PlayingCardView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        cardView.title = "A♣️"
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -20,6 +24,9 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func toggleCard(sender: PlayingCardView) {
+        sender.toggle()
+    }
 
 }
 
