@@ -12,8 +12,13 @@
 		EABACF3C19D5A90300FDEEAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3A19D5A90300FDEEAB /* Main.storyboard */; };
 		EABACF3E19D5A90300FDEEAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3D19D5A90300FDEEAB /* Images.xcassets */; };
 		EABACF4119D5A90300FDEEAB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3F19D5A90300FDEEAB /* LaunchScreen.xib */; };
-		EABACF4D19D5A90300FDEEAB /* MatchingGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF4C19D5A90300FDEEAB /* MatchingGameTests.swift */; };
 		EABACF5819D5AF6F00FDEEAB /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5719D5AF6F00FDEEAB /* PlayingCardView.swift */; };
+		EABACF5A19D5C27500FDEEAB /* GameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5919D5C27500FDEEAB /* GameStats.swift */; };
+		EABACF5C19D5C41200FDEEAB /* GameStatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */; };
+		EABACF5D19D5C5ED00FDEEAB /* GameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5919D5C27500FDEEAB /* GameStats.swift */; };
+		EABACF5F19D5CA8800FDEEAB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */; };
+		EABACF6019D5CAF400FDEEAB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */; };
+		EABACF6219D5CB0B00FDEEAB /* CardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +41,11 @@
 		EABACF4019D5A90300FDEEAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EABACF4619D5A90300FDEEAB /* MatchingGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchingGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF4B19D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EABACF4C19D5A90300FDEEAB /* MatchingGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchingGameTests.swift; sourceTree = "<group>"; };
 		EABACF5719D5AF6F00FDEEAB /* PlayingCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayingCardView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EABACF5919D5C27500FDEEAB /* GameStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStats.swift; sourceTree = "<group>"; };
+		EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStatsTests.swift; sourceTree = "<group>"; };
+		EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +89,11 @@
 			children = (
 				EABACF5619D5AF0400FDEEAB /* UI */,
 				EABACF3619D5A90300FDEEAB /* AppDelegate.swift */,
+				EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */,
 				EABACF3F19D5A90300FDEEAB /* LaunchScreen.xib */,
 				EABACF3D19D5A90300FDEEAB /* Images.xcassets */,
 				EABACF3419D5A90300FDEEAB /* Supporting Files */,
+				EABACF5919D5C27500FDEEAB /* GameStats.swift */,
 			);
 			path = MatchingGame;
 			sourceTree = "<group>";
@@ -99,8 +109,9 @@
 		EABACF4919D5A90300FDEEAB /* MatchingGameTests */ = {
 			isa = PBXGroup;
 			children = (
-				EABACF4C19D5A90300FDEEAB /* MatchingGameTests.swift */,
+				EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */,
 				EABACF4A19D5A90300FDEEAB /* Supporting Files */,
+				EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */,
 			);
 			path = MatchingGameTests;
 			sourceTree = "<group>";
@@ -226,6 +237,8 @@
 				EABACF3919D5A90300FDEEAB /* ViewController.swift in Sources */,
 				EABACF5819D5AF6F00FDEEAB /* PlayingCardView.swift in Sources */,
 				EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */,
+				EABACF5A19D5C27500FDEEAB /* GameStats.swift in Sources */,
+				EABACF5F19D5CA8800FDEEAB /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +246,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EABACF4D19D5A90300FDEEAB /* MatchingGameTests.swift in Sources */,
+				EABACF6019D5CAF400FDEEAB /* CardViewModel.swift in Sources */,
+				EABACF5C19D5C41200FDEEAB /* GameStatsTests.swift in Sources */,
+				EABACF6219D5CB0B00FDEEAB /* CardViewModelTests.swift in Sources */,
+				EABACF5D19D5C5ED00FDEEAB /* GameStats.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

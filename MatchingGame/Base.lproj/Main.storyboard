@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -27,15 +28,24 @@
                                     <action selector="toggleCard:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Dwb-SL-5MV"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flips: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
+                                <rect key="frame" x="16" y="571" width="56" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="XuG-zC-gVk" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="5oa-xw-cdl"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="8" id="ATo-bl-CKo"/>
                             <constraint firstItem="XuG-zC-gVk" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="a0a-4X-MWA"/>
+                            <constraint firstItem="yaA-wD-wmi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="zwc-G9-jrV"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cardView" destination="XuG-zC-gVk" id="vnn-kW-a4d"/>
+                        <outlet property="flipsLabel" destination="yaA-wD-wmi" id="c7f-cx-99D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
