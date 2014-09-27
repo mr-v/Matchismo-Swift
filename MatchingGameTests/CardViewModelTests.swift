@@ -20,10 +20,9 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_flipCountText_AfterInrementing_ReturnsProperlyFormattedText() {
-        let stats = GameStats()
-        let viewModel = makeCardViewModel(stats: stats)
+        let viewModel = makeCardViewModel()
 
-        stats.incrementFlipCount()
+        viewModel.incrementFlipCount()
         let text = viewModel.flipCountText()
 
         XCTAssertEqual("Flips: 1", text, "")
@@ -32,7 +31,7 @@ class CardViewModelTests: XCTestCase {
 
     // MARK:
 
-    func makeCardViewModel(stats: GameStats = GameStats()) -> CardViewModel {
-        return CardViewModel(gameStats: stats)
+    func makeCardViewModel() -> CardViewModel {
+        return CardViewModel(gameStats: GameStats())
     }
 }
