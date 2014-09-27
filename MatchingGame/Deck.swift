@@ -54,7 +54,11 @@ class Deck {
         }
     }
 
-    func drawACard() -> PlayingCard {
+    func drawACard() -> PlayingCard! {
+        if cards.count == 0 {
+            return nil
+        }
+
         let index = arc4random_uniform(CUnsignedInt(cards.count))
         return cards.removeAtIndex(Int(index))
     }

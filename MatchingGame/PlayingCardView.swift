@@ -30,7 +30,7 @@ class PlayingCardView : UIButton {
             setLabelsTitle(title!)
         }
     }
-    private var faceDirection: CardFace = .Up
+    internal private(set) var faceDirection: CardFace = .Up
 
     func toggle() {
         switch faceDirection {
