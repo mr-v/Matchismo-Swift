@@ -19,6 +19,9 @@
 		EABACF5F19D5CA8800FDEEAB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */; };
 		EABACF6019D5CAF400FDEEAB /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */; };
 		EABACF6219D5CB0B00FDEEAB /* CardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */; };
+		EABACF6419D6E7C300FDEEAB /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6319D6E7C300FDEEAB /* DeckTests.swift */; };
+		EABACF6619D6E94400FDEEAB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6519D6E94400FDEEAB /* Deck.swift */; };
+		EABACF6719D6EA3B00FDEEAB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6519D6E94400FDEEAB /* Deck.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +49,8 @@
 		EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameStatsTests.swift; sourceTree = "<group>"; };
 		EABACF5E19D5CA8800FDEEAB /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelTests.swift; sourceTree = "<group>"; };
+		EABACF6319D6E7C300FDEEAB /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckTests.swift; sourceTree = "<group>"; };
+		EABACF6519D6E94400FDEEAB /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +99,7 @@
 				EABACF3D19D5A90300FDEEAB /* Images.xcassets */,
 				EABACF3419D5A90300FDEEAB /* Supporting Files */,
 				EABACF5919D5C27500FDEEAB /* GameStats.swift */,
+				EABACF6519D6E94400FDEEAB /* Deck.swift */,
 			);
 			path = MatchingGame;
 			sourceTree = "<group>";
@@ -109,9 +115,10 @@
 		EABACF4919D5A90300FDEEAB /* MatchingGameTests */ = {
 			isa = PBXGroup;
 			children = (
-				EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */,
 				EABACF4A19D5A90300FDEEAB /* Supporting Files */,
+				EABACF5B19D5C41200FDEEAB /* GameStatsTests.swift */,
 				EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */,
+				EABACF6319D6E7C300FDEEAB /* DeckTests.swift */,
 			);
 			path = MatchingGameTests;
 			sourceTree = "<group>";
@@ -234,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EABACF6619D6E94400FDEEAB /* Deck.swift in Sources */,
 				EABACF3919D5A90300FDEEAB /* ViewController.swift in Sources */,
 				EABACF5819D5AF6F00FDEEAB /* PlayingCardView.swift in Sources */,
 				EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */,
@@ -246,6 +254,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EABACF6719D6EA3B00FDEEAB /* Deck.swift in Sources */,
+				EABACF6419D6E7C300FDEEAB /* DeckTests.swift in Sources */,
 				EABACF6019D5CAF400FDEEAB /* CardViewModel.swift in Sources */,
 				EABACF5C19D5C41200FDEEAB /* GameStatsTests.swift in Sources */,
 				EABACF6219D5CB0B00FDEEAB /* CardViewModelTests.swift in Sources */,
