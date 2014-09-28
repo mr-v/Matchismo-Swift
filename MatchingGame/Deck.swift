@@ -39,7 +39,7 @@ func == (lhs: PlayingCard, rhs: PlayingCard) -> Bool {
 class Deck {
     var isEmpty: Bool {
         get {
-            return cards.count == 0
+            return cards.isEmpty
         }
     }
     private var cards: [PlayingCard]
@@ -55,7 +55,7 @@ class Deck {
     }
 
     func drawACard() -> PlayingCard! {
-        if cards.count == 0 {
+        if isEmpty {
             return nil
         }
 
