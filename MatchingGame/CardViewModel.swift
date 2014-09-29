@@ -18,11 +18,11 @@ extension PlayingCard: Printable {
             var rankText: String
             switch letterMapping[rank] {
             case nil:
-                rankText = String(rank.toRaw())
+                rankText = String(rank.rawValue)
             case let mappedText:
                 rankText = mappedText!
             }
-            let s = suit.toRaw()
+            let s = suit.rawValue
             return rankText + s
         }
     }

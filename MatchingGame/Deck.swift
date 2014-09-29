@@ -26,7 +26,7 @@ struct PlayingCard: Hashable {
     let rank: Rank
 
     var hashValue: Int {
-        return (String(rank.toRaw()) + suit.toRaw()).hashValue
+        return (String(rank.rawValue) + suit.rawValue).hashValue
     }
 }
 
@@ -49,8 +49,8 @@ class Deck {
         cards = [PlayingCard]()
 
         let allSuits: [Suit] = [.Hearts, .Spades, .Diamonds, .Clubs]
-        for i in Rank.Ace.toRaw()...Rank.King.toRaw() {
-            cards += allSuits.map { PlayingCard(suit: $0, rank: Rank.fromRaw(i)!) }
+        for i in Rank.Ace.rawValue...Rank.King.rawValue {
+            cards += allSuits.map { PlayingCard(suit: $0, rank: Rank(rawValue: i)!) }
         }
     }
 
