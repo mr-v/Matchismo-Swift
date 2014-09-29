@@ -20,10 +20,12 @@ class MatchingGame {
     internal private(set) var score: Int
     private var pickedCardIndex: Int?
     private var cards: [PlayingCard]
+    private var matchedCardsIndexes: [Int: Bool]
 
     init(configuration: PointsConfiguration, numberOfCards: Int, deck d: Deck = Deck()) {
-        var deck = d
         cards = []
+        matchedCardsIndexes = [Int: Bool]()
+        var deck = d
         for _ in 1...numberOfCards {
             if deck.isEmpty {
                 deck = Deck()
@@ -37,6 +39,10 @@ class MatchingGame {
 
     func pickCardWithNumber(number: Int) {
         var newPick: PlayingCard = cards[number]
+        if matchedCardsIndexes[number] != nil {
+            return
+        }
+
         newPick.flip()
         if newPick.chosen {
             score -= pointsConfiguration.choosePenalty
@@ -46,22 +52,32 @@ class MatchingGame {
         if let i = pickedCardIndex? {
             oldPick = cards[i]
         }
-        pickedCardIndex = number
-        cards[pickedCardIndex!] = newPick
 
         let eligibleForMatching = (newPick.chosen == oldPick?.chosen) && newPick.chosen
+        var rewardApplied = false
         if eligibleForMatching {
             let matching = (ranks: newPick.rank == oldPick!.rank, suits: newPick.suit == oldPick!.suit)
             switch matching {
             case let (true, _):
                 score += pointsConfiguration.rankMatchReward
+                rewardApplied = true
             case let (false, true):
                 score += pointsConfiguration.suitMatchReward
+                rewardApplied = true
             case let (false, false):
                 score += pointsConfiguration.mismatchPenalty
             default:
                 score += 0       // compiler made me do it
             }
+        }
+
+        if rewardApplied {
+            matchedCardsIndexes[pickedCardIndex!] = true
+            matchedCardsIndexes[number] = true
+            pickedCardIndex = nil
+        } else {
+            pickedCardIndex = number
+            cards[pickedCardIndex!] = newPick
         }
     }
 }

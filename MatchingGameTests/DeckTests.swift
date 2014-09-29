@@ -38,4 +38,20 @@ class DeckTests: XCTestCase {
 
         XCTAssertTrue(allCardsAreUnique, "")
     }
+
+    func test_PlayingCard_Created_NotChosenByDefault() {
+        let card = PlayingCard(suit: .Hearts, rank: .Ace)
+
+        let chosen = card.chosen
+
+        XCTAssertFalse(chosen, "")
+    }
+
+    func test_PlayingCard_Flip_ChangesChosen() {
+        var card = PlayingCard(suit: .Hearts, rank: .Ace)
+
+        card.flip()
+
+        XCTAssertTrue(card.chosen, "")
+    }
 }

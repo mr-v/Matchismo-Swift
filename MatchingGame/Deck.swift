@@ -24,9 +24,20 @@ enum Rank: Int {
 struct PlayingCard: Hashable {
     let suit: Suit
     let rank: Rank
+    var chosen: Bool
+
+    init(suit: Suit, rank: Rank) {
+        self.suit = suit
+        self.rank = rank
+        chosen = false
+    }
 
     var hashValue: Int {
         return (String(rank.rawValue) + suit.rawValue).hashValue
+    }
+
+    mutating func flip() {
+        chosen = !chosen
     }
 }
 
