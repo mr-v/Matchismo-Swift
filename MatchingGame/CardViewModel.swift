@@ -31,36 +31,17 @@ extension PlayingCard: Printable {
 // MARK:
 
 class CardViewModel {
-    private let gameStats: GameStats
-    private let deck: Deck
+    private let game: MatchingGame
     internal private(set) var currentCardTitle: String = ""
-    var isDeckEmpty: Bool {
+
+    var scoreText: String {
         get {
-            return deck.isEmpty
+            return "Score: \(game.score)"
         }
     }
 
-    init(gameStats stats: GameStats, deck: Deck = Deck()) {
-        gameStats = stats
-        self.deck = deck
-        updateCurrentCardTitle()
+    init(game: MatchingGame) {
+        self.game = game
     }
 
-    func flipCountText() -> String {
-        return "Flips: \(String(gameStats.flipCount))"
-    }
-
-    func incrementFlipCount() {
-        gameStats.incrementFlipCount();
-
-        updateCurrentCardTitle()
-    }
-
-    func updateCurrentCardTitle() {
-        if gameStats.flipCount % 2 == 0 && !deck.isEmpty {
-            if let title = deck.drawACard()?.description {
-                currentCardTitle = title
-            }
-        }
-    }
 }

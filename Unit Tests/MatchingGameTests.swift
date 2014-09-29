@@ -19,10 +19,9 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_pickCardWithNumber_PickingUnchosenCard_AppliesPenalty() {
-        let points = makeGamePointsConfiguration()
         let game = makeMatchingGame()
 
-        let expected = game.score - points.choosePenalty
+        let expected = game.score - makeGamePointsConfiguration().choosePenalty
         game.pickCardWithNumber(0)
         let newScore = game.score
 
@@ -39,13 +38,11 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_pickCardWithNumber_PickingChosenCard_AppliesNoPenalty() {
-        let points = makeGamePointsConfiguration()
         let game = makeMatchingGame()
 
         let expected = game.score - makeGamePointsConfiguration().choosePenalty
-        for _ in 1...2 {
-            game.pickCardWithNumber(0)
-        }
+        for _ in 1...2 { game.pickCardWithNumber(0)}
+
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected, "")
@@ -56,67 +53,61 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_pickCardWithNumber_PickingMatchingSuits_AppliesReward() {
-        let cards = makeArrayOfCardsMacthingSuits()
-        let game = makeMatchingGameWithStubDeck(cards: cards)
+        let game = makeGameWithFirstTwoCardsMatchingWithSuits()
         let points = makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
         game.pickCardWithNumber(0)
         game.pickCardWithNumber(1)
-        let result = game.score
-
+        let newScore = game.score
         
-        XCTAssertEqual(result, expected, "")
+        XCTAssertEqual(newScore, expected, "")
     }
 
     func test_pickCardWithNumber_PickingMatchingRanks_AppliesReward() {
-        let cards = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Two)]
-        let game = makeMatchingGameWithStubDeck(cards: cards)
+        let game = makeGameWithFirstTwoCardsMatchingWithRanks()
         let points = makeGamePointsConfiguration()
         let expected = game.score - points.choosePenalty * 2 + points.rankMatchReward
 
         game.pickCardWithNumber(0)
-        game.pickCardWithNumber(cards.count)
-        let result = game.score
+        game.pickCardWithNumber(1)
+        let newScore = game.score
 
-        XCTAssertEqual(result, expected, "")
+        XCTAssertEqual(newScore, expected, "")
     }
 
     func test_pickCardWithNumber_PickingMismatchedCards_AppliesPenalty() {
-        let cards = makeArrayOfMismatchedCards()
-        let game = makeMatchingGameWithStubDeck(cards: cards)
+        let game = makeGameWithFirstTwoMismatchedCards()
         let points = makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 + points.mismatchPenalty
         game.pickCardWithNumber(0)
         game.pickCardWithNumber(1)
-        let result = game.score
+        let newScore = game.score
 
-
-        XCTAssertEqual(result, expected, "")
+        XCTAssertEqual(newScore, expected, "")
     }
 
     func test_pickCardWithNumber_MatchedCards_AreInactiveDontChangeTheScore() {
-        let cards = makeArrayOfCardsMacthingSuits()
-        let game = makeMatchingGameWithStubDeck(cards: cards)
-        let points = makeGamePointsConfiguration()
-        game.pickCardWithNumber(0)
-        game.pickCardWithNumber(cards.count)
-        let expected = game.score
-        for _ in 1...2 {    // flip two times
-            game.pickCardWithNumber(0)
-            game.pickCardWithNumber(cards.count)
+        let game = makeGameWithFirstTwoCardsMatchingWithSuits()
+        func flipBothCardsTwoTimes() {
+            for _ in 1...2 {
+                game.pickCardWithNumber(0)
+                game.pickCardWithNumber(1)
+            }
         }
-        
+
+        game.pickCardWithNumber(0)
+        game.pickCardWithNumber(1)
+        let expected = game.score
+        flipBothCardsTwoTimes()
         let result = game.score
 
         XCTAssertEqual(result, expected, "")
     }
 
     func test_pickedCardWithNumber_MismatchedCard_IsAvailableForPicking() {
-        let cards = makeArrayOfMismatchedCards()
-
-        let game = makeMatchingGameWithStubDeck(cards: cards)
+        let game = makeGameWithFirstTwoMismatchedCards()
         let points = makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
@@ -129,14 +120,22 @@ class MatchingGameTests: XCTestCase {
         XCTAssertNotEqual(result, earlierScore, "")
     }
 
+
     // MARK:
 
-    func makeArrayOfCardsMacthingSuits() -> ([PlayingCard]) {
-        return [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Three)]
+    func makeGameWithFirstTwoCardsMatchingWithSuits() -> MatchingGame {
+        let matchingSuits = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Three)]
+        return makeMatchingGameWithStubDeck(cards: matchingSuits)
     }
 
-    func makeArrayOfMismatchedCards() -> ([PlayingCard]) {
-        return [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three)]
+    func makeGameWithFirstTwoCardsMatchingWithRanks() -> MatchingGame {
+        let cards = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Two)]
+        return makeMatchingGameWithStubDeck(cards: cards)
+    }
+
+    func makeGameWithFirstTwoMismatchedCards() -> MatchingGame {
+        let mismatched = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three)]
+        return makeMatchingGameWithStubDeck(cards: mismatched)
     }
 
     func makeMatchingGame(cardCount: Int = 12) -> MatchingGame {
@@ -144,7 +143,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func makeMatchingGameWithStubDeck(cards c: [PlayingCard], cardCount: Int = 12) -> MatchingGame {
-        class StubDeck: Deck {
+        class InfiniteStubDeck: Deck {
             override var isEmpty: Bool {
                 get {
                     return false
@@ -164,7 +163,7 @@ class MatchingGameTests: XCTestCase {
                 return card
             }
         }
-        let stubDeck = StubDeck(cards: c)
+        let stubDeck = InfiniteStubDeck(cards: c)
 
         return MatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, deck: stubDeck)
     }

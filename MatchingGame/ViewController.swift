@@ -19,22 +19,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         cardView.toggle()
-        updateFlipsLabel()
+        updateScoreLabel()
     }
 
     @IBAction func toggleCard(sender: PlayingCardView) {
-        viewModel.incrementFlipCount()
-        updateFlipsLabel()
-        
-        sender.enabled = !viewModel.isDeckEmpty
-        if cardView.faceDirection == CardFace.Down {
-            cardView.title = viewModel.currentCardTitle
-        }
-        sender.toggle()
+//        viewModel.incrementFlipCount()
+//        updateScoreLabel()
+//        
+//        sender.enabled = !viewModel.isDeckEmpty
+//        if cardView.faceDirection == CardFace.Down {
+//            cardView.title = viewModel.currentCardTitle
+//        }
+//        sender.toggle()
     }
 
-    func updateFlipsLabel() {
-        flipsLabel.text = viewModel.flipCountText()
+    func updateScoreLabel() {
+        flipsLabel.text = viewModel.scoreText
     }
 
 
