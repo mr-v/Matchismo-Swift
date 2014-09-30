@@ -10,7 +10,7 @@ import XCTest
 
 class DeckTests: XCTestCase {
 
-     func test_Deck_OnCreation_HasProperNumberOfPlayingCards() {
+     func test_Deck_AfterInitialization_HasSpecifiedNumberOfPlayingCards() {
         let deck: Deck = Deck()
 
         for i in 1...deck.initialNumberOfCards {
@@ -21,7 +21,7 @@ class DeckTests: XCTestCase {
         XCTAssertEqual(isEmpty, true, "")
     }
 
-    func test_Deck_OnCreation_HasUniquePlayingCards() {
+    func test_Deck_AfterInitialization_HasUniquePlayingCards() {
         let deck: Deck = Deck()
 
         var allCardsAreUnique = true

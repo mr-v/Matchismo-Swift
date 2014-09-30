@@ -32,16 +32,38 @@ extension PlayingCard: Printable {
 
 class CardViewModel {
     private let game: MatchingGame
-    internal private(set) var currentCardTitle: String = ""
 
     var scoreText: String {
-        get {
-            return "Score: \(game.score)"
-        }
+        get { return "Score: \(game.score)" }
+    }
+    var matchedCardNumbers: [Int] {
+        get { return game.matchedCardsIndexes.keys.array }
+    }
+    var numberOfCards: Int {
+        get { return game.numberOfCards }
     }
 
     init(game: MatchingGame) {
         self.game = game
     }
 
+    func textForCardWithNumber(number: Int) -> String {
+        return game.cardWithNumber(number).description
+    }
+
+    func chooseCardWithNumber(number: Int) {
+        game.chooseCardWithNumber(number)
+    }
+
+    func currentlyAvailableCardsNumbers() -> [Int] {
+        var numbers = [Int]()
+        let cards = game.cards
+        for i in 0..<cards.count {
+            let card = cards[i]
+            if !card.chosen {
+                numbers.append(i)
+            }
+        }
+        return numbers
+    }
 }

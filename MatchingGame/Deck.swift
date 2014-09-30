@@ -22,6 +22,10 @@ enum Rank: Int {
 }
 
 struct PlayingCard: Hashable {
+    var hashValue: Int {
+        return (String(rank.rawValue) + suit.rawValue).hashValue
+    }
+
     let suit: Suit
     let rank: Rank
     var chosen: Bool
@@ -30,10 +34,6 @@ struct PlayingCard: Hashable {
         self.suit = suit
         self.rank = rank
         chosen = false
-    }
-
-    var hashValue: Int {
-        return (String(rank.rawValue) + suit.rawValue).hashValue
     }
 
     mutating func flip() {

@@ -16,11 +16,15 @@ struct PointsConfiguration {
 }
 
 class MatchingGame {
-    private let pointsConfiguration: PointsConfiguration
     internal private(set) var score: Int
-    private var pickedCardIndex: Int?
-    private var cards: [PlayingCard]
-    private var matchedCardsIndexes: [Int: Bool]
+    private(set) var cards: [PlayingCard]
+    private let pointsConfiguration: PointsConfiguration
+    private var lastPickedCardIndex: Int?
+    var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application using the framework
+    var numberOfCards: Int {
+        get { return cards.count }
+    }
+
 
     init(configuration: PointsConfiguration, numberOfCards: Int, deck d: Deck = Deck()) {
         cards = []
@@ -37,7 +41,7 @@ class MatchingGame {
         score = 0
     }
 
-    func pickCardWithNumber(number: Int) {
+    func chooseCardWithNumber(number: Int) {
         var newPick: PlayingCard = cards[number]
         if matchedCardsIndexes[number] != nil {
             return
@@ -49,7 +53,7 @@ class MatchingGame {
         }
 
         var oldPick: PlayingCard?
-        if let i = pickedCardIndex? {
+        if let i = lastPickedCardIndex? {
             oldPick = cards[i]
         }
 
@@ -66,26 +70,24 @@ class MatchingGame {
                 rewardApplied = true
             case let (false, false):
                 score += pointsConfiguration.mismatchPenalty
+                oldPick!.flip()
+                cards[lastPickedCardIndex!] = oldPick!
             default:
                 score += 0       // compiler made me do it
             }
         }
 
         if rewardApplied {
-            matchedCardsIndexes[pickedCardIndex!] = true
+            matchedCardsIndexes[lastPickedCardIndex!] = true
             matchedCardsIndexes[number] = true
-            pickedCardIndex = nil
+            lastPickedCardIndex = nil
         } else {
-            pickedCardIndex = number
-            cards[pickedCardIndex!] = newPick
+            lastPickedCardIndex = number
         }
+        cards[number] = newPick
     }
-}
 
-// MARK: test extension
-
-extension MatchingGame  {
-    func numberOfCads() -> Int {
-        return cards.count
+    func cardWithNumber(number: Int) -> PlayingCard {
+        return cards[number]
     }
 }

@@ -10,33 +10,42 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var cardView: PlayingCardView!
-    @IBOutlet weak var flipsLabel: UILabel!
-
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var cardCollectionView: UICollectionView!
+    var collectionDataSource: MatchingGameDataSource!
+    var collectionDelegate: MatchingGameDelegate!
     var viewModel:CardViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cardView.toggle()
+        collectionDataSource = MatchingGameDataSource(viewModel: viewModel)
+        collectionDelegate = MatchingGameDelegate(cardTappedClosure: didPickCard)
+
+        cardCollectionView.allowsMultipleSelection = true
+        cardCollectionView.backgroundColor = UIColor.clearColor()
+        cardCollectionView.dataSource = collectionDataSource
+        cardCollectionView.delegate = collectionDelegate
         updateScoreLabel()
     }
 
-    @IBAction func toggleCard(sender: PlayingCardView) {
-//        viewModel.incrementFlipCount()
-//        updateScoreLabel()
-//        
-//        sender.enabled = !viewModel.isDeckEmpty
-//        if cardView.faceDirection == CardFace.Down {
-//            cardView.title = viewModel.currentCardTitle
-//        }
-//        sender.toggle()
+    func didPickCard(number: Int) {
+        viewModel.chooseCardWithNumber(number)
+        for number in viewModel.currentlyAvailableCardsNumbers() {
+            let indexPath = NSIndexPath(forRow: number, inSection: 0)
+            let cell = cardCollectionView.cellForItemAtIndexPath(indexPath) as CardViewCell
+            if cell.selected {
+                cell.selected = false
+                cardCollectionView.deselectItemAtIndexPath(indexPath, animated: false)
+                println("\(cell)")
+            }
+        }
+
+        updateScoreLabel()
     }
 
     func updateScoreLabel() {
-        flipsLabel.text = viewModel.scoreText
+        scoreLabel.text = viewModel.scoreText
     }
-
-
 }
 
