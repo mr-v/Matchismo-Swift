@@ -48,20 +48,8 @@ class MatchingGameTests: XCTestCase {
         XCTAssertEqual(newScore, expected, "")
     }
 
-//    func test_currentlyChosenCardNumbers_AfterMismatch_FirstChosenMismatchedCardGetsFlipped()
-//        {
-//            let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
-//            let expected = [1]
-//
-//            game.chooseCardWithNumber(0)
-//            game.chooseCardWithNumber(1)
-//
-//            let result = game.currentlyChosenCardNumbers
-//            XCTAssertEqual(result, expected, "")
-//    }
-
     func test_chooseCardWithNumber_PickingMatchingSuits_AppliesReward() {
-        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithSuits()
+        let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
@@ -85,7 +73,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_chooseCardWithNumber_PickingMismatchedCards_AppliesPenalty() {
-        let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 - points.mismatchPenalty
@@ -97,7 +85,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_chooseCardWithNumber_MatchedCards_AreInactiveDontChangeTheScore() {
-        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithSuits()
+        let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
         func flipBothCardsTwoTimes() {
             for _ in 1...2 {
                 game.chooseCardWithNumber(0)
@@ -115,7 +103,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_pickedCardWithNumber_MismatchedCard_IsAvailableForPicking() {
-        let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
         let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
@@ -128,15 +116,15 @@ class MatchingGameTests: XCTestCase {
         XCTAssertNotEqual(result, earlierScore, "")
     }
 
-    func test_pickedCardWithNumber_PickingSameCardTwoTimesInTheRow_AppliesProperPenelty() {
+    func test_pickedCardWithNumber_PickingSameCardTwoTimesInTheRow_AppliesPenaltyTwice() {
         let game = TestGameFactory().makeMatchingGame()
-        func fullyFlipCardTwoTimes() {
+        func chooseWithPenaltyTwoTimes() {
             for _ in 1...3 {
                 game.chooseCardWithNumber(0)
             }
         }
         let expected = game.score - 2 * TestGameFactory().makeGamePointsConfiguration().choosePenalty
-        fullyFlipCardTwoTimes()
+        chooseWithPenaltyTwoTimes()
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected, "")
@@ -160,11 +148,73 @@ class MatchingGameTests: XCTestCase {
         let result = game.numberOfCardsToMatch
         XCTAssertNotEqual(result, needToMatch, "")
     }
+
+    // MARK: - Matching multiple cards (3+)
+
+    func test_matchedCardNumbers_MatchingAgainstThreeCards_IndexesOfCardsThatWereMatched() {
+        let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
+        let points = TestGameFactory().makeGamePointsConfiguration()
+        game.numberOfCardsToMatch = 3
+
+        let expected = [0, 1, 2]
+        for i in expected { game.chooseCardWithNumber(i) }
+
+        var matchedNumbers = game.matchedCardsIndexes.keys.array
+        matchedNumbers.sort(<)
+        XCTAssertEqual(matchedNumbers, expected, "")
+    }
+
+// picking two times - no penalty
+
+    func test_chooseCardWithNumber_PickingThreeMatchingSuits_AppliesReward() {
+        let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
+        let points = TestGameFactory().makeGamePointsConfiguration()
+
+        let expected = game.score - points.choosePenalty * 3 + points.suitMatchReward
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let newScore = game.score
+        XCTAssertEqual(newScore, expected, "")
+    }
+
+    func test_chooseCardWithNumber_PickingThreeMismatchedCards_AppliesPenalty() {
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
+        let points = TestGameFactory().makeGamePointsConfiguration()
+        let cardsToMatch = 3
+        game.numberOfCardsToMatch = cardsToMatch
+        let range = 0..<cardsToMatch
+
+        let expected = game.score - points.choosePenalty * cardsToMatch - points.mismatchPenalty
+        for i in range { game.chooseCardWithNumber(i) }
+        let newScore = game.score
+
+        XCTAssertEqual(newScore, expected, "")
+    }
+
+    func test_chooseCardWithNumber_PickingThreeMismatchedCards_FirstTwoCardsAreAvailableToChose() {
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let currentlyChosen = game.currentlyChosenCardIndexes
+        let cardsAreAvailable = !contains(currentlyChosen, 0) && !contains(currentlyChosen, 1)
+        XCTAssertTrue(cardsAreAvailable, "")
+    }
+
+    func test_chooseCardWithNumber_PickingThreeMatchingRanks_AppliesReward() {
+        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
+        let points = TestGameFactory().makeGamePointsConfiguration()
+        let expected = game.score - points.choosePenalty * 3 + points.rankMatchReward
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+        let newScore = game.score
+
+        XCTAssertEqual(newScore, expected, "")
+    }
 }
 
 class TestGameFactory {
-    func makeGameWithFirstTwoCardsMatchingWithSuits() -> MatchingGame {
-        let matchingSuits = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Three)]
+    func makeGameWithFirstThreeCardsMatchingWithSuits() -> MatchingGame {
+        let matchingSuits = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Three), PlayingCard(suit: .Hearts, rank: .Four)]
         return makeMatchingGameWithStubDeck(cards: matchingSuits)
     }
 
@@ -173,8 +223,8 @@ class TestGameFactory {
         return makeMatchingGameWithStubDeck(cards: cards)
     }
 
-    func makeGameWithFirstTwoMismatchedCards() -> MatchingGame {
-        let mismatched = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three)]
+    func makeGameWithFirstThreeMismatchedCards() -> MatchingGame {
+        let mismatched = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three), PlayingCard(suit: .Diamonds, rank: .Four)]
         return makeMatchingGameWithStubDeck(cards: mismatched)
     }
 
@@ -182,8 +232,8 @@ class TestGameFactory {
         return makeMatchingGameWithStubDeck(cards: [card])
     }
 
-    func makeMatchingGame(cardCount: Int = 12) -> MatchingGame {
-        return MatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount)
+    func makeMatchingGame(cardCount: Int = 12, numberOfcardsToMatch: Int = 2) -> MatchingGame {
+        return MatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, numberOfCardsToMatch: numberOfcardsToMatch)
     }
 
     func makeMatchingGameWithStubDeck(cards c: [PlayingCard], cardCount: Int = 12) -> MatchingGame {

@@ -12,6 +12,12 @@ extension CardViewModel {
     var score: Int {
         get { return game.score }
     }
+    var matchedCardsIndexes: [Int] {
+        get { return game.matchedCardsIndexes.keys.array }
+    }
+    var currentlyChosenCardIndexes: [Int] {
+        get { return game.currentlyChosenCardIndexes }
+    }
 }
 
 // MARK: -
@@ -52,7 +58,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_currentlyAvailableCardsNumbers_AfterMismatch_ContainsNumberOfTheFirstChosenCard() {
-        let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
         let viewModel = makeCardViewModel(game)
 
         game.chooseCardWithNumber(0)
@@ -76,16 +82,19 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_RestartsGame() {
-        let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
-        let viewModel = makeCardViewModel(game)
-        viewModel.chooseCardWithNumber(0)
-        viewModel.chooseCardWithNumber(1)
-        let scoreAfterMismatch = game.score
+        let viewModel = makeCardViewModel(TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits())
 
+        for i in 1...3 { viewModel.chooseCardWithNumber(i) }
+        let scoreAfterMismatch = viewModel.score
         viewModel.redeal()
 
-        let scoreAfterRedeal = viewModel.score
-        XCTAssertNotEqual(scoreAfterRedeal, scoreAfterMismatch, "")
+        let scoreIsReset = viewModel.score != scoreAfterMismatch
+        let restarted = scoreIsReset && viewModel.matchedCardsIndexes.isEmpty && viewModel.currentlyChosenCardIndexes.isEmpty
+        XCTAssertTrue(restarted, "")
+    }
+
+    func test_redeal_NumberOfCardsToMatchIsKept() {
+        XCTFail("")
     }
 
     // MARK:
