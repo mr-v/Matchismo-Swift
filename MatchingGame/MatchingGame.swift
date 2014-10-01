@@ -24,9 +24,16 @@ class MatchingGame {
     var numberOfCards: Int {
         get { return cards.count }
     }
-
-
-    init(configuration: PointsConfiguration, numberOfCards: Int, deck d: Deck = Deck()) {
+    var numberOfCardsToMatch: Int {
+        didSet {
+            let cardWasPicked = matchedCardsIndexes.isEmpty && lastPickedCardIndex? == nil
+            if !cardWasPicked {
+                numberOfCardsToMatch = oldValue
+            }
+        }
+    }
+    
+    init(configuration: PointsConfiguration, numberOfCards: Int, numberOfCardsToMatch: Int = 2, deck d: Deck = Deck()) {
         cards = []
         matchedCardsIndexes = [Int: Bool]()
         var deck = d
@@ -39,6 +46,7 @@ class MatchingGame {
 
         pointsConfiguration = configuration
         score = 0
+        self.numberOfCardsToMatch = numberOfCardsToMatch
     }
 
     func chooseCardWithNumber(number: Int) {
