@@ -88,7 +88,7 @@ class MatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
-        let expected = game.score - points.choosePenalty * 2 + points.mismatchPenalty
+        let expected = game.score - points.choosePenalty * 2 - points.mismatchPenalty
         game.chooseCardWithNumber(0)
         game.chooseCardWithNumber(1)
         let newScore = game.score

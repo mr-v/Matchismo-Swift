@@ -8,6 +8,14 @@
 
 import XCTest
 
+extension CardViewModel {
+    var score: Int {
+        get { return game.score }
+    }
+}
+
+// MARK: -
+
 class CardViewModelTests: XCTestCase {
 
     func test_scoreText_AfterInitialization_ReturnsProperlyFormattedText() {
@@ -67,9 +75,23 @@ class CardViewModelTests: XCTestCase {
         XCTAssertEqual(title, expected, "")
     }
 
+    func test_redeal_RestartsGame() {
+        let game = TestGameFactory().makeGameWithFirstTwoMismatchedCards()
+        let viewModel = makeCardViewModel(game)
+        viewModel.chooseCardWithNumber(0)
+        viewModel.chooseCardWithNumber(1)
+        let scoreAfterMismatch = game.score
+
+        viewModel.redeal()
+
+        let scoreAfterRedeal = viewModel.score
+        XCTAssertNotEqual(scoreAfterRedeal, scoreAfterMismatch, "")
+    }
+
     // MARK:
 
     func makeCardViewModel(game: MatchingGame) -> CardViewModel  {
         return CardViewModel(game: game)
     }
 }
+

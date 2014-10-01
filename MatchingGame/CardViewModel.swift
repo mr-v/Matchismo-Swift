@@ -31,7 +31,7 @@ extension PlayingCard: Printable {
 // MARK:
 
 class CardViewModel {
-    private let game: MatchingGame
+    var game: MatchingGame
 
     var scoreText: String {
         get { return "Score: \(game.score)" }
@@ -65,5 +65,9 @@ class CardViewModel {
             }
         }
         return numbers
+    }
+
+    func redeal() {
+        game = MatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards)
     }
 }

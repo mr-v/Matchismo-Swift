@@ -18,7 +18,7 @@ struct PointsConfiguration {
 class MatchingGame {
     internal private(set) var score: Int
     private(set) var cards: [PlayingCard]
-    private let pointsConfiguration: PointsConfiguration
+    internal let pointsConfiguration: PointsConfiguration
     private var lastPickedCardIndex: Int?
     var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application using the framework
     var numberOfCards: Int {
@@ -69,7 +69,7 @@ class MatchingGame {
                 score += pointsConfiguration.suitMatchReward
                 rewardApplied = true
             case let (false, false):
-                score += pointsConfiguration.mismatchPenalty
+                score -= pointsConfiguration.mismatchPenalty
                 oldPick!.flip()
                 cards[lastPickedCardIndex!] = oldPick!
             default:
