@@ -168,8 +168,8 @@ class MatchingGameTests: XCTestCase {
 
     func test_chooseCardWithNumber_PickingThreeMatchingSuits_AppliesReward() {
         let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
+        game.numberOfCardsToMatch = 3
         let points = TestGameFactory().makeGamePointsConfiguration()
-
         let expected = game.score - points.choosePenalty * 3 + points.suitMatchReward
         for i in 0...2 { game.chooseCardWithNumber(i) }
 
@@ -260,6 +260,20 @@ class MatchingGameTests: XCTestCase {
         let noChosenIndexes = game.currentlyChosenCardIndexes.isEmpty
         XCTAssertTrue(noChosenIndexes, "")
     }
+
+    func test_chooseCardWithNumber_TwoCardsOutOfThreeMatchWithSuit_AppliesRewardForPartialMatch() {
+        let cardsWithTwoMachingSuits = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three)]
+        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cardsWithTwoMachingSuits)
+        let matchCount = 3
+        game.numberOfCardsToMatch = matchCount
+        let points = TestGameFactory().makeGamePointsConfiguration()
+        let expectedScore = game.score - points.choosePenalty * matchCount + Int(points.partialMatchMultiplier * Double(points.suitMatchReward))
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let currentScore = game.score
+        XCTAssertEqual(currentScore, expectedScore, "")
+    }
 }
 
 class TestGameFactory {
@@ -313,6 +327,6 @@ class TestGameFactory {
     }
 
     func makeGamePointsConfiguration() -> PointsConfiguration {
-        return PointsConfiguration(choosePenalty: 1, suitMatchReward: 4, rankMatchReward: 16, mismatchPenalty: 2)
+        return PointsConfiguration(choosePenalty: 1, suitMatchReward: 4, rankMatchReward: 16, mismatchPenalty: 2, partialMatchMultiplier: 0.5)
     }
 }

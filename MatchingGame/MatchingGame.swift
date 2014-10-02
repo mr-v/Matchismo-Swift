@@ -13,6 +13,7 @@ struct PointsConfiguration {
     let suitMatchReward: Int
     let rankMatchReward: Int
     let mismatchPenalty: Int
+    let partialMatchMultiplier: Double
 }
 
 class MatchingGame {
@@ -80,23 +81,29 @@ class MatchingGame {
             return
         }
 
-        var oldPicks: [PlayingCard] = currentlyChosenCardIndexes.map{ self.cards[$0] }
-        // rules match stricly 3, mismatch otherwise
-        var matches: (suitMatches: Int, rankMaches: Int) = (0, 0)
-        for card in oldPicks {
-            if card.suit == newPick.suit {
-                matches.suitMatches++
-            }
-            if card.rank == newPick.rank {
-                matches.rankMaches++
-            }
+        // allow partial matching
+        var currentlyChosen: [PlayingCard] = currentlyChosenCardIndexes.map{ self.cards[$0] }
+        var rankMatches = [Rank: Int]()
+        var suitMatches = [Suit: Int]()
+        for cards in currentlyChosen {
+            rankMatches[cards.rank] = rankMatches[cards.rank]?.advancedBy(1) ?? 1
+            suitMatches[cards.suit] = suitMatches[cards.suit]?.advancedBy(1) ?? 1
         }
-
-        switch matches {
-        case (_, numberOfCardsToMatch):
+        let rankMatchesMax = rankMatches.values.array.reduce(0, max)
+        let suitMatchesMax = suitMatches.values.array.reduce(0, max)
+        let ignorePartialMatches = numberOfCardsToMatch < 3
+        switch (suitMatchesMax, rankMatchesMax) {
+        case let (_, r) where r == numberOfCardsToMatch:
             rewardMatch(pointsConfiguration.rankMatchReward)
-        case (numberOfCardsToMatch, _):
+
+        case let (s, _) where s == numberOfCardsToMatch:
             rewardMatch(pointsConfiguration.suitMatchReward)
+
+        case let (_, r) where r == numberOfCardsToMatch - 1 && !ignorePartialMatches:
+            rewardPartialMatch(pointsConfiguration.rankMatchReward)
+
+        case let (s, _) where s == numberOfCardsToMatch - 1 && !ignorePartialMatches:
+            rewardPartialMatch(pointsConfiguration.suitMatchReward)
         default:
             score -= pointsConfiguration.mismatchPenalty
             let previousPickIndex = currentlyChosenCardIndexes.count - 2
@@ -108,6 +115,11 @@ class MatchingGame {
             }
             currentlyChosenCardIndexes = [number]
         }
+    }
+
+    func rewardPartialMatch(originalReward: Int) {
+        let reward = Int(Double(originalReward) * pointsConfiguration.partialMatchMultiplier)
+        rewardMatch(reward)
     }
 
     func rewardMatch(reward: Int) {
