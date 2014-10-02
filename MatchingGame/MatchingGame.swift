@@ -89,8 +89,8 @@ class MatchingGame {
             rankMatches[cards.rank] = rankMatches[cards.rank]?.advancedBy(1) ?? 1
             suitMatches[cards.suit] = suitMatches[cards.suit]?.advancedBy(1) ?? 1
         }
-        let rankMatchesMax = rankMatches.values.array.reduce(0, max)
-        let suitMatchesMax = suitMatches.values.array.reduce(0, max)
+        let rankMatchesMax = maxElement(rankMatches.values)
+        let suitMatchesMax = maxElement(suitMatches.values)
         let ignorePartialMatches = numberOfCardsToMatch < 3
         switch (suitMatchesMax, rankMatchesMax) {
         case let (_, r) where r == numberOfCardsToMatch:
