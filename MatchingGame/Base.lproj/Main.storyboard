@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,14 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
-                                <rect key="frame" x="16" y="571" width="64" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
-                                <rect key="frame" x="11" y="28" width="573" height="535"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
+                                <rect key="frame" x="11" y="28" width="573" height="417"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="417" placeholder="YES" id="C01-DM-cz7"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mHA-GX-1bB">
                                     <size key="itemSize" width="64" height="96"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -39,7 +36,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="64" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WZ-ok-efn">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WZ-ok-efn">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -62,19 +59,61 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Card choice info label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs8-al-8TG">
+                                <rect key="frame" x="227" y="485" width="167" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-HA-J9A">
+                                <rect key="frame" x="139" y="552" width="323" height="29"/>
+                                <segments>
+                                    <segment title="2 Card Match Mode"/>
+                                    <segment title="Three Card Match Mode"/>
+                                </segments>
+                                <color key="tintColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="changeCardMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Ykp-jt-cHr"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZz-9W-SLc">
+                                <rect key="frame" x="283" y="514" width="54" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Redeal">
+                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="redeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BYk-lK-iaH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
+                                <rect key="frame" x="16" y="453" width="64" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="8" id="ATo-bl-CKo"/>
-                            <constraint firstItem="OcG-1A-G6u" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="LNb-EL-oR3"/>
-                            <constraint firstItem="OcG-1A-G6u" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="Mt3-lB-CEy"/>
-                            <constraint firstItem="yaA-wD-wmi" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OcG-1A-G6u" secondAttribute="bottom" constant="8" id="YpD-vj-Wg2"/>
-                            <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-5" id="aPI-aG-i7Y"/>
-                            <constraint firstItem="yaA-wD-wmi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="zwc-G9-jrV"/>
+                            <constraint firstAttribute="centerX" secondItem="Xs8-al-8TG" secondAttribute="centerX" constant="-10.5" id="10P-od-abv"/>
+                            <constraint firstItem="xGD-HA-J9A" firstAttribute="top" secondItem="VZz-9W-SLc" secondAttribute="bottom" constant="8" id="1es-Ds-t6h"/>
+                            <constraint firstItem="yaA-wD-wmi" firstAttribute="leading" secondItem="OcG-1A-G6u" secondAttribute="leading" constant="5" id="8qY-LB-CFz"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="xGD-HA-J9A" secondAttribute="bottom" constant="20" id="Dd7-gc-uX2"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="LUV-Gk-oqh"/>
+                            <constraint firstItem="Xs8-al-8TG" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="11" id="fkY-bu-f8n"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="mK8-2V-i01"/>
+                            <constraint firstAttribute="centerX" secondItem="VZz-9W-SLc" secondAttribute="centerX" constant="-10" id="nAp-tt-8Py"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-5" id="nJC-bj-GqQ"/>
+                            <constraint firstAttribute="centerX" secondItem="xGD-HA-J9A" secondAttribute="centerX" id="opi-CT-vUt"/>
+                            <constraint firstItem="VZz-9W-SLc" firstAttribute="top" secondItem="Xs8-al-8TG" secondAttribute="bottom" constant="8" id="uYv-fI-2c5"/>
+                            <constraint firstItem="yaA-wD-wmi" firstAttribute="top" secondItem="OcG-1A-G6u" secondAttribute="bottom" constant="8" id="zpd-0u-6e6"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cardCollectionView" destination="OcG-1A-G6u" id="765-1j-9k9"/>
+                        <outlet property="lastActionLabel" destination="Xs8-al-8TG" id="ecc-Dl-zBT"/>
+                        <outlet property="matchModeControl" destination="xGD-HA-J9A" id="qB2-iN-Wcp"/>
                         <outlet property="scoreLabel" destination="yaA-wD-wmi" id="c7f-cx-99D"/>
                     </connections>
                 </viewController>

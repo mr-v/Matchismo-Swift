@@ -34,6 +34,17 @@ class MatchingGameDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
 
+    func resetAllCells(collectionView: UICollectionView) {
+        for i in 0..<viewModel.numberOfCards {
+            let indexPath = NSIndexPath(forRow: i, inSection: 0)
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as CardViewCell
+            cell.enabled = true
+            cell.selected = false
+            collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+        }
+        collectionView.reloadData()
+    }
+
 }
 
 class MatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {

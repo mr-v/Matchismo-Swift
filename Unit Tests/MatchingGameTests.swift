@@ -201,6 +201,35 @@ class MatchingGameTests: XCTestCase {
         XCTAssertTrue(cardsAreAvailable, "")
     }
 
+    func test_chooseCardWithNumber_PickingThreeMismatchedCards_FirstCardIsNotChosen() {
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
+        game.numberOfCardsToMatch = 3
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let chosen = game.cards[0].chosen
+        XCTAssertFalse(chosen, "")
+    }
+
+    func test_chooseCardWithNumber_PickingThreeMismatchedCards_SecondCardIsNotChosen() {
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
+        game.numberOfCardsToMatch = 3
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let chosen = game.cards[1].chosen
+        XCTAssertFalse(chosen, "")
+    }
+
+    func test_chooseCardWithNumber_PickingThreeMismatchedCards_LastCardIsNotAvailableToChose() {
+        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        let cardIsChosen = game.cards[2].chosen
+        XCTAssertTrue(cardIsChosen, "")
+    }
+
     func test_chooseCardWithNumber_PickingThreeMatchingRanks_AppliesReward() {
         let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
         let points = TestGameFactory().makeGamePointsConfiguration()
@@ -209,6 +238,27 @@ class MatchingGameTests: XCTestCase {
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected, "")
+    }
+
+    func test_chooseCardWithNumber_FullyFlippingCardAndFlippingOtherMatchingCardOnce_DoesntProduceAMatch() {
+        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
+
+        game.chooseCardWithNumber(1)
+        game.chooseCardWithNumber(1)
+        game.chooseCardWithNumber(0)
+
+        let expected = game.matchedCardsIndexes.isEmpty
+        XCTAssertTrue(expected, "")
+    }
+
+    func test_chooseCardWithNumber_FullyFlippingCard_ClearsCurrenltyChosenIndexes() {
+        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
+
+        game.chooseCardWithNumber(1)
+        game.chooseCardWithNumber(1)
+
+        let noChosenIndexes = game.currentlyChosenCardIndexes.isEmpty
+        XCTAssertTrue(noChosenIndexes, "")
     }
 }
 

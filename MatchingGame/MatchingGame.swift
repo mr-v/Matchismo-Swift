@@ -60,6 +60,12 @@ class MatchingGame {
         newPick.flip()
         cards[number] = newPick
         if !newPick.chosen {
+            for var i = 0; i < currentlyChosenCardIndexes.count; i++ {
+                if currentlyChosenCardIndexes[i] == number {
+                    currentlyChosenCardIndexes.removeAtIndex(i)
+                    break
+                }
+            }
             return
         }
 
@@ -93,10 +99,12 @@ class MatchingGame {
             rewardMatch(pointsConfiguration.suitMatchReward)
         default:
             score -= pointsConfiguration.mismatchPenalty
-            for i in currentlyChosenCardIndexes {
-                var c = cards[i]
+            let previousPickIndex = currentlyChosenCardIndexes.count - 2
+            for var i = previousPickIndex; i >= 0; i-- {
+                let index = currentlyChosenCardIndexes[i]
+                var c = cards[index]
                 c.flip()
-                cards[i] = c
+                cards[index] = c
             }
             currentlyChosenCardIndexes = [number]
         }

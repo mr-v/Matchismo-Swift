@@ -30,6 +30,39 @@ extension PlayingCard: Printable {
 
 // MARK:
 
+private struct GameStatistics: Equatable {
+    enum StatisticsComparisonResult {
+        case FlippedBackACard
+        case FlippedUpACard
+        case Match
+        case Mismatch
+    }
+    var currentlyChosen: [Int] = [Int]() {
+        didSet { numberOfChosenCards = currentlyChosen.count }
+    }
+    var numberOfChosenCards: Int = 0
+    var score: Int = 0
+    var numberOfMatchedCards: Int = 0
+
+    func compare(newStats: GameStatistics) -> StatisticsComparisonResult {
+        if numberOfMatchedCards == newStats.numberOfMatchedCards {
+            if numberOfChosenCards == newStats.numberOfChosenCards {
+                return .FlippedUpACard
+            } else if score == newStats.score {
+                return .FlippedBackACard
+            } else {
+                return .Mismatch
+            }
+        } else {
+            return .Match
+        }
+    }
+}
+
+private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
+    return lhs.score == rhs.score && lhs.numberOfChosenCards == rhs.numberOfChosenCards && lhs.numberOfMatchedCards == rhs.numberOfMatchedCards
+}
+
 class CardViewModel {
     var game: MatchingGame
 
@@ -42,9 +75,11 @@ class CardViewModel {
     var numberOfCards: Int {
         get { return game.numberOfCards }
     }
+    private var lastActionStatistics: GameStatistics
 
     init(game: MatchingGame) {
         self.game = game
+        lastActionStatistics = GameStatistics()
     }
 
     func textForCardWithNumber(number: Int) -> String {
@@ -52,7 +87,10 @@ class CardViewModel {
     }
 
     func chooseCardWithNumber(number: Int) {
+        lastActionStatistics = currentStatistics()
+        lastActionStatistics.currentlyChosen.append(number)
         game.chooseCardWithNumber(number)
+
     }
 
     func currentlyAvailableCardsNumbers() -> [Int] {
@@ -68,6 +106,45 @@ class CardViewModel {
     }
 
     func redeal() {
-        game = MatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards)
+        game = MatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
+        lastActionStatistics = GameStatistics()
+    }
+
+    func changeModeWithNumberOfCardsToMatch(count: Int) {
+        game.numberOfCardsToMatch = count
+    }
+
+    func lastActionText() -> String {
+        var text: String!
+        let currentStats = currentStatistics()
+        let lastAction = lastActionStatistics.compare(currentStats)
+        switch lastAction {
+        case .FlippedBackACard, .FlippedUpACard:
+            text  = cardDescriptionsForIndexes(game.currentlyChosenCardIndexes)
+        case .Match:
+            let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
+            let points = currentStats.score - lastActionStatistics.score + game.pointsConfiguration.choosePenalty
+            text = "Matched \(cardDescriptions) for \(points)"
+        case .Mismatch:
+            let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
+            let points = abs(currentStats.score - lastActionStatistics.score + game.pointsConfiguration.choosePenalty)
+            text = "\(cardDescriptions) don't match! \(points) points penalty!"
+        default:
+            fatalError("missing case")
+        }
+        return text
+    }
+
+    private func cardDescriptionsForIndexes(indexes: [Int]) -> String {
+        let descriptions = indexes.map{ self.game.cards[$0].description }
+        return ", ".join(descriptions)
+    }
+
+    private func currentStatistics() -> GameStatistics {
+        var stats = GameStatistics()
+        stats.currentlyChosen = game.currentlyChosenCardIndexes
+        stats.score = game.score
+        stats.numberOfMatchedCards = game.matchedCardsIndexes.count
+        return stats
     }
 }

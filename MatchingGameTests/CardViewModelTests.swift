@@ -18,13 +18,16 @@ extension CardViewModel {
     var currentlyChosenCardIndexes: [Int] {
         get { return game.currentlyChosenCardIndexes }
     }
+    var numberOfCardsToMatch: Int {
+        get { return game.numberOfCardsToMatch }
+    }
 }
 
 // MARK: -
 
 class CardViewModelTests: XCTestCase {
 
-    func test_scoreText_AfterInitialization_ReturnsProperlyFormattedText() {
+    func test_scoreText_AfterInitialization_TextWithDefaultScore() {
         let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGame())
 
         let text = viewModel.scoreText
@@ -94,7 +97,119 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_NumberOfCardsToMatchIsKept() {
-        XCTFail("")
+        let game = TestGameFactory().makeMatchingGame()
+        let viewModel = makeCardViewModel(game)
+
+        let newSetting = game.numberOfCardsToMatch + 1
+        game.numberOfCardsToMatch = newSetting
+
+        viewModel.redeal()
+
+        let currentNumberToMatch = viewModel.numberOfCardsToMatch
+        XCTAssertEqual(currentNumberToMatch, newSetting, "")
+    }
+
+    func test_changeModeWithNumberOfCardsToMatch_UpdatesGame() {
+        let game = TestGameFactory().makeMatchingGame()
+        let viewModel = makeCardViewModel(game)
+        let expected = game.numberOfCardsToMatch + 1
+
+        viewModel.changeModeWithNumberOfCardsToMatch(expected)
+
+        let currentMatchModeCount = viewModel.numberOfCardsToMatch
+        XCTAssertEqual(currentMatchModeCount, expected, "")
+    }
+
+    func test_lastActionText_ByDefault_ReturnsEmptyText() {
+        let game = TestGameFactory().makeMatchingGame()
+        let viewModel = makeCardViewModel(game)
+
+        let emptyText = viewModel.lastActionText()
+        XCTAssertEqual(emptyText, "", "")
+    }
+
+    func test_lastActionText_PickingSingleCard_ReturnsTextWithItsTitle() {
+        let card = PlayingCard(suit: .Hearts, rank: .Ace)
+        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: [card])
+        let viewModel = makeCardViewModel(game)
+
+        viewModel.chooseCardWithNumber(0)
+
+        let cardTitle = viewModel.lastActionText()
+        XCTAssertEqual(cardTitle, "A♥", "")
+    }
+
+    func test_lastActionText_PickingTwoCardInMultiMatchMode_ReturnsTextWithTheirTitle() {
+        let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
+        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cards)
+        game.numberOfCardsToMatch = 3
+        let viewModel = makeCardViewModel(game)
+
+        viewModel.chooseCardWithNumber(0)
+        viewModel.chooseCardWithNumber(1)
+
+
+        let cardTitles = viewModel.lastActionText()
+        XCTAssertEqual(cardTitles, "A♥, 10♥", "")
+    }
+
+    func test_lastActionText_PickingTwoMatchingCardInTwoMatchMode_ReturnsTextWithMatchedText() {
+        let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
+        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGameWithStubDeck(cards: cards))
+        let points = TestGameFactory().makeGamePointsConfiguration().suitMatchReward
+
+        viewModel.chooseCardWithNumber(0)
+        viewModel.chooseCardWithNumber(1)
+
+        let matchedCardsText = viewModel.lastActionText()
+        XCTAssertEqual(matchedCardsText, "Matched A♥, 10♥ for \(points)", "")
+    }
+
+    func test_lastActionText_PickingMismatchedCardsInTwoMatchMode_ReturnsTextWithMismatchPenalty() {
+        let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
+        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGameWithStubDeck(cards: cards))
+        let points = TestGameFactory().makeGamePointsConfiguration().mismatchPenalty
+
+        viewModel.chooseCardWithNumber(0)
+        viewModel.chooseCardWithNumber(1)
+
+        let mismatchedCardsText = viewModel.lastActionText()
+        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(points) points penalty!", "")
+    }
+
+    func test_lastActionText_FullyFlippingCard_ReturnsEmptyText() {
+        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGame())
+        let expected = ""
+
+        for i in 1...2 { viewModel.chooseCardWithNumber(0) }
+
+        let emptyText = viewModel.lastActionText()
+        XCTAssertEqual(emptyText, expected, "")
+    }
+
+    func test_lastActionText_FullyFlippingCardSecondCardInTwoMatchMode_ReturnsTextWithCurrenltyFlippedCard() {
+        let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
+        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cards)
+        game.numberOfCardsToMatch = 3
+        let viewModel = makeCardViewModel(game)
+        let expected = "10♠"
+
+        viewModel.chooseCardWithNumber(1)
+        for i in 1...2 { viewModel.chooseCardWithNumber(0) }
+
+        let cardTitle = viewModel.lastActionText()
+        XCTAssertEqual(cardTitle, expected, "")
+    }
+
+    func test_redeal_ResetsStatistics() {
+        let viewModel = makeCardViewModel(TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits())
+        let cleanStats = viewModel.currentlyAvailableCardsNumbers()
+
+        for i in 1...3 { viewModel.chooseCardWithNumber(i) }
+        viewModel.redeal()
+
+        let statsAfterRestart = viewModel.currentlyAvailableCardsNumbers()
+        XCTAssertEqual(statsAfterRestart, cleanStats, "")
     }
 
     // MARK:
