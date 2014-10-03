@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
                                 <rect key="frame" x="11" y="28" width="573" height="417"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="417" placeholder="YES" id="C01-DM-cz7"/>
@@ -64,6 +64,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" ambiguous="YES">
+                                    <rect key="frame" x="127" y="485" width="167" height="21"/>
+                                </variation>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-HA-J9A">
                                 <rect key="frame" x="139" y="552" width="323" height="29"/>
@@ -72,6 +75,9 @@
                                     <segment title="Three Card Match Mode"/>
                                 </segments>
                                 <color key="tintColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="39" y="552" width="323" height="29"/>
+                                </variation>
                                 <connections>
                                     <action selector="changeCardMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Ykp-jt-cHr"/>
                                 </connections>
@@ -83,11 +89,14 @@
                                     <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
+                                </variation>
                                 <connections>
                                     <action selector="redeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BYk-lK-iaH"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
                                 <rect key="frame" x="16" y="453" width="64" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -102,13 +111,27 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="xGD-HA-J9A" secondAttribute="bottom" constant="20" id="Dd7-gc-uX2"/>
                             <constraint firstItem="OcG-1A-G6u" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="LUV-Gk-oqh"/>
                             <constraint firstItem="Xs8-al-8TG" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="11" id="fkY-bu-f8n"/>
-                            <constraint firstItem="OcG-1A-G6u" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="mK8-2V-i01"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" constant="-50" id="mK8-2V-i01"/>
                             <constraint firstAttribute="centerX" secondItem="VZz-9W-SLc" secondAttribute="centerX" constant="-10" id="nAp-tt-8Py"/>
-                            <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-5" id="nJC-bj-GqQ"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="50" id="nJC-bj-GqQ"/>
                             <constraint firstAttribute="centerX" secondItem="xGD-HA-J9A" secondAttribute="centerX" id="opi-CT-vUt"/>
                             <constraint firstItem="VZz-9W-SLc" firstAttribute="top" secondItem="Xs8-al-8TG" secondAttribute="bottom" constant="8" id="uYv-fI-2c5"/>
                             <constraint firstItem="yaA-wD-wmi" firstAttribute="top" secondItem="OcG-1A-G6u" secondAttribute="bottom" constant="8" id="zpd-0u-6e6"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mK8-2V-i01"/>
+                                <exclude reference="nJC-bj-GqQ"/>
+                                <exclude reference="8qY-LB-CFz"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <include reference="mK8-2V-i01"/>
+                                <include reference="nJC-bj-GqQ"/>
+                                <include reference="8qY-LB-CFz"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="cardCollectionView" destination="OcG-1A-G6u" id="765-1j-9k9"/>

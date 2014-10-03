@@ -29,6 +29,9 @@ class ViewController: UIViewController {
         cardCollectionView.backgroundColor = UIColor.clearColor()
         cardCollectionView.dataSource = collectionDataSource
         cardCollectionView.delegate = collectionDelegate
+        var layout = cardCollectionView.collectionViewLayout as UICollectionViewFlowLayout
+        uppdateItemSizeForCurrentSizeClass(layout)
+
         updateLabels()
         updateCardMatchMode()
     }
@@ -43,7 +46,6 @@ class ViewController: UIViewController {
             if cell.selected {
                 cell.selected = false
                 cardCollectionView.deselectItemAtIndexPath(indexPath, animated: false)
-                println("\(cell)")
             }
         }
 
@@ -82,6 +84,15 @@ class ViewController: UIViewController {
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText
         lastActionLabel.text = viewModel.lastActionText()
+    }
+
+    func uppdateItemSizeForCurrentSizeClass(layout: UICollectionViewFlowLayout) {
+        let a = UITraitCollection(horizontalSizeClass: .Regular)
+        let b = UITraitCollection(verticalSizeClass: .Regular)
+        let regularSizeClassTraitCollection = UITraitCollection(traitsFromCollections: [a, b])
+        if !traitCollection.containsTraitsInCollection(regularSizeClassTraitCollection) {
+            layout.itemSize = CGSize(width: 40, height: 60)
+        }
     }
 }
 
