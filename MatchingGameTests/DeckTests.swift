@@ -13,9 +13,7 @@ class DeckTests: XCTestCase {
      func test_Deck_AfterInitialization_HasSpecifiedNumberOfPlayingCards() {
         let deck: Deck = Deck()
 
-        for i in 1...deck.initialNumberOfCards {
-            let card = deck.drawACard()
-        }
+        deck.initialNumberOfCards.times { let card = deck.drawACard() }
 
         let isEmpty = deck.isEmpty
         XCTAssertEqual(isEmpty, true, "")
