@@ -123,7 +123,7 @@ class MatchingGame {
     }
 
     func rewardMatch(reward: Int) {
-        score += reward
+        score += reward + difficultyBonus()
         for i in currentlyChosenCardIndexes {
             matchedCardsIndexes[i] = true
         }
@@ -132,5 +132,9 @@ class MatchingGame {
 
     func cardWithNumber(number: Int) -> PlayingCard {
         return cards[number]
+    }
+
+    func difficultyBonus() -> Int {
+        return 4 * (numberOfCardsToMatch - 2)/2
     }
 }

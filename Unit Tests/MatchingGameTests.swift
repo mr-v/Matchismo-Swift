@@ -170,7 +170,7 @@ class MatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
         game.numberOfCardsToMatch = 3
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expected = game.score - points.choosePenalty * 3 + points.suitMatchReward
+        let expected = game.score - points.choosePenalty * 3 + points.suitMatchReward + game.difficultyBonus()
         for i in 0...2 { game.chooseCardWithNumber(i) }
 
         let newScore = game.score
@@ -267,7 +267,7 @@ class MatchingGameTests: XCTestCase {
         let matchCount = 3
         game.numberOfCardsToMatch = matchCount
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expectedScore = game.score - points.choosePenalty * matchCount + Int(points.partialMatchMultiplier * Double(points.suitMatchReward))
+        let expectedScore = game.score - points.choosePenalty * matchCount + Int(points.partialMatchMultiplier * Double(points.suitMatchReward)) + game.difficultyBonus()
 
         for i in 0...2 { game.chooseCardWithNumber(i) }
 
