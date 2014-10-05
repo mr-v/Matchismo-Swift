@@ -30,21 +30,22 @@ class MatchingGameDataSource: NSObject, UICollectionViewDataSource {
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellReuseId, forIndexPath: indexPath) as CardViewCell
-        cell.title.text = viewModel.textForCardWithNumber(indexPath.row)
+        configureCell(cell, number: indexPath.row)
         return cell
     }
 
-    func resetAllCells(collectionView: UICollectionView) {
-        for i in 0..<viewModel.numberOfCards {
-            let indexPath = NSIndexPath(forRow: i, inSection: 0)
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as CardViewCell
-            cell.enabled = true
-            cell.selected = false
-            collectionView.deselectItemAtIndexPath(indexPath, animated: true)
+    func updateVisibleCells(collectionView: UICollectionView) {
+        for i in collectionView.indexPathsForVisibleItems() {
+            let path = i as NSIndexPath
+            configureCell(collectionView.cellForItemAtIndexPath(path) as CardViewCell, number: path.row)
         }
-        collectionView.reloadData()
     }
 
+    func configureCell(cell: CardViewCell, number: Int) {
+        cell.title.text = viewModel.textForCardWithNumber(number)
+        cell.enabled = !viewModel.isCardMatched(number)
+        cell.selected = viewModel.isCardChosen(number)
+    }
 }
 
 class MatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {

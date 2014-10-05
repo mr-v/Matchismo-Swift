@@ -35,13 +35,13 @@ class CardViewModelTests: XCTestCase {
         XCTAssertEqual("Score: 0", text, "")
     }
 
-    func test_matchedCardNumbers_Returns_IndexesOfCardsThatWereMatched() {
+    func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsChosen() {
         let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
         let viewModel = makeCardViewModel(game)
 
         0.upto(1) { game.chooseCardWithNumber($0) }
-        let matchedNumbers = viewModel.matchedCardNumbers
 
+        let matchedNumbers = [0, 1].filter { viewModel.isCardChosen($0) }
         XCTAssertEqual(matchedNumbers, [0, 1], "")
     }
 

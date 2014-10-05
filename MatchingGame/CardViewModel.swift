@@ -69,9 +69,6 @@ class CardViewModel {
     var scoreText: String {
         get { return "Score: \(game.score)" }
     }
-    var matchedCardNumbers: [Int] {
-        get { return game.matchedCardsIndexes.keys.array }
-    }
     var numberOfCards: Int {
         get { return game.numberOfCards }
     }
@@ -133,6 +130,14 @@ class CardViewModel {
             fatalError("missing case")
         }
         return text
+    }
+
+    func isCardMatched(number: Int) -> Bool {
+        return game.matchedCardsIndexes[number] != nil
+    }
+
+    func isCardChosen(number: Int) -> Bool {
+        return game.cards[number].chosen
     }
 
     private func cardDescriptionsForIndexes(indexes: [Int]) -> String {

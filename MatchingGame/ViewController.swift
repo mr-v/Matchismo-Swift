@@ -29,6 +29,7 @@ class ViewController: UIViewController {
         cardCollectionView.backgroundColor = UIColor.clearColor()
         cardCollectionView.dataSource = collectionDataSource
         cardCollectionView.delegate = collectionDelegate
+
         var layout = cardCollectionView.collectionViewLayout as UICollectionViewFlowLayout
         uppdateItemSizeForCurrentSizeClass(layout)
 
@@ -36,23 +37,17 @@ class ViewController: UIViewController {
         updateCardMatchMode()
     }
 
+    @IBOutlet weak var helperView: UIView!
     func didPickCard(number: Int) {
         matchModeControl.enabled = false
 
         viewModel.chooseCardWithNumber(number)
+        collectionDataSource.updateVisibleCells(cardCollectionView)
+
+        // cards may have beeen flipped back by the game - need to notify collection view about it
         for number in viewModel.currentlyAvailableCardsNumbers() {
             let indexPath = NSIndexPath(forRow: number, inSection: 0)
-            let cell = cardCollectionView.cellForItemAtIndexPath(indexPath) as CardViewCell
-            if cell.selected {
-                cell.selected = false
-                cardCollectionView.deselectItemAtIndexPath(indexPath, animated: false)
-            }
-        }
-
-        for number in viewModel.matchedCardNumbers {
-            let indexPath = NSIndexPath(forRow: number, inSection: 0)
-            let cell = cardCollectionView.cellForItemAtIndexPath(indexPath) as CardViewCell
-            cell.enabled = false
+            cardCollectionView.deselectItemAtIndexPath(indexPath, animated: false)
         }
 
         updateLabels()
@@ -63,7 +58,7 @@ class ViewController: UIViewController {
         viewModel.redeal()
 
         updateLabels()
-        collectionDataSource.resetAllCells(cardCollectionView)
+        cardCollectionView.reloadData()
     }
 
     @IBAction func changeCardMode(sender: AnyObject) {
