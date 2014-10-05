@@ -665,6 +665,7 @@
 				INFOPLIST_FILE = MatchingGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -675,6 +676,7 @@
 				INFOPLIST_FILE = MatchingGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -722,6 +724,7 @@
 				EA1CDDB719DED11D006C2906 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA1CDDBB19DED11D006C2906 /* Build configuration list for PBXNativeTarget "CardGameUITests" */ = {
 			isa = XCConfigurationList;
@@ -730,6 +733,7 @@
 				EA1CDDB919DED11D006C2906 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EABACF2C19D5A90200FDEEAB /* Build configuration list for PBXProject "MatchingGame" */ = {
 			isa = XCConfigurationList;

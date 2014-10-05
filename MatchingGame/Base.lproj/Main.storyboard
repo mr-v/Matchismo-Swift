@@ -17,53 +17,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-HA-J9A">
-                                <rect key="frame" x="139" y="552" width="323" height="29"/>
-                                <segments>
-                                    <segment title="2 Card Match Mode"/>
-                                    <segment title="Three Card Match Mode"/>
-                                </segments>
-                                <color key="tintColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="39" y="552" width="323" height="29"/>
-                                </variation>
-                                <connections>
-                                    <action selector="changeCardMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Ykp-jt-cHr"/>
-                                </connections>
-                            </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZz-9W-SLc">
-                                <rect key="frame" x="273" y="511" width="54" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Redeal">
-                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="redeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BYk-lK-iaH"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaA-wD-wmi">
-                                <rect key="frame" x="21" y="28" width="64" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="21" y="28" width="65" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Card choice info label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs8-al-8TG">
-                                <rect key="frame" x="217" y="52" width="167" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="127" y="485" width="167" height="21"/>
-                                </variation>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
-                                <rect key="frame" x="19" y="86" width="563" height="417"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Card choice info label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.49999999999999961" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xs8-al-8TG">
+                                <rect key="frame" x="21" y="53" width="563" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="417" id="x2l-Xl-SWh"/>
+                                    <constraint firstAttribute="height" constant="20" id="9Aw-4S-lsm">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
+                                <rect key="frame" x="11" y="87" width="568" height="420"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="420" id="qvV-TK-NcZ"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mHA-GX-1bB">
                                     <size key="itemSize" width="64" height="96"/>
@@ -101,22 +75,87 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="11" y="87" width="768" height="420"/>
+                                </variation>
                             </collectionView>
+                            <view hidden="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="250" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wcO-va-iHL">
+                                <rect key="frame" x="6" y="58" width="10" height="478"/>
+                                <color key="backgroundColor" red="0.50196081400000003" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="XnY-fI-Xv9"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES">
+                                    <rect key="frame" x="6" y="-142" width="10" height="878"/>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZz-9W-SLc">
+                                <rect key="frame" x="273" y="536" width="54" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Redeal">
+                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="redeal:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BYk-lK-iaH"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xGD-HA-J9A">
+                                <rect key="frame" x="139" y="569" width="323" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="RTa-r5-Gee"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="2 Card Match Mode"/>
+                                    <segment title="Three Card Match Mode"/>
+                                </segments>
+                                <color key="tintColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="39" y="552" width="323" height="29"/>
+                                </variation>
+                                <connections>
+                                    <action selector="changeCardMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Ykp-jt-cHr"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yaA-wD-wmi" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="0ap-fe-M2W"/>
+                            <constraint firstItem="Xs8-al-8TG" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="35a-mp-2xE"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="top" secondItem="Xs8-al-8TG" secondAttribute="bottom" constant="14" id="6pl-Wo-djg">
+                                <variation key="heightClass=regular-widthClass=compact" constant="12"/>
+                            </constraint>
                             <constraint firstItem="yaA-wD-wmi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="CiR-Mm-trI"/>
-                            <constraint firstAttribute="bottom" secondItem="xGD-HA-J9A" secondAttribute="bottom" constant="20" symbolic="YES" id="Gxm-J9-es2"/>
+                            <constraint firstItem="wcO-va-iHL" firstAttribute="centerY" secondItem="OcG-1A-G6u" secondAttribute="centerY" id="GDU-Cf-HZm"/>
+                            <constraint firstItem="Xs8-al-8TG" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="L1V-Kq-Zb6"/>
                             <constraint firstAttribute="centerX" secondItem="VZz-9W-SLc" secondAttribute="centerX" id="Ux0-9D-SSi"/>
-                            <constraint firstItem="xGD-HA-J9A" firstAttribute="top" secondItem="VZz-9W-SLc" secondAttribute="bottom" constant="8" symbolic="YES" id="XXc-N3-CMd"/>
-                            <constraint firstAttribute="centerX" secondItem="Xs8-al-8TG" secondAttribute="centerX" id="lo3-Op-fBl"/>
-                            <constraint firstItem="Xs8-al-8TG" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="8" symbolic="YES" id="mh3-uP-660"/>
+                            <constraint firstItem="Xs8-al-8TG" firstAttribute="top" secondItem="yaA-wD-wmi" secondAttribute="bottom" constant="4" id="Vyx-x1-6Oc"/>
+                            <constraint firstItem="xGD-HA-J9A" firstAttribute="top" secondItem="VZz-9W-SLc" secondAttribute="bottom" id="XXc-N3-CMd"/>
+                            <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-5" id="YDa-lP-nJo"/>
+                            <constraint firstItem="wcO-va-iHL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="-10" id="d8n-vY-bb8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OcG-1A-G6u" secondAttribute="trailing" constant="5" id="oFt-DQ-RrT"/>
+                            <constraint firstItem="VZz-9W-SLc" firstAttribute="top" secondItem="wcO-va-iHL" secondAttribute="bottom" id="pep-zD-W64"/>
                             <constraint firstItem="xGD-HA-J9A" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="wQP-ef-Fgf"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="OcG-1A-G6u" secondAttribute="bottom" constant="64" id="wto-is-Lhe"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="xGD-HA-J9A" secondAttribute="bottom" constant="3" id="zM2-Wj-T3z"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="wto-is-Lhe"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="wto-is-Lhe"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="cardCollectionView" destination="OcG-1A-G6u" id="765-1j-9k9"/>
+                        <outlet property="helperView" destination="wcO-va-iHL" id="HGZ-bR-X0F"/>
                         <outlet property="lastActionLabel" destination="Xs8-al-8TG" id="ecc-Dl-zBT"/>
                         <outlet property="matchModeControl" destination="xGD-HA-J9A" id="qB2-iN-Wcp"/>
                         <outlet property="scoreLabel" destination="yaA-wD-wmi" id="c7f-cx-99D"/>
@@ -124,7 +163,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138" y="172"/>
+            <point key="canvasLocation" x="138" y="171"/>
         </scene>
     </scenes>
     <resources>
