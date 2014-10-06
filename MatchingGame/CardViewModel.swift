@@ -64,7 +64,7 @@ private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
 }
 
 class CardViewModel {
-    var game: MatchingGame
+    var game: PlayingCardMatchingGame
 
     var scoreText: String {
         get { return "Score: \(game.score)" }
@@ -74,7 +74,7 @@ class CardViewModel {
     }
     private var lastActionStatistics: GameStatistics
 
-    init(game: MatchingGame) {
+    init(game: PlayingCardMatchingGame) {
         self.game = game
         lastActionStatistics = GameStatistics()
     }
@@ -103,7 +103,7 @@ class CardViewModel {
     }
 
     func redeal() {
-        game = MatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
+        game = PlayingCardMatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
         lastActionStatistics = GameStatistics()
     }
 

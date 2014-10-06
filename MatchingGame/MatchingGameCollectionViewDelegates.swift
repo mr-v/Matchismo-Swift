@@ -15,7 +15,7 @@ import UIKit
 
 */
 
-class MatchingGameDataSource: NSObject, UICollectionViewDataSource {
+class PlayingCardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     let cellReuseId = "CardCell"
     private let viewModel: CardViewModel
 
@@ -48,7 +48,7 @@ class MatchingGameDataSource: NSObject, UICollectionViewDataSource {
     }
 }
 
-class MatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+class PlayingCardMatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {
     let cardTappedClosure: (cardNumber: Int) -> ()
 
     init(cardTappedClosure: (Int) -> ()) {

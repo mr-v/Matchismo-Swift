@@ -8,10 +8,10 @@
 
 import XCTest
 
-class MatchingGameTests: XCTestCase {
+class PlayingCardMatchingGameTests: XCTestCase {
 
-    func test_MatchingGame_AfterInitialization_ScoreIsZero() {
-        let game = TestGameFactory().makeMatchingGame()
+    func test_PlayingCardMatchingGame_AfterInitialization_ScoreIsZero() {
+        let game = TestGameFactory().makePlayingCardMatchingGame()
 
         let score = game.score
 
@@ -19,7 +19,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_chooseCardWithNumber_PickingUnchosenCard_AppliesPenalty() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
 
         let expected = game.score - TestGameFactory().makeGamePointsConfiguration().choosePenalty
         game.chooseCardWithNumber(0)
@@ -28,9 +28,9 @@ class MatchingGameTests: XCTestCase {
         XCTAssertEqual(newScore, expected, "")
     }
 
-    func test_MatchingGame_Initializes_WithProperNumberOfCards() {
+    func test_PlayingCardMatchingGame_Initializes_WithProperNumberOfCards() {
         let numberOfCardsToCreate = 60
-        let game = TestGameFactory().makeMatchingGame(cardCount: numberOfCardsToCreate)
+        let game = TestGameFactory().makePlayingCardMatchingGame(cardCount: numberOfCardsToCreate)
 
         let numberOfCards = game.numberOfCards
 
@@ -38,7 +38,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_chooseCardWithNumber_PickingChosenCard_AppliesNoPenalty() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
 
         let expected = game.score - TestGameFactory().makeGamePointsConfiguration().choosePenalty
         2.times { game.chooseCardWithNumber(0)}
@@ -109,7 +109,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_pickedCardWithNumber_PickingSameCardTwoTimesInTheRow_AppliesPenaltyTwice() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         func chooseWithPenaltyTwoTimes() {
             3.times { game.chooseCardWithNumber(0) }
         }
@@ -121,7 +121,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_setNumberOfCardsToMatch_BeforeChoosingAnyCard_SetsProperly() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         let needToMatch = game.numberOfCardsToMatch + 1
         game.numberOfCardsToMatch = needToMatch
 
@@ -130,7 +130,7 @@ class MatchingGameTests: XCTestCase {
     }
 
     func test_setNumberOfCardsToMatch_BeforeAnyCards_IgnoresNewSetting() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         let needToMatch = game.numberOfCardsToMatch + 1
         game.chooseCardWithNumber(0)
         game.numberOfCardsToMatch = needToMatch
@@ -248,7 +248,7 @@ class MatchingGameTests: XCTestCase {
 
     func test_chooseCardWithNumber_TwoCardsOutOfThreeMatchWithSuit_AppliesRewardForPartialMatch() {
         let cardsWithTwoMachingSuits = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three)]
-        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cardsWithTwoMachingSuits)
+        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cardsWithTwoMachingSuits)
         let matchCount = 3
         game.numberOfCardsToMatch = matchCount
         let points = TestGameFactory().makeGamePointsConfiguration()
@@ -262,30 +262,30 @@ class MatchingGameTests: XCTestCase {
 }
 
 class TestGameFactory {
-    func makeGameWithFirstThreeCardsMatchingWithSuits() -> MatchingGame {
+    func makeGameWithFirstThreeCardsMatchingWithSuits() -> PlayingCardMatchingGame {
         let matchingSuits = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Three), PlayingCard(suit: .Hearts, rank: .Four)]
-        return makeMatchingGameWithStubDeck(cards: matchingSuits)
+        return makePlayingCardMatchingGameWithStubDeck(cards: matchingSuits)
     }
 
-    func makeGameWithFirstTwoCardsMatchingWithRanks() -> MatchingGame {
+    func makeGameWithFirstTwoCardsMatchingWithRanks() -> PlayingCardMatchingGame {
         let cards = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Hearts, rank: .Two)]
-        return makeMatchingGameWithStubDeck(cards: cards)
+        return makePlayingCardMatchingGameWithStubDeck(cards: cards)
     }
 
-    func makeGameWithFirstThreeMismatchedCards() -> MatchingGame {
+    func makeGameWithFirstThreeMismatchedCards() -> PlayingCardMatchingGame {
         let mismatched = [PlayingCard(suit: .Hearts, rank: .Two), PlayingCard(suit: .Spades, rank: .Three), PlayingCard(suit: .Diamonds, rank: .Four)]
-        return makeMatchingGameWithStubDeck(cards: mismatched)
+        return makePlayingCardMatchingGameWithStubDeck(cards: mismatched)
     }
 
-    func makeGameWithCard(card: PlayingCard) -> MatchingGame {
-        return makeMatchingGameWithStubDeck(cards: [card])
+    func makeGameWithCard(card: PlayingCard) -> PlayingCardMatchingGame {
+        return makePlayingCardMatchingGameWithStubDeck(cards: [card])
     }
 
-    func makeMatchingGame(cardCount: Int = 12, numberOfcardsToMatch: Int = 2) -> MatchingGame {
-        return MatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, numberOfCardsToMatch: numberOfcardsToMatch)
+    func makePlayingCardMatchingGame(cardCount: Int = 12, numberOfcardsToMatch: Int = 2) -> PlayingCardMatchingGame {
+        return PlayingCardMatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, numberOfCardsToMatch: numberOfcardsToMatch)
     }
 
-    func makeMatchingGameWithStubDeck(cards c: [PlayingCard], cardCount: Int = 12) -> MatchingGame {
+    func makePlayingCardMatchingGameWithStubDeck(cards c: [PlayingCard], cardCount: Int = 12) -> PlayingCardMatchingGame {
         class InfiniteStubDeck: Deck {
             override var isEmpty: Bool {
                 get {
@@ -308,7 +308,7 @@ class TestGameFactory {
         }
         let stubDeck = InfiniteStubDeck(cards: c)
 
-        return MatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, numberOfCardsToMatch: 2, deck: stubDeck)
+        return PlayingCardMatchingGame(configuration: makeGamePointsConfiguration(), numberOfCards: cardCount, numberOfCardsToMatch: 2, deck: stubDeck)
     }
 
     func makeGamePointsConfiguration() -> PointsConfiguration {

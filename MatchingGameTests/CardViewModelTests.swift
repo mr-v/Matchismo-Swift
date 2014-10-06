@@ -28,7 +28,7 @@ extension CardViewModel {
 class CardViewModelTests: XCTestCase {
 
     func test_scoreText_AfterInitialization_TextWithDefaultScore() {
-        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGame())
+        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGame())
 
         let text = viewModel.scoreText
 
@@ -92,7 +92,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_NumberOfCardsToMatchIsKept() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         let viewModel = makeCardViewModel(game)
 
         let newSetting = game.numberOfCardsToMatch + 1
@@ -105,7 +105,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_changeModeWithNumberOfCardsToMatch_UpdatesGame() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         let viewModel = makeCardViewModel(game)
         let expected = game.numberOfCardsToMatch + 1
 
@@ -116,7 +116,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_lastActionText_ByDefault_ReturnsEmptyText() {
-        let game = TestGameFactory().makeMatchingGame()
+        let game = TestGameFactory().makePlayingCardMatchingGame()
         let viewModel = makeCardViewModel(game)
 
         let emptyText = viewModel.lastActionText()
@@ -125,7 +125,7 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingSingleCard_ReturnsTextWithItsTitle() {
         let card = PlayingCard(suit: .Hearts, rank: .Ace)
-        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: [card])
+        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: [card])
         let viewModel = makeCardViewModel(game)
 
         viewModel.chooseCardWithNumber(0)
@@ -136,7 +136,7 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingTwoCardInMultiMatchMode_ReturnsTextWithTheirTitle() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
-        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cards)
+        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards)
         game.numberOfCardsToMatch = 3
         let viewModel = makeCardViewModel(game)
 
@@ -148,7 +148,7 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingTwoMatchingCardInTwoMatchMode_ReturnsTextWithMatchedText() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
-        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGameWithStubDeck(cards: cards))
+        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards))
         let points = TestGameFactory().makeGamePointsConfiguration().suitMatchReward
 
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
@@ -159,7 +159,7 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingMismatchedCardsInTwoMatchMode_ReturnsTextWithMismatchPenalty() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
-        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGameWithStubDeck(cards: cards))
+        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards))
         let points = TestGameFactory().makeGamePointsConfiguration().mismatchPenalty
 
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
@@ -169,7 +169,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_lastActionText_FullyFlippingCard_ReturnsEmptyText() {
-        let viewModel = makeCardViewModel(TestGameFactory().makeMatchingGame())
+        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGame())
         let expected = ""
 
         2.times { viewModel.chooseCardWithNumber(0) }
@@ -180,7 +180,7 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_FullyFlippingCardAndFlippingUpSecondCardInTwoMatchMode_ReturnsTextWithCurrenltyFlippedCard() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
-        let game = TestGameFactory().makeMatchingGameWithStubDeck(cards: cards)
+        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards)
         game.numberOfCardsToMatch = 3
         let viewModel = makeCardViewModel(game)
         let expected = "10♠"
@@ -205,7 +205,7 @@ class CardViewModelTests: XCTestCase {
 
     // MARK:
 
-    func makeCardViewModel(game: MatchingGame) -> CardViewModel  {
+    func makeCardViewModel(game: PlayingCardMatchingGame) -> CardViewModel  {
         return CardViewModel(game: game)
     }
 }
