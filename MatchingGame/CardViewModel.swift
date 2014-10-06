@@ -92,9 +92,9 @@ class CardViewModel {
 
     func currentlyAvailableCardsNumbers() -> [Int] {
         var numbers = [Int]()
-        let cards = game.cards
-        for i in 0..<cards.count {
-            let card = cards[i]
+        let cardsCount = game.numberOfCards
+        for i in 0..<cardsCount {
+            let card = game.cardWithNumber(i)
             if !card.chosen {
                 numbers.append(i)
             }
@@ -137,11 +137,11 @@ class CardViewModel {
     }
 
     func isCardChosen(number: Int) -> Bool {
-        return game.cards[number].chosen
+        return game.cardWithNumber(number).chosen
     }
 
     private func cardDescriptionsForIndexes(indexes: [Int]) -> String {
-        let descriptions = indexes.map{ self.game.cards[$0].description }
+        let descriptions = indexes.map{ self.game.cardWithNumber($0).description }
         return ", ".join(descriptions)
     }
 

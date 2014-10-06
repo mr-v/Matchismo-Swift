@@ -20,7 +20,7 @@ struct PointsConfiguration {
 
 class MatchingGame {
     internal private(set) var score: Int
-    private(set) var cards: [PlayingCard]
+    private var cards: [PlayingCard]
     internal let pointsConfiguration: PointsConfiguration
     internal private(set) var currentlyChosenCardIndexes: [Int]
     var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application using the framework

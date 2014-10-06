@@ -194,7 +194,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let chosen = game.cards[0].chosen
+        let chosen = game.cardWithNumber(0).chosen
         XCTAssertFalse(chosen, "")
     }
 
@@ -204,7 +204,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
        0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let chosen = game.cards[1].chosen
+        let chosen = game.cardWithNumber(1).chosen
         XCTAssertFalse(chosen, "")
     }
 
@@ -213,7 +213,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let cardIsChosen = game.cards[2].chosen
+        let cardIsChosen = game.cardWithNumber(2).chosen
         XCTAssertTrue(cardIsChosen, "")
     }
 
