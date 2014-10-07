@@ -22,15 +22,15 @@ class MatchingGame {
     internal private(set) var score: Int
     private var cards: [PlayingCard]
     internal let pointsConfiguration: PointsConfiguration
-    internal private(set) var currentlyChosenCardIndexes: [Int]
-    var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application using the framework
+    var chosenCardsIndexes: [Int: Bool]
+    var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
     var numberOfCards: Int {
         get { return cards.count }
     }
     var numberOfCardsToMatch: Int {
         didSet {
-            let cardWasPicked = matchedCardsIndexes.isEmpty && currentlyChosenCardIndexes.isEmpty
-            if !cardWasPicked {
+            let gameAlreadyStarted = matchedCardsIndexes.isEmpty && chosenCardsIndexes.isEmpty && score == 0
+            if !gameAlreadyStarted {
                 numberOfCardsToMatch = oldValue
             }
         }

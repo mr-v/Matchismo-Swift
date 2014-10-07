@@ -138,7 +138,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         XCTAssertEqual(newScore, expected, "")
     }
 
-    func test_setNumberOfCardsToMatch_BeforeChoosingAnyCard_SetsProperly() {
+    func test_setNumberOfCardsToMatch_BeforeChoosingAnyCard_AppliesNewSetting() {
         let game = TestGameFactory().makePlayingCardMatchingGame()
         let needToMatch = game.numberOfCardsToMatch + 1
         game.numberOfCardsToMatch = needToMatch
@@ -155,6 +155,17 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         let result = game.numberOfCardsToMatch
         XCTAssertNotEqual(result, needToMatch, "")
+    }
+
+    func test_setNumberOfCardsToMatch_AfterFullyFlippingCard_DoesntAllowToChangeMatchMode() {
+        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
+        let currentMode = game.numberOfCardsToMatch
+
+        2.times { game.chooseCardWithNumber(1) }
+        game.numberOfCardsToMatch = currentMode + 1
+
+        let notChanged = game.numberOfCardsToMatch == currentMode
+        XCTAssertTrue(notChanged, "")
     }
 
     // MARK: - Matching multiple cards (3+)
