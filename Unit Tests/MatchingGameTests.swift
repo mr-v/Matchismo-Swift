@@ -18,6 +18,24 @@ class PlayingCardMatchingGameTests: XCTestCase {
         XCTAssertEqual(score, 0, "")
     }
 
+    func test_MatchingGame_Created_CardsNotChosenByDefault() {
+        let game = TestGameFactory().makePlayingCardMatchingGame()
+
+        var chosen = false
+        game.numberOfCardsToMatch.times { chosen |= game.isCardChosen($0) }
+
+        XCTAssertFalse(chosen, "")
+    }
+
+    func test_flipCard_ChangesChosen() {
+        let game = TestGameFactory().makePlayingCardMatchingGame()
+
+        game.flipCard(0)
+
+        var chosen = game.isCardChosen(0)
+        XCTAssertTrue(chosen, "")
+    }
+
     func test_chooseCardWithNumber_PickingUnchosenCard_AppliesPenalty() {
         let game = TestGameFactory().makePlayingCardMatchingGame()
 
@@ -183,8 +201,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let currentlyChosen = game.currentlyChosenCardIndexes
-        let cardsAreAvailable = !contains(currentlyChosen, 0) && !contains(currentlyChosen, 1)
+        let cardsAreAvailable = !game.isCardChosen(0) && !game.isCardChosen(1)
         XCTAssertTrue(cardsAreAvailable, "")
     }
 
@@ -194,7 +211,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let chosen = game.cardWithNumber(0).chosen
+        let chosen = game.isCardChosen(0)
         XCTAssertFalse(chosen, "")
     }
 
@@ -204,7 +221,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
        0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let chosen = game.cardWithNumber(1).chosen
+        let chosen = game.isCardChosen(1)
         XCTAssertFalse(chosen, "")
     }
 
@@ -213,7 +230,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
-        let cardIsChosen = game.cardWithNumber(2).chosen
+        let cardIsChosen = game.isCardChosen(2)
         XCTAssertTrue(cardIsChosen, "")
     }
 
@@ -242,7 +259,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
 
         2.times { game.chooseCardWithNumber(1) }
 
-        let noChosenIndexes = game.currentlyChosenCardIndexes.isEmpty
+        let noChosenIndexes = game.chosenCardsIndexes.isEmpty
         XCTAssertTrue(noChosenIndexes, "")
     }
 

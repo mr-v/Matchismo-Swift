@@ -39,7 +39,7 @@ class MatchingGame {
     init(configuration: PointsConfiguration, numberOfCardsToMatch: Int) {
         score = 0
         cards = []
-        currentlyChosenCardIndexes = [Int]()
+        chosenCardsIndexes =  [Int: Bool]()
         matchedCardsIndexes = [Int: Bool]()
         pointsConfiguration = configuration
         self.numberOfCardsToMatch = numberOfCardsToMatch
@@ -51,6 +51,48 @@ class MatchingGame {
 
     func mismatch() {
         fatalError("need to implement \"mismatch\" methond in a \(self.self)")
+    }
+
+    func isCardChosen(number: Int) -> Bool {
+        return chosenCardsIndexes[number] != nil
+    }
+
+    func flipCard(number: Int) {
+        if isCardChosen(number) {
+            chosenCardsIndexes.removeValueForKey(number)
+        } else {
+            chosenCardsIndexes[number] = true
+        }
+    }
+
+    func chooseCardWithNumber(number: Int) {
+        let alreadyMatched = matchedCardsIndexes[number] != nil
+        if alreadyMatched {
+            return
+        }
+
+        var newPick: PlayingCard = cards[number]
+        flipCard(number)
+        cards[number] = newPick
+        if !isCardChosen(number) {
+            chosenCardsIndexes.removeValueForKey(number)
+            return
+        }
+
+        score -= pointsConfiguration.choosePenalty
+        chosenCardsIndexes[number] = true
+
+        let enoughCardsToCheckMatch = chosenCardsIndexes.count == numberOfCardsToMatch
+        if !enoughCardsToCheckMatch {
+            return
+        }
+
+        let success = match()
+        if !success {
+            mismatch()
+            chosenCardsIndexes.removeAll(keepCapacity: true)
+            chosenCardsIndexes[number] = true
+        }
     }
 }
 
@@ -68,46 +110,9 @@ class PlayingCardMatchingGame : MatchingGame {
         }
     }
 
-    func chooseCardWithNumber(number: Int) {
-        let alreadyMatched = matchedCardsIndexes[number] != nil
-        if alreadyMatched {
-            return
-        }
-
-        var newPick: PlayingCard = cards[number]
-        newPick.flip()
-        cards[number] = newPick
-        if !newPick.chosen {
-            for var i = 0; i < currentlyChosenCardIndexes.count; i++ {
-                if currentlyChosenCardIndexes[i] == number {
-                    currentlyChosenCardIndexes.removeAtIndex(i)
-                    break
-                }
-            }
-            return
-        }
-
-        score -= pointsConfiguration.choosePenalty
-
-        if !contains(currentlyChosenCardIndexes, number) {
-            currentlyChosenCardIndexes.append(number)
-        }
-
-        let enoughCardsToCheckMatch = currentlyChosenCardIndexes.count == numberOfCardsToMatch
-        if !enoughCardsToCheckMatch {
-            return
-        }
-
-        let success = match()
-        if !success {
-            mismatch()
-            currentlyChosenCardIndexes = [number]
-        }
-    }
-
     override func match() -> Bool {
         // allow partial matching
-        var currentlyChosen: [PlayingCard] = currentlyChosenCardIndexes.map{ self.cards[$0] }
+        var currentlyChosen: [PlayingCard] = chosenCardsIndexes.keys.array.map{ self.cards[$0] }
         var rankMatches = [Rank: Int]()
         var suitMatches = [Suit: Int]()
         for cards in currentlyChosen {
@@ -139,13 +144,6 @@ class PlayingCardMatchingGame : MatchingGame {
 
     override func mismatch() {
         score -= pointsConfiguration.mismatchPenalty
-        let previousPickIndex = currentlyChosenCardIndexes.count - 2
-        for var i = previousPickIndex; i >= 0; i-- {
-            let index = currentlyChosenCardIndexes[i]
-            var c = cards[index]
-            c.flip()
-            cards[index] = c
-        }
     }
 
     func rewardPartialMatch(originalReward: Int) {
@@ -160,10 +158,10 @@ class PlayingCardMatchingGame : MatchingGame {
     func rewardMatch(reward: Int) {
         score += reward
 
-        for i in currentlyChosenCardIndexes {
-            matchedCardsIndexes[i] = true
+        for (number, _) in chosenCardsIndexes {
+            matchedCardsIndexes[number] = true
         }
-        currentlyChosenCardIndexes.removeAll(keepCapacity: true)
+        chosenCardsIndexes.removeAll(keepCapacity: true)
     }
 
     func cardWithNumber(number: Int) -> PlayingCard {

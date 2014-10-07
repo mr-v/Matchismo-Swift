@@ -94,8 +94,7 @@ class CardViewModel {
         var numbers = [Int]()
         let cardsCount = game.numberOfCards
         for i in 0..<cardsCount {
-            let card = game.cardWithNumber(i)
-            if !card.chosen {
+            if !game.isCardChosen(i) && !isCardMatched(i)  {
                 numbers.append(i)
             }
         }
@@ -117,7 +116,7 @@ class CardViewModel {
         let lastAction = lastActionStatistics.compare(currentStats)
         switch lastAction {
         case .FlippedBackACard, .FlippedUpACard:
-            text  = cardDescriptionsForIndexes(game.currentlyChosenCardIndexes)
+            text  = cardDescriptionsForIndexes(currentStats.currentlyChosen)
         case .Match:
             let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
             let points = currentStats.score - lastActionStatistics.score + game.pointsConfiguration.choosePenalty
@@ -137,7 +136,7 @@ class CardViewModel {
     }
 
     func isCardChosen(number: Int) -> Bool {
-        return game.cardWithNumber(number).chosen
+        return game.isCardChosen(number)
     }
 
     private func cardDescriptionsForIndexes(indexes: [Int]) -> String {
@@ -147,7 +146,7 @@ class CardViewModel {
 
     private func currentStatistics() -> GameStatistics {
         var stats = GameStatistics()
-        stats.currentlyChosen = game.currentlyChosenCardIndexes
+        stats.currentlyChosen = game.chosenCardsIndexes.keys.array
         stats.score = game.score
         stats.numberOfMatchedCards = game.matchedCardsIndexes.count
         return stats

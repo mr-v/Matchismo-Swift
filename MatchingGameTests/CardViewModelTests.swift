@@ -15,8 +15,8 @@ extension CardViewModel {
     var matchedCardsIndexes: [Int] {
         get { return game.matchedCardsIndexes.keys.array }
     }
-    var currentlyChosenCardIndexes: [Int] {
-        get { return game.currentlyChosenCardIndexes }
+    var chosenCardIndexes: [Int] {
+        get { return game.chosenCardsIndexes.keys.array }
     }
     var numberOfCardsToMatch: Int {
         get { return game.numberOfCardsToMatch }
@@ -35,13 +35,13 @@ class CardViewModelTests: XCTestCase {
         XCTAssertEqual("Score: 0", text, "")
     }
 
-    func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsChosen() {
+    func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsMatched() {
         let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
         let viewModel = makeCardViewModel(game)
 
         0.upto(1) { game.chooseCardWithNumber($0) }
 
-        let matchedNumbers = [0, 1].filter { viewModel.isCardChosen($0) }
+        let matchedNumbers = [0, 1].filter { viewModel.isCardMatched($0) }
         XCTAssertEqual(matchedNumbers, [0, 1], "")
     }
 
@@ -87,7 +87,8 @@ class CardViewModelTests: XCTestCase {
         viewModel.redeal()
 
         let scoreIsReset = viewModel.score != scoreAfterMismatch
-        let restarted = scoreIsReset && viewModel.matchedCardsIndexes.isEmpty && viewModel.currentlyChosenCardIndexes.isEmpty
+
+        let restarted = scoreIsReset && viewModel.matchedCardsIndexes.isEmpty && viewModel.chosenCardIndexes.isEmpty
         XCTAssertTrue(restarted, "")
     }
 

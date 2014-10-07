@@ -28,16 +28,10 @@ struct PlayingCard: Hashable {
 
     let suit: Suit
     let rank: Rank
-    var chosen: Bool
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
         self.rank = rank
-        chosen = false
-    }
-
-    mutating func flip() {
-        chosen = !chosen
     }
 }
 
