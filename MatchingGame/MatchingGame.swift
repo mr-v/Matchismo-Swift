@@ -20,10 +20,6 @@ struct PointsConfiguration {
 
 class MatchingGame {
     internal private(set) var score: Int
-    private var cards: [PlayingCard]
-    internal let pointsConfiguration: PointsConfiguration
-    var chosenCardsIndexes: [Int: Bool]
-    var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
     var numberOfCards: Int {
         get { return cards.count }
     }
@@ -35,6 +31,12 @@ class MatchingGame {
             }
         }
     }
+    internal let pointsConfiguration: PointsConfiguration
+    var chosenCardsIndexes: [Int: Bool]
+    var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
+
+    private var cards: [PlayingCard]
+
 
     init(configuration: PointsConfiguration, numberOfCardsToMatch: Int) {
         score = 0
@@ -71,9 +73,7 @@ class MatchingGame {
             return
         }
 
-        var newPick: PlayingCard = cards[number]
         flipCard(number)
-        cards[number] = newPick
         if !isCardChosen(number) {
             chosenCardsIndexes.removeValueForKey(number)
             return
@@ -94,6 +94,11 @@ class MatchingGame {
             chosenCardsIndexes[number] = true
         }
     }
+
+    func printableForCardWithNumber(number: Int) -> Printable {
+        return cards[number]
+    }
+
 }
 
 class PlayingCardMatchingGame : MatchingGame {
@@ -115,9 +120,9 @@ class PlayingCardMatchingGame : MatchingGame {
         var currentlyChosen: [PlayingCard] = chosenCardsIndexes.keys.array.map{ self.cards[$0] }
         var rankMatches = [Rank: Int]()
         var suitMatches = [Suit: Int]()
-        for cards in currentlyChosen {
-            rankMatches[cards.rank] = rankMatches[cards.rank]?.advancedBy(1) ?? 1
-            suitMatches[cards.suit] = suitMatches[cards.suit]?.advancedBy(1) ?? 1
+        for card in currentlyChosen {
+            rankMatches[card.rank] = rankMatches[card.rank]?.advancedBy(1) ?? 1
+            suitMatches[card.suit] = suitMatches[card.suit]?.advancedBy(1) ?? 1
         }
         let rankMatchesMax = maxElement(rankMatches.values)
         let suitMatchesMax = maxElement(suitMatches.values)
@@ -162,10 +167,6 @@ class PlayingCardMatchingGame : MatchingGame {
             matchedCardsIndexes[number] = true
         }
         chosenCardsIndexes.removeAll(keepCapacity: true)
-    }
-
-    func cardWithNumber(number: Int) -> PlayingCard {
-        return cards[number]
     }
 
     func difficultyBonus() -> Int {

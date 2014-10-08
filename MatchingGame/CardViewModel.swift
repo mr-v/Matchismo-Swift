@@ -63,8 +63,9 @@ private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
     return lhs.score == rhs.score && lhs.numberOfChosenCards == rhs.numberOfChosenCards && lhs.numberOfMatchedCards == rhs.numberOfMatchedCards
 }
 
+
 class CardViewModel {
-    var game: PlayingCardMatchingGame
+    var game: MatchingGame
 
     var scoreText: String {
         get { return "Score: \(game.score)" }
@@ -80,7 +81,7 @@ class CardViewModel {
     }
 
     func textForCardWithNumber(number: Int) -> String {
-        return game.cardWithNumber(number).description
+        return game.printableForCardWithNumber(number).description
     }
 
     func chooseCardWithNumber(number: Int) {
@@ -92,7 +93,7 @@ class CardViewModel {
 
     func currentlyAvailableCardsNumbers() -> [Int] {
         var numbers = [Int]()
-        let cardsCount = game.numberOfCards
+        let cardsCount = numberOfCards
         for i in 0..<cardsCount {
             if !game.isCardChosen(i) && !isCardMatched(i)  {
                 numbers.append(i)
@@ -102,7 +103,7 @@ class CardViewModel {
     }
 
     func redeal() {
-        game = PlayingCardMatchingGame(configuration: game.pointsConfiguration, numberOfCards: game.numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
+        game = PlayingCardMatchingGame(configuration: game.pointsConfiguration, numberOfCards: numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
         lastActionStatistics = GameStatistics()
     }
 
@@ -140,7 +141,7 @@ class CardViewModel {
     }
 
     private func cardDescriptionsForIndexes(indexes: [Int]) -> String {
-        let descriptions = indexes.map{ self.game.cardWithNumber($0).description }
+        let descriptions = indexes.map{ self.game.printableForCardWithNumber($0).description }
         return ", ".join(descriptions)
     }
 
