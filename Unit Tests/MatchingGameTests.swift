@@ -39,7 +39,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingUnchosenCard_AppliesPenalty() {
         let game = TestGameFactory().makePlayingCardMatchingGame()
 
-        let expected = game.score - TestGameFactory().makeGamePointsConfiguration().choosePenalty
+        let expected = game.score + TestGameFactory().makeGamePointsConfiguration().choosePenalty
         game.chooseCardWithNumber(0)
         let newScore = game.score
 
@@ -58,7 +58,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingChosenCard_AppliesNoPenalty() {
         let game = TestGameFactory().makePlayingCardMatchingGame()
 
-        let expected = game.score - TestGameFactory().makeGamePointsConfiguration().choosePenalty
+        let expected = game.score + TestGameFactory().makeGamePointsConfiguration().choosePenalty
         2.times { game.chooseCardWithNumber(0)}
 
         let newScore = game.score
@@ -70,7 +70,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
-        let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
+        let expected = game.score + points.choosePenalty * 2 + points.suitMatchReward
         0.upto(1) { game.chooseCardWithNumber($0) }
         let newScore = game.score
         
@@ -80,7 +80,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingMatchingRanks_AppliesReward() {
         let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expected = game.score - points.choosePenalty * 2 + points.rankMatchReward
+        let expected = game.score + points.choosePenalty * 2 + points.rankMatchReward
 
         0.upto(1) { game.chooseCardWithNumber($0) }
         let newScore = game.score
@@ -92,7 +92,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
-        let expected = game.score - points.choosePenalty * 2 - points.mismatchPenalty
+        let expected = game.score + points.choosePenalty * 2 + points.mismatchPenalty
         0.upto(1) { game.chooseCardWithNumber($0) }
         let newScore = game.score
 
@@ -117,7 +117,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
         let points = TestGameFactory().makeGamePointsConfiguration()
 
-        let expected = game.score - points.choosePenalty * 2 + points.suitMatchReward
+        let expected = game.score + points.choosePenalty * 2 + points.suitMatchReward
         0.upto(1) { game.chooseCardWithNumber($0) }
         let earlierScore = game.score
         2.times { game.chooseCardWithNumber(1) }
@@ -131,7 +131,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         func chooseWithPenaltyTwoTimes() {
             3.times { game.chooseCardWithNumber(0) }
         }
-        let expected = game.score - 2 * TestGameFactory().makeGamePointsConfiguration().choosePenalty
+        let expected = game.score + 2 * TestGameFactory().makeGamePointsConfiguration().choosePenalty
         chooseWithPenaltyTwoTimes()
         let newScore = game.score
 
@@ -187,7 +187,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits()
         game.numberOfCardsToMatch = 3
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expected = game.score - points.choosePenalty * 3 + points.suitMatchReward + game.difficultyBonus()
+        let expected = game.score + points.choosePenalty * 3 + points.suitMatchReward + game.difficultyBonus()
         3.times { game.chooseCardWithNumber($0) }
 
         let newScore = game.score
@@ -200,7 +200,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let cardsToMatchCount = 3
         game.numberOfCardsToMatch = cardsToMatchCount
 
-        let expected = game.score - points.choosePenalty * cardsToMatchCount - points.mismatchPenalty
+        let expected = game.score + points.choosePenalty * cardsToMatchCount + points.mismatchPenalty
         cardsToMatchCount.times { game.chooseCardWithNumber($0) }
         let newScore = game.score
 
@@ -248,7 +248,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingThreeMatchingRanks_AppliesReward() {
         let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expected = game.score - points.choosePenalty * 3 + points.rankMatchReward
+        let expected = game.score + points.choosePenalty * 3 + points.rankMatchReward
         0.upto(2) { game.chooseCardWithNumber($0) }
         let newScore = game.score
 
@@ -280,7 +280,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let matchCount = 3
         game.numberOfCardsToMatch = matchCount
         let points = TestGameFactory().makeGamePointsConfiguration()
-        let expectedScore = game.score - points.choosePenalty * matchCount + Int(points.partialMatchMultiplier * Double(points.suitMatchReward)) + game.difficultyBonus()
+        let expectedScore = game.score + points.choosePenalty * matchCount + Int(points.partialMatchMultiplier * Double(points.suitMatchReward)) + game.difficultyBonus()
 
         0.upto(2) { game.chooseCardWithNumber($0) }
 
@@ -340,6 +340,6 @@ class TestGameFactory {
     }
 
     func makeGamePointsConfiguration() -> PointsConfiguration {
-        return PointsConfiguration(choosePenalty: 1, suitMatchReward: 4, rankMatchReward: 16, mismatchPenalty: 2, partialMatchMultiplier: 0.5)
+        return PointsConfiguration(choosePenalty: -1, suitMatchReward: 4, rankMatchReward: 16, mismatchPenalty: -2, partialMatchMultiplier: 0.5)
     }
 }

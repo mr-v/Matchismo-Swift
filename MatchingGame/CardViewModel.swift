@@ -120,11 +120,11 @@ class CardViewModel {
             text  = cardDescriptionsForIndexes(currentStats.currentlyChosen)
         case .Match:
             let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
-            let points = currentStats.score - lastActionStatistics.score + game.pointsConfiguration.choosePenalty
+            let points = currentStats.score - lastActionStatistics.score - game.pointsConfiguration.choosePenalty
             text = "Matched \(cardDescriptions) for \(points)"
         case .Mismatch:
             let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
-            let points = abs(currentStats.score - lastActionStatistics.score + game.pointsConfiguration.choosePenalty)
+            let points = abs(currentStats.score - lastActionStatistics.score - game.pointsConfiguration.choosePenalty)
             text = "\(cardDescriptions) don't match! \(points) points penalty!"
         default:
             fatalError("missing case")

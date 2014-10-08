@@ -16,9 +16,12 @@ struct PointsConfiguration {
     let partialMatchMultiplier: Double
 }
 
-// ChoosePointsConfiguration
+protocol Matchable {
+    func match() -> (success: Bool, points: Int)
+}
 
-class MatchingGame {
+class MatchingGame: Matchable {
+//    private matcher: Matchable
     internal private(set) var score: Int
     var numberOfCards: Int {
         get { return cards.count }
@@ -34,29 +37,57 @@ class MatchingGame {
     internal let pointsConfiguration: PointsConfiguration
     var chosenCardsIndexes: [Int: Bool]
     var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
-
     private var cards: [PlayingCard]
-
 
     init(configuration: PointsConfiguration, numberOfCardsToMatch: Int) {
         score = 0
         cards = []
+
         chosenCardsIndexes =  [Int: Bool]()
         matchedCardsIndexes = [Int: Bool]()
         pointsConfiguration = configuration
         self.numberOfCardsToMatch = numberOfCardsToMatch
     }
 
-    func match() -> Bool {
-        fatalError("need to implement \"match\" methond in a \(self.self)")
-    }
+    func chooseCardWithNumber(number: Int) {
+        if isCardMatched(number) {
+            return
+        }
 
-    func mismatch() {
-        fatalError("need to implement \"mismatch\" methond in a \(self.self)")
+        flipCard(number)
+        if !isCardChosen(number) {
+            chosenCardsIndexes.removeValueForKey(number)
+            return
+        }
+
+        score += pointsConfiguration.choosePenalty
+        chosenCardsIndexes[number] = true
+
+        let enoughCardsToCheckMatch = chosenCardsIndexes.count == numberOfCardsToMatch
+        if !enoughCardsToCheckMatch {
+            return
+        }
+
+        let (success, points) = match()
+        if success {
+            score += points
+            for (number, _) in chosenCardsIndexes {
+                matchedCardsIndexes[number] = true
+            }
+            chosenCardsIndexes.removeAll(keepCapacity: true)
+        } else {
+            score += pointsConfiguration.mismatchPenalty
+            chosenCardsIndexes.removeAll(keepCapacity: true)
+            chosenCardsIndexes[number] = true
+        }
     }
 
     func isCardChosen(number: Int) -> Bool {
         return chosenCardsIndexes[number] != nil
+    }
+
+    func isCardMatched(number: Int) -> Bool {
+        return matchedCardsIndexes[number] != nil
     }
 
     func flipCard(number: Int) {
@@ -67,36 +98,14 @@ class MatchingGame {
         }
     }
 
-    func chooseCardWithNumber(number: Int) {
-        let alreadyMatched = matchedCardsIndexes[number] != nil
-        if alreadyMatched {
-            return
-        }
 
-        flipCard(number)
-        if !isCardChosen(number) {
-            chosenCardsIndexes.removeValueForKey(number)
-            return
-        }
-
-        score -= pointsConfiguration.choosePenalty
-        chosenCardsIndexes[number] = true
-
-        let enoughCardsToCheckMatch = chosenCardsIndexes.count == numberOfCardsToMatch
-        if !enoughCardsToCheckMatch {
-            return
-        }
-
-        let success = match()
-        if !success {
-            mismatch()
-            chosenCardsIndexes.removeAll(keepCapacity: true)
-            chosenCardsIndexes[number] = true
-        }
-    }
-
+    // MARK: - to be delegated
     func printableForCardWithNumber(number: Int) -> Printable {
         return cards[number]
+    }
+
+    func match() -> (success: Bool, points: Int) {
+        return (true, 0)
     }
 
 }
@@ -115,7 +124,7 @@ class PlayingCardMatchingGame : MatchingGame {
         }
     }
 
-    override func match() -> Bool {
+    override func match() -> (Bool, Int) {
         // allow partial matching
         var currentlyChosen: [PlayingCard] = chosenCardsIndexes.keys.array.map{ self.cards[$0] }
         var rankMatches = [Rank: Int]()
@@ -127,46 +136,33 @@ class PlayingCardMatchingGame : MatchingGame {
         let rankMatchesMax = maxElement(rankMatches.values)
         let suitMatchesMax = maxElement(suitMatches.values)
         let ignorePartialMatches = numberOfCardsToMatch < 3
+        var reward: Int?
         switch (suitMatchesMax, rankMatchesMax) {
         case let (_, r) where r == numberOfCardsToMatch:
-            rewardMatchWithBonus(pointsConfiguration.rankMatchReward)
+            reward = rewardMatchWithBonus(pointsConfiguration.rankMatchReward)
 
         case let (s, _) where s == numberOfCardsToMatch:
-            rewardMatchWithBonus(pointsConfiguration.suitMatchReward)
+            reward = rewardMatchWithBonus(pointsConfiguration.suitMatchReward)
 
         case let (_, r) where r == numberOfCardsToMatch - 1 && !ignorePartialMatches:
-            rewardPartialMatch(pointsConfiguration.rankMatchReward)
+            reward = rewardPartialMatch(pointsConfiguration.rankMatchReward)
 
         case let (s, _) where s == numberOfCardsToMatch - 1 && !ignorePartialMatches:
-            rewardPartialMatch(pointsConfiguration.suitMatchReward)
+            reward = rewardPartialMatch(pointsConfiguration.suitMatchReward)
         default:
-            return false
+            return (false, 0)
         }
 
-
-        return true
+        return (true, reward!)
     }
 
-    override func mismatch() {
-        score -= pointsConfiguration.mismatchPenalty
-    }
-
-    func rewardPartialMatch(originalReward: Int) {
+    func rewardPartialMatch(originalReward: Int) -> Int {
         let reward = Int(Double(originalReward) * pointsConfiguration.partialMatchMultiplier)
-        rewardMatchWithBonus(reward)
+        return rewardMatchWithBonus(reward)
     }
 
-    func rewardMatchWithBonus(reward: Int) {
-        rewardMatch(reward + difficultyBonus())
-    }
-
-    func rewardMatch(reward: Int) {
-        score += reward
-
-        for (number, _) in chosenCardsIndexes {
-            matchedCardsIndexes[number] = true
-        }
-        chosenCardsIndexes.removeAll(keepCapacity: true)
+    func rewardMatchWithBonus(reward: Int) -> Int {
+        return reward + difficultyBonus()
     }
 
     func difficultyBonus() -> Int {

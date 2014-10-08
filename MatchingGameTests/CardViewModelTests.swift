@@ -166,7 +166,7 @@ class CardViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let mismatchedCardsText = viewModel.lastActionText()
-        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(points) points penalty!", "")
+        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(abs(points)) points penalty!", "")
     }
 
     func test_lastActionText_FullyFlippingCard_ReturnsEmptyText() {
