@@ -8,23 +8,35 @@
 
 import Foundation
 
-struct PointsConfiguration {
-    let choosePenalty: Int
-    let suitMatchReward: Int
-    let rankMatchReward: Int
-    let mismatchPenalty: Int
+
+// defines API for matchable games
+protocol Matchable {
+    var numberOfCards: Int { get }
+    func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int)
+    func redeal()
+    func printableForCardWithNumber(number: Int) -> Printable
+}
+
+
+struct PlayingCardRewardPointConfiguration {
+    let suitReward: Int
+    let rankReward: Int
     let partialMatchMultiplier: Double
 }
 
-protocol Matchable {
-    func match() -> (success: Bool, points: Int)
+
+struct PenaltyPointConfiguration {
+    let choosePenalty: Int
+    let mismatchPenalty: Int
 }
 
-class MatchingGame: Matchable {
-//    private matcher: Matchable
+
+// tracks picking cards and score
+class MatchingGame {
+    private var matcher: Matchable
     internal private(set) var score: Int
     var numberOfCards: Int {
-        get { return cards.count }
+        get { return matcher.numberOfCards }
     }
     var numberOfCardsToMatch: Int {
         didSet {
@@ -34,19 +46,24 @@ class MatchingGame: Matchable {
             }
         }
     }
-    internal let pointsConfiguration: PointsConfiguration
+    internal let pointsConfiguration: PenaltyPointConfiguration
     var chosenCardsIndexes: [Int: Bool]
     var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
-    private var cards: [PlayingCard]
 
-    init(configuration: PointsConfiguration, numberOfCardsToMatch: Int) {
-        score = 0
-        cards = []
-
-        chosenCardsIndexes =  [Int: Bool]()
-        matchedCardsIndexes = [Int: Bool]()
+    init(matcher: Matchable, configuration: PenaltyPointConfiguration, numberOfCardsToMatch: Int) {
+        self.matcher = matcher
         pointsConfiguration = configuration
         self.numberOfCardsToMatch = numberOfCardsToMatch
+        score = 0
+        chosenCardsIndexes =  [Int: Bool]()
+        matchedCardsIndexes = [Int: Bool]()
+    }
+
+    func redeal() {
+        score = 0
+        chosenCardsIndexes.removeAll(keepCapacity: true)
+        matchedCardsIndexes.removeAll(keepCapacity: true)
+        matcher.redeal()
     }
 
     func chooseCardWithNumber(number: Int) {
@@ -68,7 +85,7 @@ class MatchingGame: Matchable {
             return
         }
 
-        let (success, points) = match()
+        let (success, points) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: chosenCardsIndexes.keys.array)
         if success {
             score += points
             for (number, _) in chosenCardsIndexes {
@@ -90,82 +107,15 @@ class MatchingGame: Matchable {
         return matchedCardsIndexes[number] != nil
     }
 
-    func flipCard(number: Int) {
+    func printableForCardWithNumber(number: Int) -> Printable {
+        return matcher.printableForCardWithNumber(number)
+    }
+
+    private func flipCard(number: Int) {
         if isCardChosen(number) {
             chosenCardsIndexes.removeValueForKey(number)
         } else {
             chosenCardsIndexes[number] = true
         }
-    }
-
-
-    // MARK: - to be delegated
-    func printableForCardWithNumber(number: Int) -> Printable {
-        return cards[number]
-    }
-
-    func match() -> (success: Bool, points: Int) {
-        return (true, 0)
-    }
-
-}
-
-class PlayingCardMatchingGame : MatchingGame {
-
-    init(configuration: PointsConfiguration, numberOfCards: Int, numberOfCardsToMatch: Int = 2, deck d: Deck = Deck()) {
-        super.init(configuration: configuration, numberOfCardsToMatch: numberOfCardsToMatch)
-
-        var deck = d
-        numberOfCards.times {
-            if deck.isEmpty {
-                deck = Deck()
-            }
-            self.cards.append(deck.drawACard())
-        }
-    }
-
-    override func match() -> (Bool, Int) {
-        // allow partial matching
-        var currentlyChosen: [PlayingCard] = chosenCardsIndexes.keys.array.map{ self.cards[$0] }
-        var rankMatches = [Rank: Int]()
-        var suitMatches = [Suit: Int]()
-        for card in currentlyChosen {
-            rankMatches[card.rank] = rankMatches[card.rank]?.advancedBy(1) ?? 1
-            suitMatches[card.suit] = suitMatches[card.suit]?.advancedBy(1) ?? 1
-        }
-        let rankMatchesMax = maxElement(rankMatches.values)
-        let suitMatchesMax = maxElement(suitMatches.values)
-        let ignorePartialMatches = numberOfCardsToMatch < 3
-        var reward: Int?
-        switch (suitMatchesMax, rankMatchesMax) {
-        case let (_, r) where r == numberOfCardsToMatch:
-            reward = rewardMatchWithBonus(pointsConfiguration.rankMatchReward)
-
-        case let (s, _) where s == numberOfCardsToMatch:
-            reward = rewardMatchWithBonus(pointsConfiguration.suitMatchReward)
-
-        case let (_, r) where r == numberOfCardsToMatch - 1 && !ignorePartialMatches:
-            reward = rewardPartialMatch(pointsConfiguration.rankMatchReward)
-
-        case let (s, _) where s == numberOfCardsToMatch - 1 && !ignorePartialMatches:
-            reward = rewardPartialMatch(pointsConfiguration.suitMatchReward)
-        default:
-            return (false, 0)
-        }
-
-        return (true, reward!)
-    }
-
-    func rewardPartialMatch(originalReward: Int) -> Int {
-        let reward = Int(Double(originalReward) * pointsConfiguration.partialMatchMultiplier)
-        return rewardMatchWithBonus(reward)
-    }
-
-    func rewardMatchWithBonus(reward: Int) -> Int {
-        return reward + difficultyBonus()
-    }
-
-    func difficultyBonus() -> Int {
-        return 4 * (numberOfCardsToMatch - 2)/2
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CardViewModelTests.swift
+//  GameViewModelTests.swift
 //  MatchingGame
 //
 //  Created by Witold Skibniewski on 26/09/14.
@@ -8,7 +8,7 @@
 
 import XCTest
 
-extension CardViewModel {
+extension GameViewModel {
     var score: Int {
         get { return game.score }
     }
@@ -25,10 +25,10 @@ extension CardViewModel {
 
 // MARK: -
 
-class CardViewModelTests: XCTestCase {
+class GameViewModelTests: XCTestCase {
 
     func test_scoreText_AfterInitialization_TextWithDefaultScore() {
-        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGame())
+        let viewModel = makeGameViewModel(makePlayingCardMatchingGame())
 
         let text = viewModel.scoreText
 
@@ -36,8 +36,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsMatched() {
-        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
-        let viewModel = makeCardViewModel(game)
+        let game = makeGameWithFirstTwoCardsMatchingWithRanks()
+        let viewModel = makeGameViewModel(game)
 
         0.upto(1) { game.chooseCardWithNumber($0) }
 
@@ -46,8 +46,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_currentlyAvailableCardsNumbers_AfterMatch_DoesntContainMatchedCardsNumbers() {
-        let game = TestGameFactory().makeGameWithFirstTwoCardsMatchingWithRanks()
-        let viewModel = makeCardViewModel(game)
+        let game = makeGameWithFirstTwoCardsMatchingWithRanks()
+        let viewModel = makeGameViewModel(game)
 
         0.upto(1) { game.chooseCardWithNumber($0) }
 
@@ -57,8 +57,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_currentlyAvailableCardsNumbers_AfterMismatch_ContainsNumberOfTheFirstChosenCard() {
-        let game = TestGameFactory().makeGameWithFirstThreeMismatchedCards()
-        let viewModel = makeCardViewModel(game)
+        let game = makeGameWithFirstThreeMismatchedCards()
+        let viewModel = makeGameViewModel(game)
 
         0.upto(1) { game.chooseCardWithNumber($0) }
 
@@ -70,8 +70,8 @@ class CardViewModelTests: XCTestCase {
 
     func test_textForCardWithNumber_Called_ProperlyFormattedText() {
         let card = PlayingCard(suit: .Hearts, rank: .Ace)
-        let game = TestGameFactory().makeGameWithCard(card)
-        let viewModel = makeCardViewModel(game)
+        let game = makeGameWithCard(card)
+        let viewModel = makeGameViewModel(game)
         let expected = "A♥"
 
         let title = viewModel.textForCardWithNumber(0)
@@ -80,7 +80,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_RestartsGame() {
-        let viewModel = makeCardViewModel(TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits())
+        let viewModel = makeGameViewModel(makeGameWithFirstThreeCardsMatchingWithSuits())
 
         1.upto(3) { viewModel.chooseCardWithNumber($0) }
         let scoreAfterMismatch = viewModel.score
@@ -93,8 +93,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_NumberOfCardsToMatchIsKept() {
-        let game = TestGameFactory().makePlayingCardMatchingGame()
-        let viewModel = makeCardViewModel(game)
+        let game = makePlayingCardMatchingGame()
+        let viewModel = makeGameViewModel(game)
 
         let newSetting = game.numberOfCardsToMatch + 1
         game.numberOfCardsToMatch = newSetting
@@ -106,8 +106,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_changeModeWithNumberOfCardsToMatch_UpdatesGame() {
-        let game = TestGameFactory().makePlayingCardMatchingGame()
-        let viewModel = makeCardViewModel(game)
+        let game = makePlayingCardMatchingGame()
+        let viewModel = makeGameViewModel(game)
         let expected = game.numberOfCardsToMatch + 1
 
         viewModel.changeModeWithNumberOfCardsToMatch(expected)
@@ -117,8 +117,8 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_lastActionText_ByDefault_ReturnsEmptyText() {
-        let game = TestGameFactory().makePlayingCardMatchingGame()
-        let viewModel = makeCardViewModel(game)
+        let game = makePlayingCardMatchingGame()
+        let viewModel = makeGameViewModel(game)
 
         let emptyText = viewModel.lastActionText()
         XCTAssertEqual(emptyText, "", "")
@@ -126,8 +126,8 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingSingleCard_ReturnsTextWithItsTitle() {
         let card = PlayingCard(suit: .Hearts, rank: .Ace)
-        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: [card])
-        let viewModel = makeCardViewModel(game)
+        let game = makePlayingCardMatchingGameWithStubDeck(cards: [card])
+        let viewModel = makeGameViewModel(game)
 
         viewModel.chooseCardWithNumber(0)
 
@@ -137,9 +137,9 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingTwoCardInMultiMatchMode_ReturnsTextWithTheirTitle() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
-        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards)
+        let game = makePlayingCardMatchingGameWithStubDeck(cards: cards)
         game.numberOfCardsToMatch = 3
-        let viewModel = makeCardViewModel(game)
+        let viewModel = makeGameViewModel(game)
 
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
@@ -149,28 +149,26 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_PickingTwoMatchingCardInTwoMatchMode_ReturnsTextWithMatchedText() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Hearts, rank: .Ten)]
-        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards))
-        let points = TestGameFactory().makeGamePointsConfiguration().suitMatchReward
+        let viewModel = makeGameViewModel (makePlayingCardMatchingGameWithStubDeck(cards: cards))
 
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let matchedCardsText = viewModel.lastActionText()
-        XCTAssertEqual(matchedCardsText, "Matched A♥, 10♥ for \(points)", "")
+        XCTAssertEqual(matchedCardsText, "Matched A♥, 10♥ for \(suitReward)", "")
     }
 
     func test_lastActionText_PickingMismatchedCardsInTwoMatchMode_ReturnsTextWithMismatchPenalty() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
-        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards))
-        let points = TestGameFactory().makeGamePointsConfiguration().mismatchPenalty
+        let viewModel = makeGameViewModel(makePlayingCardMatchingGameWithStubDeck(cards: cards))
 
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let mismatchedCardsText = viewModel.lastActionText()
-        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(abs(points)) points penalty!", "")
+        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(abs(mismatchPenalty)) points penalty!", "")
     }
 
     func test_lastActionText_FullyFlippingCard_ReturnsEmptyText() {
-        let viewModel = makeCardViewModel(TestGameFactory().makePlayingCardMatchingGame())
+        let viewModel = makeGameViewModel(makePlayingCardMatchingGame())
         let expected = ""
 
         2.times { viewModel.chooseCardWithNumber(0) }
@@ -181,9 +179,9 @@ class CardViewModelTests: XCTestCase {
 
     func test_lastActionText_FullyFlippingCardAndFlippingUpSecondCardInTwoMatchMode_ReturnsTextWithCurrenltyFlippedCard() {
         let cards = [PlayingCard(suit: .Hearts, rank: .Ace), PlayingCard(suit: .Spades, rank: .Ten)]
-        let game = TestGameFactory().makePlayingCardMatchingGameWithStubDeck(cards: cards)
+        let game = makePlayingCardMatchingGameWithStubDeck(cards: cards)
         game.numberOfCardsToMatch = 3
-        let viewModel = makeCardViewModel(game)
+        let viewModel = makeGameViewModel(game)
         let expected = "10♠"
 
         viewModel.chooseCardWithNumber(1)
@@ -194,7 +192,7 @@ class CardViewModelTests: XCTestCase {
     }
 
     func test_redeal_ResetsStatistics() {
-        let viewModel = makeCardViewModel(TestGameFactory().makeGameWithFirstThreeCardsMatchingWithSuits())
+        let viewModel = makeGameViewModel(makeGameWithFirstThreeCardsMatchingWithSuits())
         let cleanStats = viewModel.currentlyAvailableCardsNumbers()
 
         3.times{ viewModel.chooseCardWithNumber($0) }
@@ -206,8 +204,8 @@ class CardViewModelTests: XCTestCase {
 
     // MARK:
 
-    func makeCardViewModel(game: PlayingCardMatchingGame) -> CardViewModel  {
-        return CardViewModel(game: game)
+    func makeGameViewModel(game: MatchingGame) -> GameViewModel  {
+        return GameViewModel(game: game)
     }
 }
 

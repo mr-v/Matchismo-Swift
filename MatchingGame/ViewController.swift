@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var matchModeControl: UISegmentedControl!
     var collectionDataSource: PlayingCardMatchingGameDataSource!
     var collectionDelegate: PlayingCardMatchingGameDelegate!
-    var viewModel:CardViewModel!
+    var viewModel:GameViewModel!
 
 
     override func viewDidLoad() {

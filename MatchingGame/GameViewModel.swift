@@ -1,5 +1,5 @@
 //
-//  CardViewModel.swift
+//  GameViewModel.swift
 //  MatchingGame
 //
 //  Created by Witold Skibniewski on 26/09/14.
@@ -64,7 +64,7 @@ private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
 }
 
 
-class CardViewModel {
+class GameViewModel {
     var game: MatchingGame
 
     var scoreText: String {
@@ -75,7 +75,7 @@ class CardViewModel {
     }
     private var lastActionStatistics: GameStatistics
 
-    init(game: PlayingCardMatchingGame) {
+    init(game: MatchingGame) {
         self.game = game
         lastActionStatistics = GameStatistics()
     }
@@ -103,7 +103,7 @@ class CardViewModel {
     }
 
     func redeal() {
-        game = PlayingCardMatchingGame(configuration: game.pointsConfiguration, numberOfCards: numberOfCards, numberOfCardsToMatch: game.numberOfCardsToMatch)
+        game.redeal()
         lastActionStatistics = GameStatistics()
     }
 
@@ -133,7 +133,7 @@ class CardViewModel {
     }
 
     func isCardMatched(number: Int) -> Bool {
-        return game.matchedCardsIndexes[number] != nil
+        return game.isCardMatched(number)
     }
 
     func isCardChosen(number: Int) -> Bool {

@@ -17,9 +17,9 @@ import UIKit
 
 class PlayingCardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     let cellReuseId = "CardCell"
-    private let viewModel: CardViewModel
+    private let viewModel: GameViewModel
 
-    init(viewModel: CardViewModel) {
+    init(viewModel: GameViewModel) {
         self.viewModel = viewModel
         super.init()
     }
