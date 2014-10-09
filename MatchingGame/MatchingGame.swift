@@ -17,13 +17,6 @@ protocol Matcher {
 }
 
 
-struct PlayingCardRewardPointConfiguration {
-    let suitReward: Int
-    let rankReward: Int
-    let partialMatchMultiplier: Double
-}
-
-
 struct PenaltyPointConfiguration {
     let choosePenalty: Int
     let mismatchPenalty: Int

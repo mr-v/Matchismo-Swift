@@ -26,6 +26,15 @@ class Deck<T> {
         return elements.removeLast()
     }
 
+    func drawElementsWithCount(count: Int) -> [T] {
+        if count > elements.count {
+            fatalError("count out of bounds")
+        }
+
+        let startIndex = elements.count - count
+        return reverse(elements[startIndex..<elements.count])
+    }
+
     func redeal() {
         elements = createElements()
         shuffle(&elements)
@@ -61,18 +70,45 @@ class PlayingCardFullDeckBuilder {
     }
 }
 
+class SetCardFullDeckBuilder {
+    private let buildClosure: () -> [SetCard]
+
+    init() {
+        buildClosure = {
+            var cards = [SetCard]()
+            let numbers: [SetNumber] = [ .One, .Two, .Three]
+            let symbols: [SetSymbol] = [ .Diamond, .Oval, .Squiggle]
+            let shadings: [SetShading] = [.Solid, .Striped, .Open]
+            let colors: [SetColor] = [.Red, .Green, .Purple]
+            for n in numbers {
+                for s in symbols {
+                    for sh in shadings {
+                        for c in colors {
+                            cards.append(SetCard(number: n, symbol: s, shading: sh, color: c))
+                        }
+                    }
+                }
+            }
+            return cards
+        }
+    }
+
+    func build() -> Deck<SetCard> {
+        return Deck<SetCard>(createElements: buildClosure)
+    }
+}
 
 // MARK: - for stubbing purposes
 
-class PlayingCardCustomNonShufflingDeckBuilder {
-    private let buildClosure: () -> [PlayingCard]
+class NonShufflingDeckBuilder<T> {
+    private let buildClosure: () -> [T]
 
-    init(cards: [PlayingCard]) {
+    init(cards: [T]) {
         buildClosure = { return reverse(cards) }    // reverse because deck draws elements from the back
     }
 
-    func build() -> Deck<PlayingCard> {
-        return NonShufflingDeck<PlayingCard>(createElements: buildClosure)
+    func build() -> Deck<T> {
+        return NonShufflingDeck<T>(createElements: buildClosure)
     }
 }
 
@@ -82,5 +118,9 @@ class NonShufflingDeck<T> : Deck<T> {
     }
 
     private override func shuffle<T>(inout array: Array<T>) {
+    }
+
+    override func drawElementsWithCount(count: Int) -> [T] {
+        return reverse(elements[0..<elements.count])
     }
 }

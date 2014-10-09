@@ -34,8 +34,8 @@ func makePlayingCardMatchingGameWithStubDeck(cards c: [PlayingCard]) -> Matching
     return makePlayingCardMatchingGame(numberOfCards: c.count, deck: stubDeck)
 }
 
-private func makeStubDeck(cards c: [PlayingCard]) -> Deck<PlayingCard> {
-    return PlayingCardCustomNonShufflingDeckBuilder(cards: c).build()
+func makeStubDeck<T>(cards c: [T]) -> Deck<T> {
+    return NonShufflingDeckBuilder(cards: c).build()
 }
 
 func makePlayingCardMatchingGame(numberOfCards: Int = 52, deck: Deck<PlayingCard> = PlayingCardFullDeckBuilder().build()) -> MatchingGame {

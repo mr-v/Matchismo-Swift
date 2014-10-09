@@ -27,11 +27,6 @@ struct PlayingCard: Hashable {
     let suit: Suit
     let rank: Rank
 
-    init(suit: Suit, rank: Rank) {
-        self.suit = suit
-        self.rank = rank
-    }
-
     var hashValue: Int {
         return (String(rank.rawValue) + suit.rawValue).hashValue
     }

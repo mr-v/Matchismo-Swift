@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct PlayingCardRewardPointConfiguration {
+    let suitReward: Int
+    let rankReward: Int
+    let partialMatchMultiplier: Double
+}
+
 class PlayingCardMatcher: Matcher {
     private var cards: [PlayingCard]
     private var rewardConfiguration: PlayingCardRewardPointConfiguration
