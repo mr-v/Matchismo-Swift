@@ -17,8 +17,8 @@ class PlayingCardSymbolPrinter: CardSymbolPrinter {
     private let letterMapping: [Rank: String] = [.Ace: "A", .Jack: "J", .Queen: "Q", .King: "K"]
     private  let matcher: PlayingCardMatcher
 
-    init(matchable: PlayingCardMatcher) {
-        matcher = matchable
+    init(matcher: PlayingCardMatcher) {
+        self.matcher = matcher
     }
 
     func attributtedStringForCardWithNumber(number: Int) -> NSAttributedString {

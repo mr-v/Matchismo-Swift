@@ -58,7 +58,7 @@ func makeGameViewModelWithPlayingCardsGame(cards: [PlayingCard]) -> GameViewMode
     let deck = !cards.isEmpty ? makeStubDeck(cards: cards) : PlayingCardFullDeckBuilder().build()
     let playingCardMatcher = PlayingCardMatcher(numberOfCards: cards.count, rewardConfiguration: playingCardGamePoints, deck: deck)
     let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
-    return GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matchable: playingCardMatcher))
+    return GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matcher: playingCardMatcher))
 }
 
 // MARK: - points

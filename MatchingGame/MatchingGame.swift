@@ -10,7 +10,7 @@ import Foundation
 
 
 // defines API for matchable games
-protocol Matchable {
+protocol Matcher {
     var numberOfCards: Int { get }
     func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int)
     func redeal()
@@ -32,7 +32,7 @@ struct PenaltyPointConfiguration {
 
 // tracks picking cards and score
 class MatchingGame {
-    private var matcher: Matchable
+    private var matcher: Matcher
     internal private(set) var score: Int
     var numberOfCards: Int {
         get { return matcher.numberOfCards }
@@ -49,7 +49,7 @@ class MatchingGame {
     var chosenCardsIndexes: [Int: Bool]
     var matchedCardsIndexes: [Int: Bool]    // leave as internal - will be visible to ViewModels but hidden from application if wrapped up in a framework
 
-    init(matcher: Matchable, configuration: PenaltyPointConfiguration, numberOfCardsToMatch: Int) {
+    init(matcher: Matcher, configuration: PenaltyPointConfiguration, numberOfCardsToMatch: Int) {
         self.matcher = matcher
         pointsConfiguration = configuration
         self.numberOfCardsToMatch = numberOfCardsToMatch

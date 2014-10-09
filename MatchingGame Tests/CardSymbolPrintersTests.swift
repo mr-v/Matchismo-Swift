@@ -65,8 +65,8 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
 
 
     func makePrinterWithCards(cards: [PlayingCard]) -> PlayingCardSymbolPrinter {
-        let matchable = makePlayingCardMatcher(cards)
-        return PlayingCardSymbolPrinter(matchable: matchable)
+        let matcher = makePlayingCardMatcher(cards)
+        return PlayingCardSymbolPrinter(matcher: matcher)
     }
 }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlayingCardMatcher: Matchable {
+class PlayingCardMatcher: Matcher {
     private var cards: [PlayingCard]
     private var rewardConfiguration: PlayingCardRewardPointConfiguration
     private(set) var numberOfCards: Int

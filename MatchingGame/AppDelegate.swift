@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let deck = PlayingCardFullDeckBuilder().build()
         let playingCardMatcher = PlayingCardMatcher(numberOfCards: 30, rewardConfiguration: playingCardGamePoints, deck: deck)
         let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
-        let vm = GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matchable: playingCardMatcher))
+        let vm = GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matcher: playingCardMatcher))
         let vc = window!.rootViewController as ViewController
         vc.viewModel = vm
 
