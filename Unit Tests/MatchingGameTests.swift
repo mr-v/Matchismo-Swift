@@ -55,15 +55,6 @@ class PlayingCardMatchingGameTests: XCTestCase {
         XCTAssertEqual(newScore, expected, "")
     }
 
-    func test_PlayingCardMatchingGame_Initializes_WithProperNumberOfCards() {
-        let numberOfCardsToCreate = 60
-        let game = makePlayingCardMatchingGame(cardCount: numberOfCardsToCreate)
-
-        let numberOfCards = game.numberOfCards
-
-        XCTAssertEqual(numberOfCards, numberOfCardsToCreate, "")
-    }
-
     func test_chooseCardWithNumber_PickingChosenCard_AppliesNoPenalty() {
         let game = makePlayingCardMatchingGame()
 

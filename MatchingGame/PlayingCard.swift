@@ -41,33 +41,3 @@ struct PlayingCard: Hashable {
 func == (lhs: PlayingCard, rhs: PlayingCard) -> Bool {
     return lhs.suit == rhs.suit && lhs.rank == rhs.rank
 }
-
-// MARK - Deck
-
-class Deck {
-    var isEmpty: Bool {
-        get {
-            return cards.isEmpty
-        }
-    }
-    private var cards: [PlayingCard]
-    internal let initialNumberOfCards = 52
-
-    init() {
-        cards = [PlayingCard]()
-
-        let allSuits: [Suit] = [.Hearts, .Spades, .Diamonds, .Clubs]
-        for i in Rank.Ace.rawValue...Rank.King.rawValue {
-            cards += allSuits.map { PlayingCard(suit: $0, rank: Rank(rawValue: i)!) }
-        }
-    }
-
-    func drawACard() -> PlayingCard! {
-        if isEmpty {
-            return nil
-        }
-
-        let index = arc4random_uniform(CUnsignedInt(cards.count))
-        return cards.removeAtIndex(Int(index))
-    }
-}

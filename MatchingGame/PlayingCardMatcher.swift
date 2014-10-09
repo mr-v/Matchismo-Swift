@@ -12,18 +12,14 @@ class PlayingCardMatcher: Matchable {
     private var cards: [PlayingCard]
     private var rewardConfiguration: PlayingCardRewardPointConfiguration
     private(set) var numberOfCards: Int
+    private let deck: Deck<PlayingCard>
 
-    init(numberOfCards: Int, rewardConfiguration: PlayingCardRewardPointConfiguration, deck d: Deck = Deck() ) {
+    init(numberOfCards: Int, rewardConfiguration: PlayingCardRewardPointConfiguration, deck: Deck<PlayingCard> ) {
         cards = []
+        self.deck = deck
         self.rewardConfiguration = rewardConfiguration
         self.numberOfCards = numberOfCards
-        var deck = d
-        numberOfCards.times {
-            if deck.isEmpty {
-                deck = Deck()
-            }
-            self.cards.append(deck.drawACard())
-        }
+        numberOfCards.times { self.cards.append(deck.drawElement()) }
     }
 
     func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int) {
@@ -61,7 +57,9 @@ class PlayingCardMatcher: Matchable {
 
 
     func redeal() {
-
+        deck.redeal()
+        cards.removeAll(keepCapacity: true)
+        numberOfCards.times { self.cards.append(self.deck.drawElement()) }
     }
 
     func cardWithNumber(number: Int) -> PlayingCard {

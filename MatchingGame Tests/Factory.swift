@@ -29,44 +29,23 @@ func makeGameWithCard(card: PlayingCard) -> MatchingGame {
     return makePlayingCardMatchingGameWithStubDeck(cards: [card])
 }
 
-func makePlayingCardMatchingGameWithStubDeck(cards c: [PlayingCard], cardCount: Int = 12) -> MatchingGame {
+func makePlayingCardMatchingGameWithStubDeck(cards c: [PlayingCard]) -> MatchingGame {
     let stubDeck = makeStubDeck(cards: c)
-    return makePlayingCardMatchingGame(cardCount: cardCount, numberOfcardsToMatch: 2, deck: stubDeck)
+    return makePlayingCardMatchingGame(numberOfCards: c.count, deck: stubDeck)
 }
 
-private func makeStubDeck(cards c: [PlayingCard]) -> Deck {
-    return InfiniteStubDeck(cards: c)
+private func makeStubDeck(cards c: [PlayingCard]) -> Deck<PlayingCard> {
+    return PlayingCardCustomNonShufflingDeckBuilder(cards: c).build()
 }
 
-private class InfiniteStubDeck: Deck {
-    override var isEmpty: Bool {
-        get {
-            return false
-        }
-    }
-    let stubCards: [PlayingCard]
-    var index: Int = 0
+func makePlayingCardMatchingGame(numberOfCards: Int = 52, deck: Deck<PlayingCard> = PlayingCardFullDeckBuilder().build()) -> MatchingGame {
+    let playingCardMatcher = PlayingCardMatcher(numberOfCards: numberOfCards, rewardConfiguration: makePlayingCardRewardPointConfiguration(), deck: deck)
 
-    init(cards: [PlayingCard]) {
-        stubCards = cards
-    }
-
-    override func drawACard() -> PlayingCard! {
-        let card = stubCards[index]
-        ++index
-        index %= stubCards.count
-        return card
-    }
-}
-
-func makePlayingCardMatchingGame(cardCount: Int = 12, numberOfcardsToMatch: Int = 2, deck: Deck = Deck()) -> MatchingGame {
-    let playingCardMatcher = PlayingCardMatcher(numberOfCards: cardCount, rewardConfiguration: makePlayingCardRewardPointConfiguration(), deck: deck)
-
-    return MatchingGame(matcher: playingCardMatcher, configuration: makePenaltyPointConfiguration(), numberOfCardsToMatch: numberOfcardsToMatch)
+    return MatchingGame(matcher: playingCardMatcher, configuration: makePenaltyPointConfiguration(), numberOfCardsToMatch: 2)
 }
 
 func makePlayingCardMatcher(cards: [PlayingCard]) -> PlayingCardMatcher {
-    return PlayingCardMatcher(numberOfCards: 12, rewardConfiguration: makePlayingCardRewardPointConfiguration(), deck: makeStubDeck(cards: cards))
+    return PlayingCardMatcher(numberOfCards: cards.count, rewardConfiguration: makePlayingCardRewardPointConfiguration(), deck: makeStubDeck(cards: cards))
 }
 
 func makeGameViewModelWithPlayingCardsGame() -> GameViewModel  {
@@ -76,8 +55,8 @@ func makeGameViewModelWithPlayingCardsGame() -> GameViewModel  {
 func makeGameViewModelWithPlayingCardsGame(cards: [PlayingCard]) -> GameViewModel  {
     let matchPoints = PenaltyPointConfiguration(choosePenalty: choosePenalty, mismatchPenalty: mismatchPenalty)
     let playingCardGamePoints = PlayingCardRewardPointConfiguration(suitReward: suitReward, rankReward: rankReward, partialMatchMultiplier: partialMatchMultiplier)
-    let deck = !cards.isEmpty ? makeStubDeck(cards: cards) : Deck()
-    let playingCardMatcher = PlayingCardMatcher(numberOfCards: 30, rewardConfiguration: playingCardGamePoints, deck: deck)
+    let deck = !cards.isEmpty ? makeStubDeck(cards: cards) : PlayingCardFullDeckBuilder().build()
+    let playingCardMatcher = PlayingCardMatcher(numberOfCards: cards.count, rewardConfiguration: playingCardGamePoints, deck: deck)
     let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
     return GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matchable: playingCardMatcher))
 }
