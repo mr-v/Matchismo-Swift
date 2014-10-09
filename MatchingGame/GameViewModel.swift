@@ -8,28 +8,6 @@
 
 import Foundation
 
-// MARK: Extensions
-
-extension PlayingCard: Printable {
-    var description: String {
-        get {
-            let letterMapping: [Rank: String] = [.Ace: "A", .Jack: "J", .Queen: "Q", .King: "K"]
-
-            var rankText: String
-            switch letterMapping[rank] {
-            case nil:
-                rankText = String(rank.rawValue)
-            case let mappedText:
-                rankText = mappedText!
-            }
-            let s = suit.rawValue
-            return rankText + s
-        }
-    }
-}
-
-// MARK:
-
 private struct GameStatistics: Equatable {
     enum StatisticsComparisonResult {
         case FlippedBackACard
@@ -74,14 +52,16 @@ class GameViewModel {
         get { return game.numberOfCards }
     }
     private var lastActionStatistics: GameStatistics
+    private let printer:CardSymbolPrinter
 
-    init(game: MatchingGame) {
+    init(game: MatchingGame, printer: CardSymbolPrinter) {
         self.game = game
+        self.printer = printer
         lastActionStatistics = GameStatistics()
     }
 
-    func textForCardWithNumber(number: Int) -> String {
-        return game.printableForCardWithNumber(number).description
+    func textForCardWithNumber(number: Int) -> NSAttributedString {
+        return printer.attributtedStringForCardWithNumber(number)
     }
 
     func chooseCardWithNumber(number: Int) {
@@ -111,8 +91,8 @@ class GameViewModel {
         game.numberOfCardsToMatch = count
     }
 
-    func lastActionText() -> String {
-        var text: String!
+    func lastActionText() -> NSAttributedString {
+        var text: NSAttributedString!
         let currentStats = currentStatistics()
         let lastAction = lastActionStatistics.compare(currentStats)
         switch lastAction {
@@ -121,11 +101,17 @@ class GameViewModel {
         case .Match:
             let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
             let points = currentStats.score - lastActionStatistics.score - game.pointsConfiguration.choosePenalty
-            text = "Matched \(cardDescriptions) for \(points)"
+            let mutable = NSMutableAttributedString(string: "Matched ")
+            mutable.appendAttributedString(cardDescriptions)
+            mutable.appendAttributedString(NSAttributedString(string: " for \(points)"))
+            text = mutable
         case .Mismatch:
             let cardDescriptions = cardDescriptionsForIndexes(lastActionStatistics.currentlyChosen)
             let points = abs(currentStats.score - lastActionStatistics.score - game.pointsConfiguration.choosePenalty)
-            text = "\(cardDescriptions) don't match! \(points) points penalty!"
+            let mutable = NSMutableAttributedString(attributedString: cardDescriptions)
+            mutable.appendAttributedString(NSAttributedString(string: " don't match! \(points) points penalty!"))
+            text = mutable
+
         default:
             fatalError("missing case")
         }
@@ -140,9 +126,16 @@ class GameViewModel {
         return game.isCardChosen(number)
     }
 
-    private func cardDescriptionsForIndexes(indexes: [Int]) -> String {
-        let descriptions = indexes.map{ self.game.printableForCardWithNumber($0).description }
-        return ", ".join(descriptions)
+    private func cardDescriptionsForIndexes(indexes: [Int]) -> NSAttributedString {
+        let descriptions = indexes.map{ self.printer.attributtedStringForCardWithNumber($0) }
+        let text = NSMutableAttributedString()
+        for (index, d) in enumerate(descriptions) {
+            text.appendAttributedString(d)
+            if index < descriptions.count - 1 {
+                text.appendAttributedString(NSAttributedString(string: ", "))
+            }
+        }
+        return text
     }
 
     private func currentStatistics() -> GameStatistics {

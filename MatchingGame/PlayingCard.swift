@@ -24,16 +24,16 @@ enum Rank: Int {
 }
 
 struct PlayingCard: Hashable {
-    var hashValue: Int {
-        return (String(rank.rawValue) + suit.rawValue).hashValue
-    }
-
     let suit: Suit
     let rank: Rank
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
         self.rank = rank
+    }
+
+    var hashValue: Int {
+        return (String(rank.rawValue) + suit.rawValue).hashValue
     }
 }
 
@@ -42,6 +42,7 @@ func == (lhs: PlayingCard, rhs: PlayingCard) -> Bool {
     return lhs.suit == rhs.suit && lhs.rank == rhs.rank
 }
 
+// MARK - Deck
 
 class Deck {
     var isEmpty: Bool {

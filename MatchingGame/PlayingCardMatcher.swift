@@ -1,5 +1,5 @@
 //
-//  PlayingCardMatchableGame.swift
+//  PlayingCardMatcher.swift
 //  MatchingGame
 //
 //  Created by Witold Skibniewski on 08/10/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PlayingCardMatchableGame: Matchable {
+class PlayingCardMatcher: Matchable {
     private var cards: [PlayingCard]
     private var rewardConfiguration: PlayingCardRewardPointConfiguration
     private(set) var numberOfCards: Int
@@ -64,7 +64,7 @@ class PlayingCardMatchableGame: Matchable {
 
     }
 
-    func printableForCardWithNumber(number: Int) -> Printable {
+    func cardWithNumber(number: Int) -> PlayingCard {
         return cards[number]
     }
 

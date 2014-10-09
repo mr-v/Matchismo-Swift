@@ -14,7 +14,6 @@ protocol Matchable {
     var numberOfCards: Int { get }
     func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int)
     func redeal()
-    func printableForCardWithNumber(number: Int) -> Printable
 }
 
 
@@ -105,10 +104,6 @@ class MatchingGame {
 
     func isCardMatched(number: Int) -> Bool {
         return matchedCardsIndexes[number] != nil
-    }
-
-    func printableForCardWithNumber(number: Int) -> Printable {
-        return matcher.printableForCardWithNumber(number)
     }
 
     private func flipCard(number: Int) {

@@ -16,9 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let matchPoints = PenaltyPointConfiguration(choosePenalty: -1, mismatchPenalty: -2)
         let playingCardGamePoints = PlayingCardRewardPointConfiguration(suitReward: 4, rankReward: 16, partialMatchMultiplier: 0.5)
-        let playingCardMatcher = PlayingCardMatchableGame(numberOfCards: 30, rewardConfiguration: playingCardGamePoints)
+        let playingCardMatcher = PlayingCardMatcher(numberOfCards: 30, rewardConfiguration: playingCardGamePoints)
         let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
-        let vm = GameViewModel(game: game)
+        let vm = GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matchable: playingCardMatcher))
         let vc = window!.rootViewController as ViewController
         vc.viewModel = vm
 

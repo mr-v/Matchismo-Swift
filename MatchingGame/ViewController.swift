@@ -78,7 +78,7 @@ class ViewController: UIViewController {
 
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText
-        lastActionLabel.text = viewModel.lastActionText()
+        lastActionLabel.attributedText = viewModel.lastActionText()
     }
 
     func uppdateItemSizeForCurrentSizeClass(layout: UICollectionViewFlowLayout) {
