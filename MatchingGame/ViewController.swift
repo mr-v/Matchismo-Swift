@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var lastActionLabel: UILabel!
     @IBOutlet weak var cardCollectionView: UICollectionView!
-    @IBOutlet weak var matchModeControl: UISegmentedControl!
     var collectionDataSource: PlayingCardMatchingGameDataSource!
     var collectionDelegate: PlayingCardMatchingGameDelegate!
     var viewModel:GameViewModel!
@@ -34,13 +33,9 @@ class ViewController: UIViewController {
         uppdateItemSizeForCurrentSizeClass(layout)
 
         updateLabels()
-        updateCardMatchMode()
     }
 
-    @IBOutlet weak var helperView: UIView!
     func didPickCard(number: Int) {
-        matchModeControl.enabled = false
-
         viewModel.chooseCardWithNumber(number)
         collectionDataSource.updateVisibleCells(cardCollectionView)
 
@@ -54,27 +49,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func redeal(sender: UIButton) {
-        matchModeControl.enabled = true
         viewModel.redeal()
 
         updateLabels()
         cardCollectionView.reloadData()
     }
 
-    @IBAction func changeCardMode(sender: AnyObject) {
-        updateCardMatchMode()
-    }
-
-    func updateCardMatchMode() {
-        switch matchModeControl.selectedSegmentIndex {
-        case 0:
-            viewModel.changeModeWithNumberOfCardsToMatch(2)
-        case 1:
-            viewModel.changeModeWithNumberOfCardsToMatch(3)
-        default:
-            fatalError("unexpected matching mode")
-        }
-    }
 
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText
