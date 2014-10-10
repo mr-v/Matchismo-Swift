@@ -10,6 +10,7 @@
 		EA06FAA119E6F60F007501C6 /* SetCardMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */; };
 		EA06FAA219E6F67D007501C6 /* SetCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15693319E6F2E700A630CB /* SetCardMatcher.swift */; };
 		EA06FAA319E6F78F007501C6 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE2D419E55C7B00001F10 /* SetCard.swift */; };
+		EA06FAA519E723A3007501C6 /* SetCardSymbolPrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06FAA419E723A3007501C6 /* SetCardSymbolPrinterTests.swift */; };
 		EA15693419E6F2E700A630CB /* SetCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15693319E6F2E700A630CB /* SetCardMatcher.swift */; };
 		EA1CDD9F19DED11D006C2906 /* CardGameUI.h in Headers */ = {isa = PBXBuildFile; fileRef = EA1CDD9E19DED11D006C2906 /* CardGameUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA1CDDA519DED11D006C2906 /* CardGameUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA1CDD9A19DED11D006C2906 /* CardGameUI.framework */; };
@@ -98,6 +99,7 @@
 
 /* Begin PBXFileReference section */
 		EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcherTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EA06FAA419E723A3007501C6 /* SetCardSymbolPrinterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCardSymbolPrinterTests.swift; sourceTree = "<group>"; };
 		EA15693319E6F2E700A630CB /* SetCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA1CDD9A19DED11D006C2906 /* CardGameUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CardGameUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA1CDD9D19DED11D006C2906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -252,6 +254,8 @@
 				EA75C0B119E54CEF00CD9B14 /* Factory.swift */,
 				EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */,
 				EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */,
+				EA06FAA419E723A3007501C6 /* SetCardSymbolPrinterTests.swift */,
+				EA7DE2DC19E563BF00001F10 /* CardSymbolPrintersTests.swift */,
 				EADE2B7219D9D78500978F4B /* Supporting Files */,
 			);
 			path = "MatchingGame Tests";
@@ -260,7 +264,6 @@
 		EADE2B7219D9D78500978F4B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EA7DE2DC19E563BF00001F10 /* CardSymbolPrintersTests.swift */,
 				EADE2B7319D9D78500978F4B /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -502,6 +505,7 @@
 				EADE2B7E19D9D79200978F4B /* PlayingCard.swift in Sources */,
 				EADE2B8419D9DC6D00978F4B /* CardViewModelTests.swift in Sources */,
 				EA06FAA219E6F67D007501C6 /* SetCardMatcher.swift in Sources */,
+				EA06FAA519E723A3007501C6 /* SetCardSymbolPrinterTests.swift in Sources */,
 				EA7DE2DD19E563BF00001F10 /* CardSymbolPrintersTests.swift in Sources */,
 				EADE2B7C19D9D79200978F4B /* GameViewModel.swift in Sources */,
 			);

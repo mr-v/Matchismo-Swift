@@ -41,3 +41,42 @@ class PlayingCardSymbolPrinter: CardSymbolPrinter {
         return rankText + suitText
     }
 }
+
+class SetCardSymbolPrinter: CardSymbolPrinter {
+    private let matcher: SetCardMatcher
+
+    init(matcher: SetCardMatcher) {
+        self.matcher = matcher
+    }
+
+    func attributtedStringForCardWithNumber(number: Int) -> NSAttributedString {
+        let card = matcher.cardWithNumber(number)
+        var color: UIColor!
+        switch card.color {
+        case .Red:
+            color = UIColor.redColor()
+        case .Green:
+            color = UIColor.greenColor()
+        case .Purple:
+            color = UIColor.purpleColor()
+        }
+
+        let count = card.number.rawValue
+        let symbol = Character(card.symbol.rawValue)
+        let text = String(count: count, repeatedValue: symbol)
+
+        var attributes = [NSObject: AnyObject]()
+        if card.shading == .Striped {
+            color = color.colorWithAlphaComponent(0.5)
+        } else if card.shading == .Open {
+            let shadingAttributes = [NSStrokeWidthAttributeName: -4,
+                NSForegroundColorAttributeName: UIColor.clearColor(),
+                NSStrokeColorAttributeName: color]
+            for (key, value) in shadingAttributes {
+                attributes.updateValue(value, forKey: key)
+            }
+        }
+        attributes[NSForegroundColorAttributeName] = color
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+}
