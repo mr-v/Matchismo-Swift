@@ -189,5 +189,34 @@ class GameViewModelTests: XCTestCase {
         let statsAfterRestart = viewModel.currentlyAvailableCardsNumbers()
         XCTAssertEqual(statsAfterRestart, cleanStats, "")
     }
+
+    func test_actionsHistory_PickingCards_TracksEachPick() {
+        let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
+
+        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+
+        let actions = viewModel.actionsHistory
+        XCTAssertEqual(actions.count, 2)
+    }
+
+    func test_actionsHistory_PickingCards_TracksProperText() {
+        let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
+        let expected = ["2♥", "Matched 2♥, 2♠ for \(rankReward)"]
+
+        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+
+        let actions = viewModel.actionsHistory.map { $0.string }
+        XCTAssertEqual(actions, expected, "")
+    }
+
+    func test_actionsHistory_AfterRedeal_IsClear() {
+        let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
+
+        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+        viewModel.redeal()
+
+        let actionsCount = viewModel.actionsHistory.count
+        XCTAssertEqual(actionsCount, 0, "")
+    }
 }
 

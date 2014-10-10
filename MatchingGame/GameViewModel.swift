@@ -44,7 +44,7 @@ private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
 
 class GameViewModel {
     var game: MatchingGame
-
+    var actionsHistory: [NSAttributedString]
     var scoreText: String {
         get { return "Score: \(game.score)" }
     }
@@ -58,6 +58,7 @@ class GameViewModel {
         self.game = game
         self.printer = printer
         lastActionStatistics = GameStatistics()
+        actionsHistory = [NSAttributedString]()
     }
 
     func textForCardWithNumber(number: Int) -> NSAttributedString {
@@ -68,7 +69,7 @@ class GameViewModel {
         lastActionStatistics = currentStatistics()
         lastActionStatistics.currentlyChosen.append(number)
         game.chooseCardWithNumber(number)
-
+        actionsHistory.append(lastActionText())
     }
 
     func currentlyAvailableCardsNumbers() -> [Int] {
@@ -85,6 +86,7 @@ class GameViewModel {
     func redeal() {
         game.redeal()
         lastActionStatistics = GameStatistics()
+        actionsHistory.removeAll(keepCapacity: true)
     }
 
     func changeModeWithNumberOfCardsToMatch(count: Int) {
