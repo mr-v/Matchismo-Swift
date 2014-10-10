@@ -17,7 +17,7 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
         let text = printer.attributtedStringForCardWithNumber(0)
         let heartsColor = text.attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
 
-        XCTAssertEqual(heartsColor, UIColor.redColor(), "")
+        XCTAssertEqual(heartsColor, UIColor.redColor())
     }
 
     func test_attributtedStringForCardWithNumber_SpadesSuit_ReturnsBlackText() {
@@ -26,7 +26,7 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
         let text = printer.attributtedStringForCardWithNumber(0)
         let spadesColor = text.attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
 
-        XCTAssertEqual(spadesColor, UIColor.blackColor(), "")
+        XCTAssertEqual(spadesColor, UIColor.blackColor())
     }
 
 
@@ -35,7 +35,7 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
 
         let text = printer.attributtedStringForCardWithNumber(0)
 
-        XCTAssertEqual(text.string, "A♥", "")
+        XCTAssertEqual(text.string, "A♥")
     }
 
     func test_attributtedStringForCardWithNumber_DiamondsSuit_ReturnsRedText() {
@@ -44,7 +44,7 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
         var text = printer.attributtedStringForCardWithNumber(0)
         let diamondsColor = text.attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
 
-        XCTAssertEqual(diamondsColor, UIColor.redColor(), "")
+        XCTAssertEqual(diamondsColor, UIColor.redColor())
     }
 
     func test_attributtedStringForCardWithNumber_ClubsSuit_ReturnsBlackText() {
@@ -53,7 +53,7 @@ class PlayingCardSymbolPrinterTests: XCTestCase {
         var text = printer.attributtedStringForCardWithNumber(0)
         let clubsColor = text.attribute(NSForegroundColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
 
-        XCTAssertEqual(clubsColor, UIColor.blackColor(), "")
+        XCTAssertEqual(clubsColor, UIColor.blackColor())
     }
 
     // MARK: -

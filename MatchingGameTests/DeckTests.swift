@@ -18,7 +18,7 @@ class DeckTests: XCTestCase {
 
         let outOfDeckBoundsElement = deck.drawElement()
         let outOfBounds = outOfDeckBoundsElement == nil
-        XCTAssertTrue(outOfBounds, "")
+        XCTAssertTrue(outOfBounds)
     }
 
     func test_PlayingCardFullDeck_AfterInitialization_HasUniquePlayingCards() {
@@ -36,7 +36,7 @@ class DeckTests: XCTestCase {
             }
         }
 
-        XCTAssertTrue(allCardsAreUnique, "")
+        XCTAssertTrue(allCardsAreUnique)
     }
 
     func test_Redeal_ChangesCards() {
@@ -51,7 +51,7 @@ class DeckTests: XCTestCase {
         deck.redeal()
         let secondDeal = listOfCards(deck)
 
-        XCTAssertNotEqual(firstDeal, secondDeal, "")
+        XCTAssertNotEqual(firstDeal, secondDeal)
     }
 
 }

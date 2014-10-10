@@ -19,7 +19,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let alpha = alphaFromAttributedString(attributedString)
-        XCTAssertEqual(alpha, expected, "")
+        XCTAssertEqual(alpha, expected)
     }
 
     func test_attributtedStringForCardWithNumber_StripedShading_TextHasHalfAlpha() {
@@ -30,7 +30,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let alpha = alphaFromAttributedString(attributedString)
-        XCTAssertEqual(alpha, expected, "")
+        XCTAssertEqual(alpha, expected)
     }
     func test_attributtedStringForCardWithNumber_OpenShading_TextHasOutline() {
         let card = SetCard(number: .One, symbol: .Oval, shading: .Open, color: .Red)
@@ -40,7 +40,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let strokeWidth = attributedString.attribute(NSStrokeWidthAttributeName, atIndex: 0, effectiveRange: nil) as CGFloat
-        XCTAssertLessThan(strokeWidth, noOutlineWidth, "")
+        XCTAssertLessThan(strokeWidth, noOutlineWidth)
     }
 
     func test_attributtedStringForCardWithNumber_OpenShading_OutlineHasTextColor() {
@@ -52,7 +52,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
 
         let textColor = colorFromAttributedString(attributedString)
         let outlineColor = attributedString.attribute(NSStrokeColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
-        XCTAssertEqual(outlineColor, textColor, "")
+        XCTAssertEqual(outlineColor, textColor)
     }
 
     // NSStrokeColorAttributeName
@@ -65,7 +65,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let color = colorFromAttributedString(attributedString)
-        XCTAssertEqual(color, redColor, "")
+        XCTAssertEqual(color, redColor)
     }
 
     func test_attributtedStringForCardWithNumber_GreenColor_TextIsGreen() {
@@ -76,7 +76,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let color = colorFromAttributedString(attributedString)
-        XCTAssertEqual(color, greenColor, "")
+        XCTAssertEqual(color, greenColor)
     }
 
     func test_attributtedStringForCardWithNumber_PurpleColor_TextIsPurple() {
@@ -87,7 +87,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let color = colorFromAttributedString(attributedString)
-        XCTAssertEqual(color, purpleColor, "")
+        XCTAssertEqual(color, purpleColor)
     }
 
     func test_attributtedStringForCardWithNumber_OneNumber_TextIsOneCharacterLong() {
@@ -97,7 +97,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let textLength = attributedString.length
-        XCTAssertEqual(textLength, 1, "")
+        XCTAssertEqual(textLength, 1)
     }
 
     func test_attributtedStringForCardWithNumber_TwoNumber_TextIsTwoCharactersLong() {
@@ -107,7 +107,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let textLength = attributedString.length
-        XCTAssertEqual(textLength, 2, "")
+        XCTAssertEqual(textLength, 2)
     }
 
     func test_attributtedStringForCardWithNumber_ThreeNumber_TextIsThreeCharactersLong() {
@@ -117,7 +117,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let textLength = attributedString.length
-        XCTAssertEqual(textLength, 3, "")
+        XCTAssertEqual(textLength, 3)
     }
 
     func test_attributtedStringForCardWithNumber_DiamondSymbol_TextHasOnlyDiamonds() {
@@ -128,7 +128,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
         let textSet = NSCharacterSet(charactersInString: attributedString.string)
 
-        XCTAssertTrue(diamondSet.isSupersetOfSet(textSet), "")
+        XCTAssertTrue(diamondSet.isSupersetOfSet(textSet))
     }
 
     func test_attributtedStringForCardWithNumber_OvalSymbol_TextHasOnlyOvals() {
@@ -139,7 +139,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
         let textSet = NSCharacterSet(charactersInString: attributedString.string)
 
-        XCTAssertTrue(ovalSet.isSupersetOfSet(textSet), "")
+        XCTAssertTrue(ovalSet.isSupersetOfSet(textSet))
     }
 
     func test_attributtedStringForCardWithNumber_DiamondSquiggle_TextHasOnlySquiggles() {
@@ -150,7 +150,7 @@ class SetCardSymbolPrinterTests: XCTestCase {
         let attributedString = printer.attributtedStringForCardWithNumber(0)
         let textSet = NSCharacterSet(charactersInString: attributedString.string)
 
-        XCTAssertTrue(squiggleSet.isSupersetOfSet(textSet), "")
+        XCTAssertTrue(squiggleSet.isSupersetOfSet(textSet))
     }
 
     // MARK - test helpers

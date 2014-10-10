@@ -16,7 +16,7 @@ class SetCardMatcherTests: XCTestCase {
         let expected = 12
 
         let cardCount = matcher.numberOfCards
-        XCTAssertEqual(cardCount, expected, "")
+        XCTAssertEqual(cardCount, expected)
     }
 
     func test_match_AllHaveSameNumbers_EverythingOtherDiffers_IsAMatch() {
@@ -24,7 +24,7 @@ class SetCardMatcherTests: XCTestCase {
 
         let (success, _) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertTrue(success, "")
+        XCTAssertTrue(success)
     }
 
     func test_match_AllHaveSameNumbers_TwoMatchingSymbols_NotAMatch() {
@@ -32,7 +32,7 @@ class SetCardMatcherTests: XCTestCase {
 
         let (success, _) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertFalse(success, "")
+        XCTAssertFalse(success)
     }
 
     func test_match_Match_ReturnsRewardPoints() {
@@ -41,7 +41,7 @@ class SetCardMatcherTests: XCTestCase {
 
         let (_, rewardPoints) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertEqual(rewardPoints, expected, "")
+        XCTAssertEqual(rewardPoints, expected)
     }
 
     func test_match_Mismatch_ReturnsNoPoints() {
@@ -49,7 +49,7 @@ class SetCardMatcherTests: XCTestCase {
 
         let (_, zeroPoints) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertEqual(zeroPoints, 0, "")
+        XCTAssertEqual(zeroPoints, 0)
     }
 }
 

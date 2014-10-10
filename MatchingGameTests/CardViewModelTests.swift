@@ -32,7 +32,7 @@ class GameViewModelTests: XCTestCase {
 
         let text = viewModel.scoreText
 
-        XCTAssertEqual("Score: 0", text, "")
+        XCTAssertEqual("Score: 0", text)
     }
 
     func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsMatched() {
@@ -41,7 +41,7 @@ class GameViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let matchedNumbers = [0, 1].filter { viewModel.isCardMatched($0) }
-        XCTAssertEqual(matchedNumbers, [0, 1], "")
+        XCTAssertEqual(matchedNumbers, [0, 1])
     }
 
     func test_currentlyAvailableCardsNumbers_AfterMatch_DoesntContainMatchedCardsNumbers() {
@@ -51,7 +51,7 @@ class GameViewModelTests: XCTestCase {
 
         let numbers = viewModel.currentlyAvailableCardsNumbers()
         let containsMatchCardNumbers = contains(numbers, 0) && contains(numbers, 1)
-        XCTAssertFalse(containsMatchCardNumbers, "")
+        XCTAssertFalse(containsMatchCardNumbers)
     }
 
     func test_currentlyAvailableCardsNumbers_AfterMismatch_ContainsNumberOfTheFirstChosenCard() {
@@ -62,7 +62,7 @@ class GameViewModelTests: XCTestCase {
         let numbers = viewModel.currentlyAvailableCardsNumbers()
         let containsFirstCardNumber = contains(numbers, 0)
 
-        XCTAssertTrue(containsFirstCardNumber, "")
+        XCTAssertTrue(containsFirstCardNumber)
     }
 
     func test_textForCardWithNumber_Called_ProperlyFormattedText() {
@@ -71,7 +71,7 @@ class GameViewModelTests: XCTestCase {
 
         let title = viewModel.textForCardWithNumber(0).string
 
-        XCTAssertEqual(title, expected, "")
+        XCTAssertEqual(title, expected)
     }
 
     func test_redeal_RestartsGame() {
@@ -84,7 +84,7 @@ class GameViewModelTests: XCTestCase {
         let scoreIsReset = viewModel.score != scoreAfterMismatch
 
         let restarted = scoreIsReset && viewModel.matchedCardsIndexes.isEmpty && viewModel.chosenCardIndexes.isEmpty
-        XCTAssertTrue(restarted, "")
+        XCTAssertTrue(restarted)
     }
 
     func test_redeal_NumberOfCardsToMatchIsKept() {
@@ -96,7 +96,7 @@ class GameViewModelTests: XCTestCase {
         viewModel.redeal()
 
         let currentNumberToMatch = viewModel.numberOfCardsToMatch
-        XCTAssertEqual(currentNumberToMatch, newSetting, "")
+        XCTAssertEqual(currentNumberToMatch, newSetting)
     }
 
     func test_changeModeWithNumberOfCardsToMatch_UpdatesGame() {
@@ -106,14 +106,14 @@ class GameViewModelTests: XCTestCase {
         viewModel.changeModeWithNumberOfCardsToMatch(expected)
 
         let currentMatchModeCount = viewModel.numberOfCardsToMatch
-        XCTAssertEqual(currentMatchModeCount, expected, "")
+        XCTAssertEqual(currentMatchModeCount, expected)
     }
 
     func test_lastActionText_ByDefault_ReturnsEmptyText() {
         let viewModel = makeGameViewModelWithPlayingCardsGame()
 
         let emptyText = viewModel.lastActionText().string
-        XCTAssertEqual(emptyText, "", "")
+        XCTAssertEqual(emptyText, "")
     }
 
     func test_lastActionText_PickingSingleCard_ReturnsTextWithItsTitle() {
@@ -122,7 +122,7 @@ class GameViewModelTests: XCTestCase {
         viewModel.chooseCardWithNumber(0)
 
         let cardTitle = viewModel.lastActionText().string
-        XCTAssertEqual(cardTitle, "A♥", "")
+        XCTAssertEqual(cardTitle, "A♥")
     }
 
     func test_lastActionText_PickingTwoCardInMultiMatchMode_ReturnsTextWithTheirTitle() {
@@ -133,7 +133,7 @@ class GameViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let cardTitles = viewModel.lastActionText().string
-        XCTAssertEqual(cardTitles, "A♥, 10♥", "")
+        XCTAssertEqual(cardTitles, "A♥, 10♥")
     }
 
     func test_lastActionText_PickingTwoMatchingCardInTwoMatchMode_ReturnsTextWithMatchedText() {
@@ -143,7 +143,7 @@ class GameViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let matchedCardsText = viewModel.lastActionText().string
-        XCTAssertEqual(matchedCardsText, "Matched A♥, 10♥ for \(suitReward)", "")
+        XCTAssertEqual(matchedCardsText, "Matched A♥, 10♥ for \(suitReward)")
     }
 
     func test_lastActionText_PickingMismatchedCardsInTwoMatchMode_ReturnsTextWithMismatchPenalty() {
@@ -153,7 +153,7 @@ class GameViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let mismatchedCardsText = viewModel.lastActionText().string
-        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(abs(mismatchPenalty)) points penalty!", "")
+        XCTAssertEqual(mismatchedCardsText, "A♥, 10♠ don't match! \(abs(mismatchPenalty)) points penalty!")
     }
 
     func test_lastActionText_FullyFlippingCard_ReturnsEmptyText() {
@@ -163,7 +163,7 @@ class GameViewModelTests: XCTestCase {
         2.times { viewModel.chooseCardWithNumber(0) }
 
         let emptyText = viewModel.lastActionText().string
-        XCTAssertEqual(emptyText, expected, "")
+        XCTAssertEqual(emptyText, expected)
     }
 
     func test_lastActionText_FullyFlippingCardAndFlippingUpSecondCardInTwoMatchMode_ReturnsTextWithCurrenltyFlippedCard() {
@@ -176,7 +176,7 @@ class GameViewModelTests: XCTestCase {
         2.times { viewModel.chooseCardWithNumber(0) }
 
         let cardTitle = viewModel.lastActionText().string
-        XCTAssertEqual(cardTitle, expected, "")
+        XCTAssertEqual(cardTitle, expected)
     }
 
     func test_redeal_ResetsStatistics() {
@@ -187,7 +187,7 @@ class GameViewModelTests: XCTestCase {
         viewModel.redeal()
 
         let statsAfterRestart = viewModel.currentlyAvailableCardsNumbers()
-        XCTAssertEqual(statsAfterRestart, cleanStats, "")
+        XCTAssertEqual(statsAfterRestart, cleanStats)
     }
 
     func test_actionsHistory_PickingCards_TracksEachPick() {
@@ -206,7 +206,7 @@ class GameViewModelTests: XCTestCase {
         0.upto(1) { viewModel.chooseCardWithNumber($0) }
 
         let actions = viewModel.actionsHistory.map { $0.string }
-        XCTAssertEqual(actions, expected, "")
+        XCTAssertEqual(actions, expected)
     }
 
     func test_actionsHistory_AfterRedeal_IsClear() {
@@ -216,7 +216,7 @@ class GameViewModelTests: XCTestCase {
         viewModel.redeal()
 
         let actionsCount = viewModel.actionsHistory.count
-        XCTAssertEqual(actionsCount, 0, "")
+        XCTAssertEqual(actionsCount, 0)
     }
 }
 
