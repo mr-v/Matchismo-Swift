@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let playingCardRewards = PlayingCardRewardPointConfiguration(suitReward: 4, rankReward: 16, partialMatchMultiplier: 0.5)
         let deck = PlayingCardFullDeckBuilder().build()
-        let playingCardMatcher = PlayingCardMatcher(numberOfCards: 30, rewardConfiguration: playingCardRewards, deck: deck)
+        let playingCardMatcher = PlayingCardMatcher(numberOfCards: 25, rewardConfiguration: playingCardRewards, deck: deck)
         let game = MatchingGame(matcher: playingCardMatcher, configuration: penaltyPoints, numberOfCardsToMatch: 2)
         let playingCardVM = GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matcher: playingCardMatcher))
 
