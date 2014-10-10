@@ -17,8 +17,7 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let range = NSRange(location: 0, length: text.length)
-        let fontAttribute = [NSFontAttributeName: UIFont.preferredFontForTextStyle(UIFontTextStyleBody)]
-        text.setAttributes(fontAttribute, range: range)
+        text.addAttribute(NSFontAttributeName, value: UIFont.preferredFontForTextStyle(UIFontTextStyleBody), range: range)
         textView.attributedText = text
     }
 
