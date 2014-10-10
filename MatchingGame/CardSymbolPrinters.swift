@@ -70,11 +70,11 @@ class SetCardSymbolPrinter: CardSymbolPrinter {
             color = color.colorWithAlphaComponent(0.5)
         } else if card.shading == .Open {
             let shadingAttributes = [NSStrokeWidthAttributeName: -4,
-                NSForegroundColorAttributeName: UIColor.clearColor(),
                 NSStrokeColorAttributeName: color]
             for (key, value) in shadingAttributes {
                 attributes.updateValue(value, forKey: key)
             }
+            color = UIColor.clearColor()
         }
         attributes[NSForegroundColorAttributeName] = color
         return NSAttributedString(string: text, attributes: attributes)

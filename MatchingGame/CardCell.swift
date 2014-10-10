@@ -29,3 +29,16 @@ import UIKit
         }
     }
 }
+
+@IBDesignable class NonFlippingCardViewCell: CardViewCell {
+    @IBOutlet override var title: UILabel! {
+        didSet { title.hidden = false }
+    }
+    override var selected: Bool {
+        didSet {
+            title?.hidden = false
+            selectedBackgroundView.layer.borderColor = UIColor.orangeColor().CGColor
+            selectedBackgroundView.layer.borderWidth = selected ? 2 : 0
+        }
+    }
+}

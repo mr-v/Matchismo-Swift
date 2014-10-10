@@ -43,16 +43,26 @@ class SetCardSymbolPrinterTests: XCTestCase {
         XCTAssertLessThan(strokeWidth, noOutlineWidth)
     }
 
-    func test_attributtedStringForCardWithNumber_OpenShading_OutlineHasTextColor() {
+    func test_attributtedStringForCardWithNumber_OpenShadingRed_OutlineHasTextRedColor() {
         let card = SetCard(number: .One, symbol: .Oval, shading: .Open, color: .Red)
         let printer = makeSetCardPrinter(card)
-        let noOutlineWidth: CGFloat = 0
+        let redColor = UIColor.redColor()
+
+        let attributedString = printer.attributtedStringForCardWithNumber(0)
+
+        let outlineColor = attributedString.attribute(NSStrokeColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
+        XCTAssertEqual(outlineColor, redColor)
+    }
+
+    func test_attributtedStringForCardWithNumber_OpenShading_ForegroundHasClearColor() {
+        let card = SetCard(number: .One, symbol: .Oval, shading: .Open, color: .Red)
+        let printer = makeSetCardPrinter(card)
+        let clearColor = UIColor.clearColor()
 
         let attributedString = printer.attributtedStringForCardWithNumber(0)
 
         let textColor = colorFromAttributedString(attributedString)
-        let outlineColor = attributedString.attribute(NSStrokeColorAttributeName, atIndex: 0, effectiveRange: nil) as UIColor
-        XCTAssertEqual(outlineColor, textColor)
+        XCTAssertEqual(textColor, clearColor)
     }
 
     // NSStrokeColorAttributeName

@@ -13,16 +13,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var lastActionLabel: UILabel!
     @IBOutlet weak var cardCollectionView: UICollectionView!
-    var collectionDataSource: PlayingCardMatchingGameDataSource!
-    var collectionDelegate: PlayingCardMatchingGameDelegate!
+    var collectionDataSource: CardMatchingGameDataSource!
+    var collectionDelegate: CardMatchingGameDelegate!
     var viewModel:GameViewModel!
-
+    var cellReuseId:String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionDataSource = PlayingCardMatchingGameDataSource(viewModel: viewModel)
-        collectionDelegate = PlayingCardMatchingGameDelegate(cardTappedClosure: didPickCard)
+        collectionDataSource = CardMatchingGameDataSource(viewModel: viewModel, cellReuseId: cellReuseId)
+        collectionDelegate = CardMatchingGameDelegate(cardTappedClosure: didPickCard)
 
         cardCollectionView.allowsMultipleSelection = true
         cardCollectionView.backgroundColor = UIColor.clearColor()

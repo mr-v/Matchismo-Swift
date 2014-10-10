@@ -9,18 +9,14 @@
 import Foundation
 import UIKit
 
-// delegates to ViewModel, beacause adding this to ViewModel would create UIKit depencency
-/*
-    unit test ideas - test number of sections
+class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
+    let cellReuseId: String
 
-*/
-
-class PlayingCardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
-    let cellReuseId = "CardCell"
     private let viewModel: GameViewModel
 
-    init(viewModel: GameViewModel) {
+    init(viewModel: GameViewModel, cellReuseId: String) {
         self.viewModel = viewModel
+        self.cellReuseId = cellReuseId
         super.init()
     }
 
@@ -48,7 +44,7 @@ class PlayingCardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     }
 }
 
-class PlayingCardMatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+class CardMatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {
     let cardTappedClosure: (cardNumber: Int) -> ()
 
     init(cardTappedClosure: (Int) -> ()) {
@@ -57,7 +53,7 @@ class PlayingCardMatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLay
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // pick a card!
+        // pick a card
         cardTappedClosure(cardNumber: indexPath.row)
     }
 
