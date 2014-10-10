@@ -77,7 +77,7 @@ class GameViewModelTests: XCTestCase {
     func test_redeal_RestartsGame() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(threeSuitMatchingCards)
 
-        1.upto(3) { viewModel.chooseCardWithNumber($0) }
+        0.upto(2) { viewModel.chooseCardWithNumber($0) }
         let scoreAfterMismatch = viewModel.score
         viewModel.redeal()
 
