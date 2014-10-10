@@ -38,7 +38,7 @@ import UIKit
         didSet {
             title?.hidden = false
             selectedBackgroundView.layer.borderColor = UIColor.orangeColor().CGColor
-            selectedBackgroundView.layer.borderWidth = selected ? 2 : 0
+            selectedBackgroundView.layer.borderWidth = selected && enabled ? 2 : 0
         }
     }
 }
