@@ -35,6 +35,19 @@ class ViewController: UIViewController {
         updateLabels()
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier! {
+        case "ShowHistory":
+            prepareForHistorySegue(segue.destinationViewController as HistoryViewController)
+        default:
+            fatalError("unhandled segue")
+        }
+    }
+
+    func prepareForHistorySegue(vc: HistoryViewController) {
+        vc.setHistoryText(viewModel.actionsHistory)
+    }
+
     func didPickCard(number: Int) {
         viewModel.chooseCardWithNumber(number)
         collectionDataSource.updateVisibleCells(cardCollectionView)
@@ -54,7 +67,6 @@ class ViewController: UIViewController {
         updateLabels()
         cardCollectionView.reloadData()
     }
-
 
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText

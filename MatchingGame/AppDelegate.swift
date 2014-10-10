@@ -20,7 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let playingCardMatcher = PlayingCardMatcher(numberOfCards: 30, rewardConfiguration: playingCardGamePoints, deck: deck)
         let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
         let vm = GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matcher: playingCardMatcher))
-        let vc = window!.rootViewController as ViewController
+        let nav = window!.rootViewController as UINavigationController
+        let vc = nav.topViewController as ViewController
         vc.viewModel = vm
 
         return true
