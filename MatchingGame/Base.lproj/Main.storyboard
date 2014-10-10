@@ -172,7 +172,7 @@
         <!--History View Controller-->
         <scene sceneID="Oet-qJ-CcX">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="flk-dF-euI" customClass="HistoryViewController" customModule="MatchingGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="flk-dF-euI" customClass="HistoryViewController" customModule="MatchingGame" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uAJ-oB-Bgd"/>
                         <viewControllerLayoutGuide type="bottom" id="TSk-Zx-Pmn"/>
@@ -182,7 +182,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQZ-ND-VsK">
-                                <rect key="frame" x="21" y="69" width="558" height="526"/>
+                                <rect key="frame" x="21" y="0.0" width="558" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <attributedString key="attributedText">
                                     <fragment>
@@ -199,7 +199,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wQZ-ND-VsK" firstAttribute="leading" secondItem="mt2-zZ-xYx" secondAttribute="leadingMargin" constant="5" id="0pQ-d8-MCJ"/>
-                            <constraint firstItem="wQZ-ND-VsK" firstAttribute="top" secondItem="uAJ-oB-Bgd" secondAttribute="bottom" constant="5" id="9np-tq-6ye"/>
+                            <constraint firstItem="wQZ-ND-VsK" firstAttribute="top" secondItem="uAJ-oB-Bgd" secondAttribute="bottom" constant="-64" id="AdN-Bp-OrW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="wQZ-ND-VsK" secondAttribute="trailing" constant="5" id="Ut4-kv-c4V"/>
                             <constraint firstItem="TSk-Zx-Pmn" firstAttribute="top" secondItem="wQZ-ND-VsK" secondAttribute="bottom" constant="5" id="sO2-ji-KSi"/>
                         </constraints>
