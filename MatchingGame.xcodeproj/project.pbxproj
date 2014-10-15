@@ -35,7 +35,7 @@
 		EADE2B7E19D9D79200978F4B /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6519D6E94400FDEEAB /* PlayingCard.swift */; };
 		EADE2B8219D9D7F900978F4B /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6319D6E7C300FDEEAB /* DeckTests.swift */; };
 		EADE2B8319D9DC6200978F4B /* MatchingGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */; };
-		EADE2B8419D9DC6D00978F4B /* CardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */; };
+		EADE2B8419D9DC6D00978F4B /* GameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6119D5CB0B00FDEEAB /* GameViewModelTests.swift */; };
 		EADE2B8619D9EB2100978F4B /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE2B8519D9EB2100978F4B /* CardCell.swift */; };
 		EADE2B8A19D9FC2900978F4B /* MatchingGameCollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADE2B8919D9FC2900978F4B /* MatchingGameCollectionViewDelegates.swift */; };
 		EAE4436119E2C80700785909 /* MatchingGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE4436019E2C80700785909 /* MatchingGame.swift */; };
@@ -87,7 +87,7 @@
 		EABACF3D19D5A90300FDEEAB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EABACF4019D5A90300FDEEAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EABACF5E19D5CA8800FDEEAB /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GameViewModel.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CardViewModelTests.swift; path = ../MatchingGameTests/CardViewModelTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EABACF6119D5CB0B00FDEEAB /* GameViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameViewModelTests.swift; path = ../MatchingGameTests/GameViewModelTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EABACF6319D6E7C300FDEEAB /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = DeckTests.swift; path = ../MatchingGameTests/DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EABACF6519D6E94400FDEEAB /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayingCard.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EAD2FDD419DEA6360080F321 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = IntExtension.swift; path = "MatchingGame Tests/IntExtension.swift"; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -181,7 +181,7 @@
 		EADE2B7119D9D78500978F4B /* MatchingGame Tests */ = {
 			isa = PBXGroup;
 			children = (
-				EABACF6119D5CB0B00FDEEAB /* CardViewModelTests.swift */,
+				EABACF6119D5CB0B00FDEEAB /* GameViewModelTests.swift */,
 				EABACF6319D6E7C300FDEEAB /* DeckTests.swift */,
 				EA75C0B119E54CEF00CD9B14 /* Factory.swift */,
 				EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */,
@@ -350,7 +350,7 @@
 				EAD2FDD519DEA6360080F321 /* IntExtension.swift in Sources */,
 				EADE2B8319D9DC6200978F4B /* MatchingGameTests.swift in Sources */,
 				EADE2B7E19D9D79200978F4B /* PlayingCard.swift in Sources */,
-				EADE2B8419D9DC6D00978F4B /* CardViewModelTests.swift in Sources */,
+				EADE2B8419D9DC6D00978F4B /* GameViewModelTests.swift in Sources */,
 				EA06FAA219E6F67D007501C6 /* SetCardMatcher.swift in Sources */,
 				EA06FAA519E723A3007501C6 /* SetCardSymbolPrinterTests.swift in Sources */,
 				EA7DE2DD19E563BF00001F10 /* CardSymbolPrintersTests.swift in Sources */,
