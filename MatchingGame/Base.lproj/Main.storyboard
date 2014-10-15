@@ -8,7 +8,7 @@
         <!--Matching Game View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="MatchingGameViewController" id="vXZ-lx-hvc" customClass="MatchingGameViewController" customModule="MatchingGame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MatchingGameViewController" id="vXZ-lx-hvc" customClass="MatchingGameViewController" customModule="MatchingGame" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -46,73 +46,14 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PlayingCardCell" id="6Jo-2y-ctE" customClass="CardViewCell" customModule="MatchingGame" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="Yl5-3V-huH" customClass="CardViewCell" customModule="MatchingGame" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="64" height="96"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7WZ-ok-efn">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="25" y="25" width="0.0" height="0.0"/>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="32" y="48" width="0.0" height="0.0"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="7WZ-ok-efn" secondAttribute="centerY" id="glq-8f-567"/>
-                                            <constraint firstAttribute="centerX" secondItem="7WZ-ok-efn" secondAttribute="centerX" id="snp-tP-XV8"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="cardFace" value="card_front"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="cardBack" value="card_back"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="selected" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="title" destination="7WZ-ok-efn" id="Dtz-Kt-MXq"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SetCardCell" id="lpS-DN-xnp" customClass="NonFlippingCardViewCell" customModule="MatchingGame" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="64" height="96"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnk-9y-jkI">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                                        <rect key="frame" x="25" y="25" width="0.0" height="0.0"/>
-                                                    </variation>
-                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                                        <rect key="frame" x="32" y="48" width="0.0" height="0.0"/>
-                                                    </variation>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="centerX" secondItem="nnk-9y-jkI" secondAttribute="centerX" id="OYP-pK-fnV"/>
-                                            <constraint firstAttribute="centerY" secondItem="nnk-9y-jkI" secondAttribute="centerY" id="hSK-0F-C1w"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="cardFace" value="card_front"/>
-                                            <userDefinedRuntimeAttribute type="image" keyPath="cardBack" value="card_front"/>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="selected" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="title" destination="nnk-9y-jkI" id="3Zl-do-sWm"/>
-                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
@@ -143,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1057" y="137"/>
+            <point key="canvasLocation" x="939" y="-219"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="geJ-An-bC4">
@@ -158,11 +99,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrp-7W-3kR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="206" y="171"/>
+            <point key="canvasLocation" x="190" y="-219"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="card_back" width="64" height="96"/>
-        <image name="card_front" width="64" height="96"/>
-    </resources>
 </document>

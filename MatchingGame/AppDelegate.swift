@@ -14,6 +14,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let inTests = NSClassFromString("XCTest") != nil
+        if inTests {
+            return true
+        }
+
         let tabController =  window!.rootViewController as UITabBarController
         ApplicationBuilder().buildAppWithRootViewController(tabController)
         return true

@@ -15,7 +15,7 @@ class MatchingGameViewController: UIViewController {
     var collectionDataSource: CardMatchingGameDataSource!
     var collectionDelegate: CardMatchingGameDelegate!
     var viewModel:GameViewModel!
-    var cellReuseId:String!
+    var cellReuseId:String = "CardCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()

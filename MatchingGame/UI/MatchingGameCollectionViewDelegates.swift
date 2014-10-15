@@ -38,7 +38,7 @@ class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func configureCell(cell: CardViewCell, number: Int) {
-        cell.title.attributedText = viewModel.textForCardWithNumber(number)
+        cell.cardView = viewModel.viewForCardWithNumber(number)
         cell.enabled = !viewModel.isCardMatched(number)
         cell.selected = viewModel.isCardChosen(number)
     }

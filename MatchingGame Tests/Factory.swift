@@ -59,7 +59,7 @@ func makeGameViewModelWithPlayingCardsGame(cards: [PlayingCard]) -> GameViewMode
     let numberOfCards = cards.isEmpty ? 52 : cards.count
     let playingCardMatcher = PlayingCardMatcher(numberOfCards: numberOfCards, rewardConfiguration: playingCardGamePoints, deck: deck)
     let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
-    return GameViewModel(game: game, printer: PlayingCardSymbolPrinter(matcher: playingCardMatcher))
+    return GameViewModel(game: game, cardViewBuilder: PlayingCardViewBuilder(matcher: playingCardMatcher))
 }
 
 // MARK: - points

@@ -12,7 +12,7 @@ class DeckTests: XCTestCase {
     let playingCardDeckCapacity = 52
 
     func test_PlayingCardFullDeck_AfterInitialization_HasSpecifiedNumberOfPlayingCards() {
-        let deck: Deck = PlayingCardFullDeckBuilder().build()
+        let deck = PlayingCardFullDeckBuilder().build()
 
         playingCardDeckCapacity.times { let card = deck.drawElement() }
 
@@ -22,7 +22,7 @@ class DeckTests: XCTestCase {
     }
 
     func test_PlayingCardFullDeck_AfterInitialization_HasUniquePlayingCards() {
-        let deck: Deck = PlayingCardFullDeckBuilder().build()
+        let deck = PlayingCardFullDeckBuilder().build()
 
         var allCardsAreUnique = true
         var storeForCards = [PlayingCard: Bool]()
@@ -46,7 +46,7 @@ class DeckTests: XCTestCase {
             return cards
         }
 
-        let deck: Deck = PlayingCardFullDeckBuilder().build()
+        let deck = PlayingCardFullDeckBuilder().build()
         let firstDeal = listOfCards(deck)
         deck.redeal()
         let secondDeal = listOfCards(deck)
