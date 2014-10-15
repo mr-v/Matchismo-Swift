@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MatchingGameViewController.swift
 //  MatchingGame
 //
 //  Created by Witold Skibniewski on 26/09/14.
@@ -8,10 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MatchingGameViewController: UIViewController {
 
     @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var lastActionLabel: UILabel!
     @IBOutlet weak var cardCollectionView: UICollectionView!
     var collectionDataSource: CardMatchingGameDataSource!
     var collectionDelegate: CardMatchingGameDelegate!
@@ -33,19 +32,6 @@ class ViewController: UIViewController {
         uppdateItemSizeForCurrentSizeClass(layout)
 
         updateLabels()
-    }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier! {
-        case "ShowHistory":
-            prepareForHistorySegue(segue.destinationViewController as HistoryViewController)
-        default:
-            fatalError("unhandled segue")
-        }
-    }
-
-    func prepareForHistorySegue(vc: HistoryViewController) {
-        vc.setHistoryText(viewModel.actionsHistory)
     }
 
     func didPickCard(number: Int) {
@@ -70,7 +56,6 @@ class ViewController: UIViewController {
 
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText
-        lastActionLabel.attributedText = viewModel.lastActionText()
     }
 
     func uppdateItemSizeForCurrentSizeClass(layout: UICollectionViewFlowLayout) {

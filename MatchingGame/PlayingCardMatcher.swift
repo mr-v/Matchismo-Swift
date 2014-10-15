@@ -29,7 +29,6 @@ class PlayingCardMatcher: Matcher {
     }
 
     func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int) {
-        // allow partial matching
         var currentlyChosen: [PlayingCard] = chosenCardsIndexes.map{ self.cards[$0] }
         var rankMatches = [Rank: Int]()
         var suitMatches = [Suit: Int]()
