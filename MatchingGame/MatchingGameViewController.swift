@@ -28,8 +28,7 @@ class MatchingGameViewController: UIViewController {
         cardCollectionView.dataSource = collectionDataSource
         cardCollectionView.delegate = collectionDelegate
 
-        var layout = cardCollectionView.collectionViewLayout as UICollectionViewFlowLayout
-        uppdateItemSizeForCurrentSizeClass(layout)
+        cardCollectionView.collectionViewLayout = FitToBoundsFlowLayout()
 
         updateLabels()
     }
@@ -56,15 +55,6 @@ class MatchingGameViewController: UIViewController {
 
     func updateLabels() {
         scoreLabel.text = viewModel.scoreText
-    }
-
-    func uppdateItemSizeForCurrentSizeClass(layout: UICollectionViewFlowLayout) {
-        let a = UITraitCollection(horizontalSizeClass: .Regular)
-        let b = UITraitCollection(verticalSizeClass: .Regular)
-        let regularSizeClassTraitCollection = UITraitCollection(traitsFromCollections: [a, b])
-        if !traitCollection.containsTraitsInCollection(regularSizeClassTraitCollection) {
-            layout.itemSize = CGSize(width: 40, height: 60)
-        }
     }
 }
 

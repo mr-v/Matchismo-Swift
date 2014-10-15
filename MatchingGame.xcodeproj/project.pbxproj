@@ -13,6 +13,7 @@
 		EA06FAA519E723A3007501C6 /* SetCardSymbolPrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06FAA419E723A3007501C6 /* SetCardSymbolPrinterTests.swift */; };
 		EA15693419E6F2E700A630CB /* SetCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA15693319E6F2E700A630CB /* SetCardMatcher.swift */; };
 		EA44758319EEF5B2005EEF42 /* ApplicationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */; };
+		EA44758519EEF8D9005EEF42 /* FitToBoundsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44758419EEF8D9005EEF42 /* FitToBoundsFlowLayout.swift */; };
 		EA75C0B219E54CEF00CD9B14 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA75C0B119E54CEF00CD9B14 /* Factory.swift */; };
 		EA7DE2D219E556D000001F10 /* PlayingCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE2D119E556D000001F10 /* PlayingCardMatcher.swift */; };
 		EA7DE2D319E559EC00001F10 /* PlayingCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE2D119E556D000001F10 /* PlayingCardMatcher.swift */; };
@@ -70,6 +71,7 @@
 		EA06FAA419E723A3007501C6 /* SetCardSymbolPrinterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardSymbolPrinterTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA15693319E6F2E700A630CB /* SetCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationBuilder.swift; sourceTree = "<group>"; };
+		EA44758419EEF8D9005EEF42 /* FitToBoundsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FitToBoundsFlowLayout.swift; path = MatchingGame/FitToBoundsFlowLayout.swift; sourceTree = SOURCE_ROOT; };
 		EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = MatchingGameTests.swift; path = "../Unit Tests/MatchingGameTests.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA75C0B119E54CEF00CD9B14 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Factory.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA7DE2D119E556D000001F10 /* PlayingCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PlayingCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -122,6 +124,7 @@
 				EADE2B8519D9EB2100978F4B /* CardCell.swift */,
 				EABACF3A19D5A90300FDEEAB /* Main.storyboard */,
 				EABACF3F19D5A90300FDEEAB /* LaunchScreen.xib */,
+				EA44758419EEF8D9005EEF42 /* FitToBoundsFlowLayout.swift */,
 			);
 			name = UI;
 			path = ../CardGameUI;
@@ -323,6 +326,7 @@
 				EA7DE2D219E556D000001F10 /* PlayingCardMatcher.swift in Sources */,
 				EADE2B8619D9EB2100978F4B /* CardCell.swift in Sources */,
 				EAE4436319E2E62300785909 /* IntExtension.swift in Sources */,
+				EA44758519EEF8D9005EEF42 /* FitToBoundsFlowLayout.swift in Sources */,
 				EA7DE2D719E5632C00001F10 /* CardSymbolPrinters.swift in Sources */,
 				EA44758319EEF5B2005EEF42 /* ApplicationBuilder.swift in Sources */,
 				EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */,
