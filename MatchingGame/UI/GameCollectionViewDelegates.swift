@@ -11,6 +11,7 @@ import UIKit
 
 protocol CardViewBuilder {
     func viewForCardWithNumber(number: Int) -> CardView
+    func backgroundView() -> UIView?
 }
 
 class GameDataSource: NSObject, UICollectionViewDataSource {
@@ -54,6 +55,7 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
 
     func configureCell(cell: CardViewCell, number: Int) {
         cell.cardView = cardViewBuilder.viewForCardWithNumber(number)
+        cell.cardBackgroundView = cardViewBuilder.backgroundView()
     }
 }
 

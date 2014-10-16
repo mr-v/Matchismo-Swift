@@ -12,12 +12,34 @@ import UIKit
 //@IBDesignable
 class CardViewCell: UICollectionViewCell {
     var cardView: CardView? {
+        didSet { backgroundView = cardView }
+    }
+    var cardBackgroundView: UIView? {
         didSet {
-            backgroundView = cardView
+            if !selected {
+                if let background = cardBackgroundView {
+                    backgroundView = background
+                }
+            }
         }
     }
     override var selected: Bool {
-        didSet { cardView?.selected = selected }
+        didSet {
+            cardView?.selected = selected
+            if let background = cardBackgroundView {
+                let from = selected ? background : cardView!
+                let to = selected ? cardView! : background
+                let options: UIViewAnimationTransition = selected ? .FlipFromLeft : .FlipFromRight
+                let time = 0.3
+
+                backgroundView = to
+                UIView.beginAnimations(nil, context:nil)
+                UIView.setAnimationDuration(time)
+                UIView.setAnimationTransition(options, forView:self, cache:true)
+                UIView.setAnimationDuration(time)
+                UIView.commitAnimations()
+            }
+        }
     }
     var enabled: Bool = true {
         didSet {
@@ -31,11 +53,12 @@ class CardViewCell: UICollectionViewCell {
 
         userInteractionEnabled = true
         cardView = nil
+        cardBackgroundView = nil
     }
 
-//    override func prepareForInterfaceBuilder() {
-//        let view = PlayingCardView(suit: "♠", rank: "3")
-//        cardView = view
-//        selected = true
-//    }
+    //    override func prepareForInterfaceBuilder() {
+    //        let view = PlayingCardView(suit: "♠", rank: "3")
+    //        cardView = view
+    //        selected = true
+    //    }
 }

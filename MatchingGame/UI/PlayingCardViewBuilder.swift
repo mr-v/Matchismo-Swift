@@ -22,5 +22,9 @@ class PlayingCardViewBuilder: CardViewBuilder {
         let rank = letterMapping[card.rank] ?? String(card.rank.rawValue)
         return PlayingCardView(suit: suit, rank: rank)
     }
+
+    func backgroundView() -> UIView? {
+        return PlayingCardBackView(frame: CGRectZero)
+    }
 }
 

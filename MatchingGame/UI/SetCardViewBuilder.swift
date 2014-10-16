@@ -22,6 +22,10 @@ class SetCardViewBuilder: CardViewBuilder
         return SetCardView(drawer: drawer)
     }
 
+    func backgroundView() -> UIView? {
+        return nil
+    }
+
     func buildDrawerForSetCard(card: SetCard) -> SetCardSymbolDrawingClosure {
         var shadingColor: UIColor = colorForSetColor(card.color)
         var setupShading = shadingSetupForShading(card.shading, shadingColor: shadingColor)

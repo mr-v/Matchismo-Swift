@@ -41,6 +41,7 @@
 		EA75C0B219E54CEF00CD9B14 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA75C0B119E54CEF00CD9B14 /* Factory.swift */; };
 		EAA0ADE819EFFB4A0029BFB2 /* ChoiceIndexesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */; };
 		EAA0ADEA19F0119C0029BFB2 /* PlayingCardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */; };
+		EAA0ADEE19F05FB90029BFB2 /* PlayingCardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */; };
 		EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF3619D5A90300FDEEAB /* AppDelegate.swift */; };
 		EABACF3E19D5A90300FDEEAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3D19D5A90300FDEEAB /* Images.xcassets */; };
 		EACA178E19EFD31B00E18BEA /* SetGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA178D19EFD31B00E18BEA /* SetGameViewController.swift */; };
@@ -83,22 +84,23 @@
 		EA4475CD19EF2B67005EEF42 /* PlayingCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PlayingCardMatcher.swift; path = Game/PlayingCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475CE19EF2B67005EEF42 /* SetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCard.swift; path = Game/SetCard.swift; sourceTree = "<group>"; };
 		EA4475CF19EF2B67005EEF42 /* SetCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SetCardMatcher.swift; path = Game/SetCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EA4475D619EF2B74005EEF42 /* CardCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCellView.swift; path = MatchingGame/UI/CardCellView.swift; sourceTree = SOURCE_ROOT; };
+		EA4475D619EF2B74005EEF42 /* CardCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = CardCellView.swift; path = MatchingGame/UI/CardCellView.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475D719EF2B74005EEF42 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardView.swift; path = MatchingGame/UI/CardView.swift; sourceTree = SOURCE_ROOT; };
 		EA4475D819EF2B74005EEF42 /* FitToBoundsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FitToBoundsFlowLayout.swift; path = MatchingGame/UI/FitToBoundsFlowLayout.swift; sourceTree = SOURCE_ROOT; };
 		EA4475D919EF2B74005EEF42 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameViewModel.swift; path = MatchingGame/UI/GameViewModel.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475DA19EF2B74005EEF42 /* GameCollectionViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameCollectionViewDelegates.swift; path = MatchingGame/UI/GameCollectionViewDelegates.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475DB19EF2B74005EEF42 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameViewController.swift; path = MatchingGame/UI/GameViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475DC19EF2B74005EEF42 /* PlayingCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardView.swift; path = MatchingGame/UI/PlayingCardView.swift; sourceTree = SOURCE_ROOT; };
-		EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardViewBuilder.swift; path = MatchingGame/UI/PlayingCardViewBuilder.swift; sourceTree = SOURCE_ROOT; };
+		EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PlayingCardViewBuilder.swift; path = MatchingGame/UI/PlayingCardViewBuilder.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475DE19EF2B74005EEF42 /* SetCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCardView.swift; path = MatchingGame/UI/SetCardView.swift; sourceTree = SOURCE_ROOT; };
-		EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCardViewBuilder.swift; path = MatchingGame/UI/SetCardViewBuilder.swift; sourceTree = SOURCE_ROOT; };
+		EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SetCardViewBuilder.swift; path = MatchingGame/UI/SetCardViewBuilder.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475FD19EF2D4E005EEF42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = MatchingGame/Base.lproj/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
 		EA4475FF19EF2D4E005EEF42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MatchingGame/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MatchingGameTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA75C0B119E54CEF00CD9B14 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Factory.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceIndexesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardGameViewController.swift; path = MatchingGame/UI/PlayingCardGameViewController.swift; sourceTree = SOURCE_ROOT; };
+		EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardBackView.swift; path = MatchingGame/UI/PlayingCardBackView.swift; sourceTree = SOURCE_ROOT; };
 		EABACF3119D5A90300FDEEAB /* MatchingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF3519D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EABACF3619D5A90300FDEEAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -145,6 +147,7 @@
 				EA4475DE19EF2B74005EEF42 /* SetCardView.swift */,
 				EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */,
 				EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */,
+				EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */,
 			);
 			name = UI;
 			path = ../CardGameUI;
@@ -355,6 +358,7 @@
 				EA4475D519EF2B67005EEF42 /* SetCardMatcher.swift in Sources */,
 				EA4475D219EF2B67005EEF42 /* PlayingCard.swift in Sources */,
 				EA4475E119EF2B74005EEF42 /* CardView.swift in Sources */,
+				EAA0ADEE19F05FB90029BFB2 /* PlayingCardBackView.swift in Sources */,
 				EA4475E519EF2B74005EEF42 /* GameViewController.swift in Sources */,
 				EA4475C819EF2B5B005EEF42 /* CGPointExtension.swift in Sources */,
 			);
