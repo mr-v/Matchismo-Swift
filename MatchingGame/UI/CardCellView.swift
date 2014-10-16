@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable
+//@IBDesignable
 class CardViewCell: UICollectionViewCell {
     var cardView: CardView? {
         didSet {
@@ -21,20 +21,21 @@ class CardViewCell: UICollectionViewCell {
     }
     var enabled: Bool = true {
         didSet {
+            userInteractionEnabled = enabled
             cardView?.enabled = enabled
         }
     }
 
-    override func prepareForInterfaceBuilder() {
-//        func setCardView() -> CardView {
-//            let card = SetCard(number: .Two, symbol: .Squiggle, shading: .Striped, color: .Purple)
-//            let drawer = SetCardViewBuilder().buildDrawerForSetCard(card)
-//            return SetCardView(drawer: drawer)
-//        }
-//
-//        let view = setCardView()
-        let view = PlayingCardView(suit: "♠", rank: "3")
-        cardView = view
-        selected = true
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        userInteractionEnabled = true
+        cardView = nil
     }
+
+//    override func prepareForInterfaceBuilder() {
+//        let view = PlayingCardView(suit: "♠", rank: "3")
+//        cardView = view
+//        selected = true
+//    }
 }

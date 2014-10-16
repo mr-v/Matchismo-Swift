@@ -21,7 +21,7 @@ class SetCardMatcher: Matcher {
         cards = deck.drawElementsWithCount(initialNumberOfCards)
     }
 
-    func match(numberOfCardsToMatch: Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int) {
+    func match(numberOfCardsToMatch: Int, chosenCardsIndexes: [Int]) -> MatchResult {
         var numberMatches = [SetNumber: Int]()
         var symbolMatches = [SetSymbol: Int]()
         var shadingMatches = [SetShading: Int]()
@@ -38,11 +38,11 @@ class SetCardMatcher: Matcher {
         let matches = maxMatches.reduce(true) { acc, matchCount in acc && (matchCount == 3 || matchCount == 1) }
 
         if matches {
-            removeCardsWithNumbers(chosenCardsIndexes)
+            removeCardsAtIndexes(chosenCardsIndexes)
+            return .Success(points: matchReward, trackMatched: false)
+        } else {
+            return .Mismatch
         }
-
-        let points = matches ? matchReward : 0
-        return (matches, points)
     }
 
     func redeal() {
@@ -54,11 +54,10 @@ class SetCardMatcher: Matcher {
         return cards[number]
     }
 
-    //MARK: -
-
-    func removeCardsWithNumbers(numbers: [Int]) {
-        for (index, number) in enumerate(numbers) {
-            cards.removeAtIndex(number - index)
+    private func removeCardsAtIndexes(var indexes: [Int]) {
+        indexes.sort(<)
+        for i in reverse(indexes) {
+            cards.removeAtIndex(i)
         }
     }
 }

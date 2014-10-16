@@ -17,12 +17,12 @@
 		EA4475D319EF2B67005EEF42 /* PlayingCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CD19EF2B67005EEF42 /* PlayingCardMatcher.swift */; };
 		EA4475D419EF2B67005EEF42 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CE19EF2B67005EEF42 /* SetCard.swift */; };
 		EA4475D519EF2B67005EEF42 /* SetCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CF19EF2B67005EEF42 /* SetCardMatcher.swift */; };
-		EA4475E019EF2B74005EEF42 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D619EF2B74005EEF42 /* CardCell.swift */; };
+		EA4475E019EF2B74005EEF42 /* CardCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D619EF2B74005EEF42 /* CardCellView.swift */; };
 		EA4475E119EF2B74005EEF42 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D719EF2B74005EEF42 /* CardView.swift */; };
 		EA4475E219EF2B74005EEF42 /* FitToBoundsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D819EF2B74005EEF42 /* FitToBoundsFlowLayout.swift */; };
 		EA4475E319EF2B74005EEF42 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D919EF2B74005EEF42 /* GameViewModel.swift */; };
-		EA4475E419EF2B74005EEF42 /* MatchingGameCollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DA19EF2B74005EEF42 /* MatchingGameCollectionViewDelegates.swift */; };
-		EA4475E519EF2B74005EEF42 /* MatchingGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DB19EF2B74005EEF42 /* MatchingGameViewController.swift */; };
+		EA4475E419EF2B74005EEF42 /* GameCollectionViewDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DA19EF2B74005EEF42 /* GameCollectionViewDelegates.swift */; };
+		EA4475E519EF2B74005EEF42 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DB19EF2B74005EEF42 /* GameViewController.swift */; };
 		EA4475E619EF2B74005EEF42 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DC19EF2B74005EEF42 /* PlayingCardView.swift */; };
 		EA4475E719EF2B74005EEF42 /* PlayingCardViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */; };
 		EA4475E819EF2B74005EEF42 /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DE19EF2B74005EEF42 /* SetCardView.swift */; };
@@ -40,8 +40,10 @@
 		EA44760119EF2D4E005EEF42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA4475FE19EF2D4E005EEF42 /* Main.storyboard */; };
 		EA75C0B219E54CEF00CD9B14 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA75C0B119E54CEF00CD9B14 /* Factory.swift */; };
 		EAA0ADE819EFFB4A0029BFB2 /* ChoiceIndexesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */; };
+		EAA0ADEA19F0119C0029BFB2 /* PlayingCardGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */; };
 		EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF3619D5A90300FDEEAB /* AppDelegate.swift */; };
 		EABACF3E19D5A90300FDEEAB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EABACF3D19D5A90300FDEEAB /* Images.xcassets */; };
+		EACA178E19EFD31B00E18BEA /* SetGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACA178D19EFD31B00E18BEA /* SetGameViewController.swift */; };
 		EADE2B8219D9D7F900978F4B /* DeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6319D6E7C300FDEEAB /* DeckTests.swift */; };
 		EADE2B8319D9DC6200978F4B /* MatchingGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */; };
 		EADE2B8419D9DC6D00978F4B /* GameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EABACF6119D5CB0B00FDEEAB /* GameViewModelTests.swift */; };
@@ -76,17 +78,17 @@
 		EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtension.swift; path = Extensions/CGPointExtension.swift; sourceTree = "<group>"; };
 		EA4475C719EF2B5B005EEF42 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntExtension.swift; path = Extensions/IntExtension.swift; sourceTree = "<group>"; };
 		EA4475CA19EF2B67005EEF42 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Deck.swift; path = Game/Deck.swift; sourceTree = "<group>"; };
-		EA4475CB19EF2B67005EEF42 /* MatchingGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatchingGame.swift; path = Game/MatchingGame.swift; sourceTree = "<group>"; };
+		EA4475CB19EF2B67005EEF42 /* MatchingGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = MatchingGame.swift; path = Game/MatchingGame.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475CC19EF2B67005EEF42 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCard.swift; path = Game/PlayingCard.swift; sourceTree = "<group>"; };
-		EA4475CD19EF2B67005EEF42 /* PlayingCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardMatcher.swift; path = Game/PlayingCardMatcher.swift; sourceTree = "<group>"; };
+		EA4475CD19EF2B67005EEF42 /* PlayingCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PlayingCardMatcher.swift; path = Game/PlayingCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475CE19EF2B67005EEF42 /* SetCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCard.swift; path = Game/SetCard.swift; sourceTree = "<group>"; };
-		EA4475CF19EF2B67005EEF42 /* SetCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCardMatcher.swift; path = Game/SetCardMatcher.swift; sourceTree = "<group>"; };
-		EA4475D619EF2B74005EEF42 /* CardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCell.swift; path = MatchingGame/UI/CardCell.swift; sourceTree = SOURCE_ROOT; };
+		EA4475CF19EF2B67005EEF42 /* SetCardMatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SetCardMatcher.swift; path = Game/SetCardMatcher.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EA4475D619EF2B74005EEF42 /* CardCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardCellView.swift; path = MatchingGame/UI/CardCellView.swift; sourceTree = SOURCE_ROOT; };
 		EA4475D719EF2B74005EEF42 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardView.swift; path = MatchingGame/UI/CardView.swift; sourceTree = SOURCE_ROOT; };
 		EA4475D819EF2B74005EEF42 /* FitToBoundsFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FitToBoundsFlowLayout.swift; path = MatchingGame/UI/FitToBoundsFlowLayout.swift; sourceTree = SOURCE_ROOT; };
-		EA4475D919EF2B74005EEF42 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameViewModel.swift; path = MatchingGame/UI/GameViewModel.swift; sourceTree = SOURCE_ROOT; };
-		EA4475DA19EF2B74005EEF42 /* MatchingGameCollectionViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatchingGameCollectionViewDelegates.swift; path = MatchingGame/UI/MatchingGameCollectionViewDelegates.swift; sourceTree = SOURCE_ROOT; };
-		EA4475DB19EF2B74005EEF42 /* MatchingGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MatchingGameViewController.swift; path = MatchingGame/UI/MatchingGameViewController.swift; sourceTree = SOURCE_ROOT; };
+		EA4475D919EF2B74005EEF42 /* GameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameViewModel.swift; path = MatchingGame/UI/GameViewModel.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EA4475DA19EF2B74005EEF42 /* GameCollectionViewDelegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameCollectionViewDelegates.swift; path = MatchingGame/UI/GameCollectionViewDelegates.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EA4475DB19EF2B74005EEF42 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = GameViewController.swift; path = MatchingGame/UI/GameViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA4475DC19EF2B74005EEF42 /* PlayingCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardView.swift; path = MatchingGame/UI/PlayingCardView.swift; sourceTree = SOURCE_ROOT; };
 		EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardViewBuilder.swift; path = MatchingGame/UI/PlayingCardViewBuilder.swift; sourceTree = SOURCE_ROOT; };
 		EA4475DE19EF2B74005EEF42 /* SetCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCardView.swift; path = MatchingGame/UI/SetCardView.swift; sourceTree = SOURCE_ROOT; };
@@ -95,13 +97,15 @@
 		EA4475FF19EF2D4E005EEF42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MatchingGame/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MatchingGameTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA75C0B119E54CEF00CD9B14 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Factory.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceIndexesTests.swift; sourceTree = "<group>"; };
+		EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceIndexesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardGameViewController.swift; path = MatchingGame/UI/PlayingCardGameViewController.swift; sourceTree = SOURCE_ROOT; };
 		EABACF3119D5A90300FDEEAB /* MatchingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF3519D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EABACF3619D5A90300FDEEAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AppDelegate.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EABACF3D19D5A90300FDEEAB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EABACF6119D5CB0B00FDEEAB /* GameViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GameViewModelTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EABACF6319D6E7C300FDEEAB /* DeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DeckTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		EACA178D19EFD31B00E18BEA /* SetGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = SetGameViewController.swift; path = MatchingGame/UI/SetGameViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EADE2B7019D9D78500978F4B /* MatchingGame Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MatchingGame Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EADE2B7319D9D78500978F4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,16 +133,18 @@
 			children = (
 				EA4475FC19EF2D4E005EEF42 /* LaunchScreen.xib */,
 				EA4475FE19EF2D4E005EEF42 /* Main.storyboard */,
-				EA4475D619EF2B74005EEF42 /* CardCell.swift */,
+				EA4475D619EF2B74005EEF42 /* CardCellView.swift */,
 				EA4475D719EF2B74005EEF42 /* CardView.swift */,
 				EA4475D819EF2B74005EEF42 /* FitToBoundsFlowLayout.swift */,
 				EA4475D919EF2B74005EEF42 /* GameViewModel.swift */,
-				EA4475DA19EF2B74005EEF42 /* MatchingGameCollectionViewDelegates.swift */,
-				EA4475DB19EF2B74005EEF42 /* MatchingGameViewController.swift */,
+				EA4475DA19EF2B74005EEF42 /* GameCollectionViewDelegates.swift */,
+				EA4475DB19EF2B74005EEF42 /* GameViewController.swift */,
 				EA4475DC19EF2B74005EEF42 /* PlayingCardView.swift */,
+				EACA178D19EFD31B00E18BEA /* SetGameViewController.swift */,
 				EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */,
 				EA4475DE19EF2B74005EEF42 /* SetCardView.swift */,
 				EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */,
+				EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */,
 			);
 			name = UI;
 			path = ../CardGameUI;
@@ -335,19 +341,21 @@
 				EA4475D419EF2B67005EEF42 /* SetCard.swift in Sources */,
 				EA4475D019EF2B67005EEF42 /* Deck.swift in Sources */,
 				EA4475E719EF2B74005EEF42 /* PlayingCardViewBuilder.swift in Sources */,
+				EACA178E19EFD31B00E18BEA /* SetGameViewController.swift in Sources */,
 				EA4475E619EF2B74005EEF42 /* PlayingCardView.swift in Sources */,
+				EAA0ADEA19F0119C0029BFB2 /* PlayingCardGameViewController.swift in Sources */,
 				EA4475E919EF2B74005EEF42 /* SetCardViewBuilder.swift in Sources */,
 				EABACF3719D5A90300FDEEAB /* AppDelegate.swift in Sources */,
 				EA4475E319EF2B74005EEF42 /* GameViewModel.swift in Sources */,
-				EA4475E419EF2B74005EEF42 /* MatchingGameCollectionViewDelegates.swift in Sources */,
+				EA4475E419EF2B74005EEF42 /* GameCollectionViewDelegates.swift in Sources */,
 				EA4475D319EF2B67005EEF42 /* PlayingCardMatcher.swift in Sources */,
 				EA4475E819EF2B74005EEF42 /* SetCardView.swift in Sources */,
-				EA4475E019EF2B74005EEF42 /* CardCell.swift in Sources */,
+				EA4475E019EF2B74005EEF42 /* CardCellView.swift in Sources */,
 				EA4475E219EF2B74005EEF42 /* FitToBoundsFlowLayout.swift in Sources */,
 				EA4475D519EF2B67005EEF42 /* SetCardMatcher.swift in Sources */,
 				EA4475D219EF2B67005EEF42 /* PlayingCard.swift in Sources */,
 				EA4475E119EF2B74005EEF42 /* CardView.swift in Sources */,
-				EA4475E519EF2B74005EEF42 /* MatchingGameViewController.swift in Sources */,
+				EA4475E519EF2B74005EEF42 /* GameViewController.swift in Sources */,
 				EA4475C819EF2B5B005EEF42 /* CGPointExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,20 +12,35 @@ import Foundation
 // defines API for matchable games
 protocol Matcher {
     var numberOfCards: Int { get }
-    func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int)
+    func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> MatchResult
     func redeal()
 }
-
 
 struct PenaltyPointConfiguration {
     let choosePenalty: Int
     let mismatchPenalty: Int
 }
 
-struct CardChoiceResult<T> {
+struct CardChanges<T> {
     let unchosen: [T]
     let matched: [T]
     let added: [T]
+}
+
+enum MatchResult: Equatable {
+    case Success(points: Int, trackMatched: Bool)
+    case Mismatch
+}
+
+func == (lhs: MatchResult, rhs: MatchResult) -> Bool {
+    switch (lhs, rhs) {
+    case (.Success(let l, let lm), .Success(let r, let rm)) where l == r && lm == rm:
+        return true
+    case (.Mismatch, .Mismatch):
+        return true
+    default:
+        return false
+    }
 }
 
 // tracks picking cards and score
@@ -63,15 +78,15 @@ class MatchingGame {
         matcher.redeal()
     }
 
-    func chooseCardWithNumber(number: Int) -> CardChoiceResult<Int> {
+    func chooseCardWithNumber(number: Int) -> CardChanges<Int> {
         if isCardMatched(number) {
-            return CardChoiceResult(unchosen: [], matched: [], added: [])
+            return CardChanges(unchosen: [], matched: [], added: [])
         }
 
         flipCard(number)
         if !isCardChosen(number) {
             chosenCardsIndexes.removeValueForKey(number)
-            return CardChoiceResult(unchosen: [number], matched: [], added: [])
+            return CardChanges(unchosen: [number], matched: [], added: [])
         }
 
         score += pointsConfiguration.choosePenalty
@@ -79,21 +94,25 @@ class MatchingGame {
 
         let enoughCardsToCheckMatch = chosenCardsIndexes.count == numberOfCardsToMatch
         if !enoughCardsToCheckMatch {
-            return CardChoiceResult(unchosen: [], matched: [], added: [])
+            return CardChanges(unchosen: [], matched: [], added: [])
         }
 
-        let (success, points) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: chosenCardsIndexes.keys.array)
+        let result = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: chosenCardsIndexes.keys.array)
         var matched = [Int]()
         var unchosen = [Int]()
         var added = [Int]()
-        if success {
+        switch result {
+        case let .Success(points, trackMatched):
             score += points
             for (number, _) in chosenCardsIndexes {
-                matchedCardsIndexes[number] = true
                 matched.append(number)
+
+                if trackMatched {
+                    matchedCardsIndexes[number] = true
+                }
             }
             chosenCardsIndexes.removeAll(keepCapacity: true)
-        } else {
+        case .Mismatch:
             unchosen = chosenCardsIndexes.keys.array.filter { $0 != number }
 
             score += pointsConfiguration.mismatchPenalty
@@ -101,7 +120,7 @@ class MatchingGame {
             chosenCardsIndexes[number] = true
         }
 
-        return CardChoiceResult(unchosen: unchosen, matched: matched, added: added)
+        return CardChanges(unchosen: unchosen, matched: matched, added: added)
     }
 
     func isCardChosen(number: Int) -> Bool {

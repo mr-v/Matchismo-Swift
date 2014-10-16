@@ -8,6 +8,9 @@
 
 import UIKit
 
-class SetGameViewController: MatchingGameViewController {
-   
+class SetGameViewController: GameViewController {
+
+    override func updateMatchedCards(matched: [NSIndexPath]) {
+        cardCollectionView.performBatchUpdates({ self.cardCollectionView.deleteItemsAtIndexPaths(matched) }, completion: nil)
+    }
 }

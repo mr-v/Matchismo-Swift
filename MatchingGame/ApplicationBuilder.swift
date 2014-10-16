@@ -24,19 +24,14 @@ class ApplicationBuilder {
         let setGame = MatchingGame(matcher: setCardMatcher, configuration: penaltyPoints, numberOfCardsToMatch: 3)
         let setVM = GameViewModel(game: setGame)
 
-        var viewModelsWithConfigurations = [(GameViewModel, CardViewBuilder, String)]()
-        viewModelsWithConfigurations.append((playingCardVM, PlayingCardViewBuilder(matcher: playingCardMatcher), "Playing Cards"))
-        viewModelsWithConfigurations.append((setVM, SetCardViewBuilder(matcher: setCardMatcher), "Set"))
-        let mainStoryboard = controller.storyboard!
-        let controllers: [UIViewController] = viewModelsWithConfigurations.map {
-            (vm, builder, gameType) in
-            let identifier = "MatchingGameViewController"
-            let vc = mainStoryboard.instantiateViewControllerWithIdentifier(identifier) as MatchingGameViewController
+        var viewModelsWithConfigurations = [(GameViewModel, CardViewBuilder)]()
+        viewModelsWithConfigurations.append((setVM, SetCardViewBuilder(matcher: setCardMatcher)))
+        viewModelsWithConfigurations.append((playingCardVM, PlayingCardViewBuilder(matcher: playingCardMatcher)))
+        let gameControllers = controller.viewControllers as [GameViewController]
+        for (index, (vm, builder)) in enumerate(viewModelsWithConfigurations) {
+            var vc = gameControllers[index]
             vc.viewModel = vm
-            vc.collectionDataSource = CardMatchingGameDataSource(viewModel: vm, cardViewBuilder: builder, cellReuseId: "CardCell")
-            vc.title = gameType
-            return vc
+            vc.collectionDataSource = GameDataSource(viewModel: vm, cardViewBuilder: builder, cellReuseId: "CardCell")
         }
-        controller.viewControllers = controllers
     }
 }

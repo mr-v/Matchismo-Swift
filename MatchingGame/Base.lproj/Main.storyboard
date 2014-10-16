@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6249" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OdU-lU-kDv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OdU-lU-kDv">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6243"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Matching Game View Controller-->
+        <!--Playing Cards-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController storyboardIdentifier="MatchingGameViewController" id="vXZ-lx-hvc" customClass="MatchingGameViewController" customModule="MatchingGame" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" title="Playing Cards" id="vXZ-lx-hvc" customClass="PlayingCardGameViewController" customModule="MatchingGame" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZz-9W-SLc">
-                                <rect key="frame" x="273" y="567" width="54" height="33"/>
+                                <rect key="frame" x="273" y="518" width="54" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Redeal">
                                     <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
-                                <rect key="frame" x="21" y="57" width="563" height="502"/>
+                                <rect key="frame" x="21" y="57" width="563" height="453"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mHA-GX-1bB">
                                     <size key="itemSize" width="64" height="96"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -76,6 +76,7 @@
                             <constraint firstAttribute="centerX" secondItem="VZz-9W-SLc" secondAttribute="centerX" id="XnL-2i-hrL"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Playing Card" id="DTF-RV-ggr"/>
                     <navigationItem key="navigationItem" id="17p-gm-8Xh"/>
                     <connections>
                         <outlet property="cardCollectionView" destination="OcG-1A-G6u" id="765-1j-9k9"/>
@@ -84,7 +85,89 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="939" y="-219"/>
+            <point key="canvasLocation" x="987" y="-135"/>
+        </scene>
+        <!--Set-->
+        <scene sceneID="7wi-Za-wvX">
+            <objects>
+                <viewController storyboardIdentifier="SetGameViewController" title="Set" id="HIT-Zz-28M" customClass="SetGameViewController" customModule="MatchingGame" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dbp-Hj-MQM"/>
+                        <viewControllerLayoutGuide type="bottom" id="Czy-4s-WTa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aDO-I4-29l">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSR-l5-BZW">
+                                <rect key="frame" x="21" y="28" width="65" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-YU-xT0">
+                                <rect key="frame" x="273" y="518" width="54" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Redeal">
+                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="redeal:" destination="HIT-Zz-28M" eventType="touchUpInside" id="d77-86-MUA"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-ey-br6">
+                                <rect key="frame" x="21" y="57" width="563" height="453"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TsY-GF-ZxA">
+                                    <size key="itemSize" width="64" height="96"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CardCell" id="75E-a7-yit" customClass="CardViewCell" customModule="MatchingGame" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="64" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="0.0"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" ambiguous="YES" misplaced="YES">
+                                    <rect key="frame" x="11" y="87" width="768" height="420"/>
+                                </variation>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Pgp-ey-br6" firstAttribute="trailing" secondItem="aDO-I4-29l" secondAttribute="trailingMargin" id="8FY-nr-dm0"/>
+                            <constraint firstItem="cSR-l5-BZW" firstAttribute="top" secondItem="dbp-Hj-MQM" secondAttribute="bottom" constant="8" symbolic="YES" id="972-oZ-U2k"/>
+                            <constraint firstItem="Pgp-ey-br6" firstAttribute="top" secondItem="cSR-l5-BZW" secondAttribute="bottom" constant="8" symbolic="YES" id="AaM-cZ-vA8"/>
+                            <constraint firstItem="cSR-l5-BZW" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="iiP-lG-D48"/>
+                            <constraint firstItem="Czy-4s-WTa" firstAttribute="top" secondItem="6Ak-YU-xT0" secondAttribute="bottom" id="kxr-3L-aSR"/>
+                            <constraint firstAttribute="centerX" secondItem="6Ak-YU-xT0" secondAttribute="centerX" id="rq2-cq-GBg"/>
+                            <constraint firstItem="6Ak-YU-xT0" firstAttribute="top" secondItem="Pgp-ey-br6" secondAttribute="bottom" constant="8" symbolic="YES" id="vUS-W0-qGG"/>
+                            <constraint firstItem="Pgp-ey-br6" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="wo2-eM-tPm"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Set" id="XL0-kl-QcF"/>
+                    <navigationItem key="navigationItem" id="kZb-dj-ke5"/>
+                    <connections>
+                        <outlet property="cardCollectionView" destination="Pgp-ey-br6" id="MdS-bn-KNh"/>
+                        <outlet property="scoreLabel" destination="cSR-l5-BZW" id="r59-GM-lOa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CSQ-78-Suw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="999" y="-839"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="geJ-An-bC4">
@@ -96,6 +179,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
+                    <connections>
+                        <segue destination="HIT-Zz-28M" kind="relationship" relationship="viewControllers" id="s9b-qO-teE"/>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="viewControllers" id="Eq3-R5-CyR"/>
+                    </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zrp-7W-3kR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

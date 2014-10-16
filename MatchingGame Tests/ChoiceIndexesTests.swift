@@ -11,7 +11,7 @@ import XCTest
 
 class ChoiceIndexesTests: XCTestCase {
 
-    // MARK: - Matching Game
+    // MARK: - Matching Game, Playing Cards Matcher
 
     func test_chooseCardWithNumber_AfterMatchingTwoCards_ReturnsMatchedIndexes() {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
@@ -51,12 +51,13 @@ class ChoiceIndexesTests: XCTestCase {
         XCTAssertEqual(results.unchosen, [0, 1])
     }
 
+    // MARK: - Game View Model
     func test_viewModelchooseCardWithNumber_AfterMatchingTwoCards_ReturnsMatchedIndexPaths() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
         let expected = [0, 1]
 
         viewModel.chooseCardWithNumber(0)
-        let results: CardChoiceResult<NSIndexPath> = viewModel.chooseCardWithNumber(1)
+        let results: CardChanges<NSIndexPath> = viewModel.chooseCardWithNumber(1)
         let matchedIndexes = results.matched.map { path in path.row }
         XCTAssertEqual(matchedIndexes, expected)
     }
@@ -66,7 +67,7 @@ class ChoiceIndexesTests: XCTestCase {
         let expected = [0, 1]
 
         viewModel.chooseCardWithNumber(0)
-        let results: CardChoiceResult<NSIndexPath> = viewModel.chooseCardWithNumber(1)
+        let results: CardChanges<NSIndexPath> = viewModel.chooseCardWithNumber(1)
 
         XCTAssertTrue(results.unchosen.isEmpty)
     }
@@ -81,5 +82,21 @@ class ChoiceIndexesTests: XCTestCase {
         XCTAssertEqual(unchosen, [0])
     }
 
+    // MARK: - Set Matcher
+    func test_chooseCardWithNumber_MatchedSet_ClearsMatchedCardsInMatchingGame() {
+        let matcher = makeSetCardMatcher(matchingCardsWithSameNumbers)
+        let game = MatchingGame(matcher: matcher, configuration: makePenaltyPointConfiguration(), numberOfCardsToMatch: 3)
+
+        for i in 0...2 { game.chooseCardWithNumber(i) }
+
+        XCTAssertTrue(game.matchedCardsIndexes.isEmpty)
+    }
+
+    func test_SetMatcher_MatchedSet_MatchedCardsAreRemovedFromMatcher() {
+        let matcher = makeSetCardMatcher(matchingCardsWithSameNumbers)
+        matcher.match(3, chosenCardsIndexes: [0, 1, 2])
+
+        XCTAssertEqual(matcher.numberOfCards, 0)
+    }
 
 }

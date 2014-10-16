@@ -22,34 +22,46 @@ class SetCardMatcherTests: XCTestCase {
     func test_match_AllHaveSameNumbers_EverythingOtherDiffers_IsAMatch() {
         let matcher = makeSetCardMatcher(matchingCardsWithSameNumbers)
 
-        let (success, _) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
+        let result = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertTrue(success)
+        switch result {
+        case .Success(_, _):
+            XCTAssert(true)
+        case .Mismatch:
+            XCTFail()
+        }
     }
 
     func test_match_AllHaveSameNumbers_TwoMatchingSymbols_NotAMatch() {
         let matcher = makeSetCardMatcher(mismatchTwoMatchingSymbols)
 
-        let (success, _) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
+        let result = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertFalse(success)
+        XCTAssertEqual(result, MatchResult.Mismatch)
     }
 
     func test_match_Match_ReturnsRewardPoints() {
         let matcher = makeSetCardMatcher(matchingCardsWithSameNumbers)
         let expected = matchReward
 
-        let (_, rewardPoints) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
+        let result = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
+        var rewardPoints: Int!
 
+        switch result {
+        case .Success(let points, _):
+            rewardPoints = points
+        default:
+            rewardPoints = nil
+        }
         XCTAssertEqual(rewardPoints, expected)
     }
 
-    func test_match_Mismatch_ReturnsNoPoints() {
+    func test_match_Mismatch_ReturnsMismatchResultWithNoPoints() {
         let matcher = makeSetCardMatcher(mismatchTwoMatchingSymbols)
 
-        let (_, zeroPoints) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
+        let result = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: [0, 1, 2])
 
-        XCTAssertEqual(zeroPoints, 0)
+        XCTAssertEqual(result, MatchResult.Mismatch)
     }
 }
 

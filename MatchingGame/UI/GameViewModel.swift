@@ -56,19 +56,19 @@ class GameViewModel {
         lastActionStatistics = GameStatistics()
     }
 
-    func chooseCardWithNumber(number: Int) -> CardChoiceResult<NSIndexPath> {
+    func chooseCardWithNumber(number: Int) -> CardChanges<NSIndexPath> {
         lastActionStatistics = currentStatistics()
         lastActionStatistics.currentlyChosen.append(number)
         let results = game.chooseCardWithNumber(number)
         return mapResultsToIndexPathsResults(results)
     }
 
-    func mapResultsToIndexPathsResults(results: CardChoiceResult<Int>) -> CardChoiceResult<NSIndexPath> {
+    func mapResultsToIndexPathsResults(results: CardChanges<Int>) -> CardChanges<NSIndexPath> {
         func mapToIndexPath(numbers: [Int]) -> [NSIndexPath] {
             return numbers.map { NSIndexPath(forItem: $0, inSection: 0) }
         }
 
-        return CardChoiceResult(unchosen: mapToIndexPath(results.unchosen), matched: mapToIndexPath(results.matched), added: mapToIndexPath(results.added))
+        return CardChanges(unchosen: mapToIndexPath(results.unchosen), matched: mapToIndexPath(results.matched), added: mapToIndexPath(results.added))
     }
 
     func currentlyAvailableCardsNumbers() -> [Int] {

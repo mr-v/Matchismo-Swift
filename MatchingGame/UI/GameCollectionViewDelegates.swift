@@ -13,7 +13,7 @@ protocol CardViewBuilder {
     func viewForCardWithNumber(number: Int) -> CardView
 }
 
-class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
+class GameDataSource: NSObject, UICollectionViewDataSource {
     let cellReuseId: String
 
     private let viewModel: GameViewModel
@@ -36,21 +36,28 @@ class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
         return cell
     }
 
-    func updateVisibleCells(collectionView: UICollectionView) {
-        for i in collectionView.indexPathsForVisibleItems() {
-            let path = i as NSIndexPath
-            configureCell(collectionView.cellForItemAtIndexPath(path) as CardViewCell, number: path.row)
+    func deselectVisibleCellsAtIndexPaths(collectionView: UICollectionView, indexPaths: [NSIndexPath]) {
+        for i in indexPaths {
+            if let cell = collectionView.cellForItemAtIndexPath(i) as CardViewCell? {
+                cell.selected = false
+            }
+        }
+    }
+
+    func matchVisibleCellsAtIndexPaths(collectionView: UICollectionView, indexPaths: [NSIndexPath]) {
+        for i in indexPaths {
+            if let cell = collectionView.cellForItemAtIndexPath(i) as CardViewCell? {
+                cell.enabled = false
+            }
         }
     }
 
     func configureCell(cell: CardViewCell, number: Int) {
         cell.cardView = cardViewBuilder.viewForCardWithNumber(number)
-        cell.enabled = !viewModel.isCardMatched(number)
-        cell.selected = viewModel.isCardChosen(number)
     }
 }
 
-class CardMatchingGameDelegate: NSObject, UICollectionViewDelegateFlowLayout {
+class GameCollectionDelegate: NSObject, UICollectionViewDelegateFlowLayout {
     let cardTappedClosure: (cardNumber: Int) -> ()
 
     init(cardTappedClosure: (Int) -> ()) {

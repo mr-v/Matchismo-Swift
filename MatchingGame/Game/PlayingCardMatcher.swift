@@ -28,7 +28,7 @@ class PlayingCardMatcher: Matcher {
         numberOfCards.times { self.cards.append(deck.drawElement()) }
     }
 
-    func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> (success: Bool, points: Int) {
+    func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> MatchResult {
         var currentlyChosen: [PlayingCard] = chosenCardsIndexes.map{ self.cards[$0] }
         var rankMatches = [Rank: Int]()
         var suitMatches = [Suit: Int]()
@@ -53,11 +53,11 @@ class PlayingCardMatcher: Matcher {
         case let (s, _) where s == numberOfCardsToMatch - 1 && !ignorePartialMatches:
             reward = rewardConfiguration.suitReward
         default:
-            return (false, 0)
+            return .Mismatch
         }
 
         let difficultyBonus = 4 * (numberOfCardsToMatch - 2)/2
-        return (true, reward! + difficultyBonus)
+        return .Success(points: reward! + difficultyBonus, trackMatched: true)
     }
 
 
