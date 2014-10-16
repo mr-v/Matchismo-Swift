@@ -31,6 +31,26 @@ class ChoiceIndexesTests: XCTestCase {
         XCTAssertEqual(results.unchosen, [0])
     }
 
+    func test_chooseCardWithNumber_AfterMismatch_ReturnsNoMatchedIndexes() {
+        let game = makeGameWithFirstThreeMismatchedCards()
+
+        game.chooseCardWithNumber(0)
+        let results = game.chooseCardWithNumber(1)
+
+        XCTAssertTrue(results.matched.isEmpty)
+    }
+
+    func test_chooseCardWithNumber_ThreeMatchModeAfterMismatch_ReturnsIndexesOfFirstTwoCardsAsUnchosen() {
+        let game = makeGameWithFirstThreeMismatchedCards()
+        game.numberOfCardsToMatch = 3
+
+        game.chooseCardWithNumber(0)
+        game.chooseCardWithNumber(1)
+        let results = game.chooseCardWithNumber(2)
+
+        XCTAssertEqual(results.unchosen, [0, 1])
+    }
+
     func test_viewModelchooseCardWithNumber_AfterMatchingTwoCards_ReturnsMatchedIndexPaths() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
         let expected = [0, 1]

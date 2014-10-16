@@ -94,13 +94,13 @@ class MatchingGame {
             }
             chosenCardsIndexes.removeAll(keepCapacity: true)
         } else {
-            matched.append(number)
-            unchosen = Array(dropLast(chosenCardsIndexes.keys.array))
+            unchosen = chosenCardsIndexes.keys.array.filter { $0 != number }
 
             score += pointsConfiguration.mismatchPenalty
             chosenCardsIndexes.removeAll(keepCapacity: true)
             chosenCardsIndexes[number] = true
         }
+
         return CardChoiceResult(unchosen: unchosen, matched: matched, added: added)
     }
 
