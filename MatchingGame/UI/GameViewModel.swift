@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Witold Skibniewski. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class GameViewModel {
     var game: MatchingGame
@@ -58,5 +58,10 @@ class GameViewModel {
 
     func isCardChosen(number: Int) -> Bool {
         return game.isCardChosen(number)
+    }
+
+    func requestNewCards() -> [NSIndexPath] {
+        let results = game.requestNewCards()
+        return results.map { NSIndexPath(forItem: $0, inSection: 0) }
     }
 }

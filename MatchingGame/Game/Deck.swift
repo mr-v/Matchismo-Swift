@@ -32,7 +32,18 @@ class Deck<T> {
         }
 
         let startIndex = elements.count - count
-        return reverse(elements[startIndex..<elements.count])
+        return drawFromRange(startIndex..<elements.count)
+    }
+
+    func drawElementsAtMost(limit: Int) -> [T] {
+        let startIndex = max(elements.count - limit, 0)
+        return drawFromRange(startIndex..<elements.count)
+    }
+
+    private func drawFromRange(range: Range<Int>) -> [T] {
+        let elementsFromRange = reverse(elements[range])
+        elements.removeRange(range)
+        return elementsFromRange
     }
 
     func redeal() {

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OdU-lU-kDv">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -105,20 +106,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-YU-xT0">
-                                <rect key="frame" x="273" y="510" width="54" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Redeal">
-                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
-                                </variation>
-                                <connections>
-                                    <action selector="redeal:" destination="HIT-Zz-28M" eventType="touchUpInside" id="d77-86-MUA"/>
-                                </connections>
-                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-ey-br6">
                                 <rect key="frame" x="21" y="57" width="563" height="445"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TsY-GF-ZxA">
@@ -145,15 +132,45 @@
                                     <rect key="frame" x="11" y="87" width="768" height="420"/>
                                 </variation>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6P-Td-wf0">
+                                <rect key="frame" x="320" y="510" width="155" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Request more cards">
+                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="requestAdditionalCards" destination="HIT-Zz-28M" eventType="touchUpInside" id="hRb-xa-qpY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-YU-xT0">
+                                <rect key="frame" x="226" y="510" width="54" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Redeal">
+                                    <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="183" y="514" width="54" height="30"/>
+                                </variation>
+                                <connections>
+                                    <action selector="redeal:" destination="HIT-Zz-28M" eventType="touchUpInside" id="d77-86-MUA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Pgp-ey-br6" firstAttribute="trailing" secondItem="aDO-I4-29l" secondAttribute="trailingMargin" id="8FY-nr-dm0"/>
                             <constraint firstItem="cSR-l5-BZW" firstAttribute="top" secondItem="dbp-Hj-MQM" secondAttribute="bottom" constant="8" symbolic="YES" id="972-oZ-U2k"/>
                             <constraint firstItem="Pgp-ey-br6" firstAttribute="top" secondItem="cSR-l5-BZW" secondAttribute="bottom" constant="8" symbolic="YES" id="AaM-cZ-vA8"/>
+                            <constraint firstAttribute="centerX" secondItem="o6P-Td-wf0" secondAttribute="leading" constant="-20" id="fRW-BV-SxT"/>
                             <constraint firstItem="cSR-l5-BZW" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="iiP-lG-D48"/>
                             <constraint firstItem="Czy-4s-WTa" firstAttribute="top" secondItem="6Ak-YU-xT0" secondAttribute="bottom" constant="8" symbolic="YES" id="kxr-3L-aSR"/>
-                            <constraint firstAttribute="centerX" secondItem="6Ak-YU-xT0" secondAttribute="centerX" id="rq2-cq-GBg"/>
+                            <constraint firstItem="o6P-Td-wf0" firstAttribute="baseline" secondItem="6Ak-YU-xT0" secondAttribute="baseline" id="mf6-oQ-Bj3"/>
+                            <constraint firstAttribute="centerX" secondItem="6Ak-YU-xT0" secondAttribute="trailing" constant="20" id="rq2-cq-GBg"/>
                             <constraint firstItem="6Ak-YU-xT0" firstAttribute="top" secondItem="Pgp-ey-br6" secondAttribute="bottom" constant="8" symbolic="YES" id="vUS-W0-qGG"/>
                             <constraint firstItem="Pgp-ey-br6" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="wo2-eM-tPm"/>
                         </constraints>
@@ -162,6 +179,7 @@
                     <navigationItem key="navigationItem" id="kZb-dj-ke5"/>
                     <connections>
                         <outlet property="cardCollectionView" destination="Pgp-ey-br6" id="MdS-bn-KNh"/>
+                        <outlet property="requestMoreCardsView" destination="o6P-Td-wf0" id="1Gs-xJ-kPa"/>
                         <outlet property="scoreLabel" destination="cSR-l5-BZW" id="r59-GM-lOa"/>
                     </connections>
                 </viewController>

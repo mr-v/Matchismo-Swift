@@ -54,6 +54,15 @@ class SetCardMatcher: Matcher {
         return cards[number]
     }
 
+    func requestNewCards() -> [Int] {
+        let requestLimit = 3
+        let firstNewIndex = cards.count
+        let additionalCards = deck.drawElementsAtMost(requestLimit)
+        cards += additionalCards
+        let lastNewIndex = cards.count - 1
+        return firstNewIndex < lastNewIndex ? (firstNewIndex...lastNewIndex).map { $0 } : [Int]()
+    }
+
     private func removeCardsAtIndexes(var indexes: [Int]) {
         indexes.sort(<)
         for i in reverse(indexes) {

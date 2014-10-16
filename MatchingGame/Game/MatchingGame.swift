@@ -14,6 +14,7 @@ protocol Matcher {
     var numberOfCards: Int { get }
     func match(numberOfCardsToMatch:Int, chosenCardsIndexes: [Int]) -> MatchResult
     func redeal()
+    func requestNewCards() -> [Int]
 }
 
 struct PenaltyPointConfiguration {
@@ -129,6 +130,10 @@ class MatchingGame {
 
     func isCardMatched(number: Int) -> Bool {
         return matchedCardsIndexes[number] != nil
+    }
+
+    func requestNewCards() -> [Int] {
+        return matcher.requestNewCards()
     }
 
     private func flipCard(number: Int) {

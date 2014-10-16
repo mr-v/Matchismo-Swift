@@ -56,7 +56,7 @@ func makeGameViewModelWithPlayingCardsGame(cards: [PlayingCard]) -> GameViewMode
     let matchPoints = PenaltyPointConfiguration(choosePenalty: choosePenalty, mismatchPenalty: mismatchPenalty)
     let playingCardGamePoints = PlayingCardRewardPointConfiguration(suitReward: suitReward, rankReward: rankReward, partialMatchMultiplier: partialMatchMultiplier)
     let deck = !cards.isEmpty ? makeStubDeck(cards: cards) : PlayingCardFullDeckBuilder().build()
-    let numberOfCards = cards.isEmpty ? 52 : cards.count
+    let numberOfCards = cards.isEmpty ? 25 : cards.count
     let playingCardMatcher = PlayingCardMatcher(numberOfCards: numberOfCards, rewardConfiguration: playingCardGamePoints, deck: deck)
     let game = MatchingGame(matcher: playingCardMatcher, configuration: matchPoints, numberOfCardsToMatch: 2)
     return GameViewModel(game: game)

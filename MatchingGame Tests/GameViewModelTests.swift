@@ -110,5 +110,27 @@ class GameViewModelTests: XCTestCase {
         let statsAfterRestart = viewModel.currentlyAvailableCardsNumbers()
         XCTAssertEqual(statsAfterRestart, cleanStats)
     }
+
+    func test_requestNewCards_CardsLeftInDeck_ReturnsIndexesOfAddedCards() {
+        let viewModel = makeGameViewModelWithPlayingCardsGame()
+        let count = viewModel.numberOfCards
+        let expected = (count...count+2).map { $0 }
+
+        let addedIndexPaths = viewModel.requestNewCards()
+
+        let addedIndexes = addedIndexPaths.map { path in path.row }
+        XCTAssertEqual(addedIndexes, expected)
+    }
+
+    func test_requestNewCards_CardsLeftInDeck_ReturnsEmptyArray() {
+        let viewModel = makeGameViewModelWithPlayingCardsGame()
+        let count = viewModel.numberOfCards
+        let expected = 52 - count
+
+        for _ in 1...30 { viewModel.requestNewCards() }
+
+        let addedIndexPaths = viewModel.requestNewCards()
+        XCTAssertTrue(addedIndexPaths.isEmpty)
+    }
 }
 
