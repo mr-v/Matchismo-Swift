@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VZz-9W-SLc">
-                                <rect key="frame" x="273" y="518" width="54" height="33"/>
+                                <rect key="frame" x="273" y="510" width="54" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Redeal">
                                     <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OcG-1A-G6u">
-                                <rect key="frame" x="21" y="57" width="563" height="453"/>
+                                <rect key="frame" x="21" y="57" width="563" height="445"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mHA-GX-1bB">
                                     <size key="itemSize" width="64" height="96"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -67,7 +67,7 @@
                         <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="yaA-wD-wmi" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" symbolic="YES" id="0ap-fe-M2W"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="VZz-9W-SLc" secondAttribute="bottom" id="0kQ-sA-GLW"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="VZz-9W-SLc" secondAttribute="bottom" constant="8" symbolic="YES" id="0kQ-sA-GLW"/>
                             <constraint firstItem="OcG-1A-G6u" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="9uZ-4Q-TAY"/>
                             <constraint firstItem="yaA-wD-wmi" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="CiR-Mm-trI"/>
                             <constraint firstItem="OcG-1A-G6u" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="M34-C9-apo"/>
@@ -106,7 +106,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ak-YU-xT0">
-                                <rect key="frame" x="273" y="518" width="54" height="33"/>
+                                <rect key="frame" x="273" y="510" width="54" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <state key="normal" title="Redeal">
                                     <color key="titleColor" red="0.9879162775" green="1" blue="0.36165885279999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -120,7 +120,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Pgp-ey-br6">
-                                <rect key="frame" x="21" y="57" width="563" height="453"/>
+                                <rect key="frame" x="21" y="57" width="563" height="445"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TsY-GF-ZxA">
                                     <size key="itemSize" width="64" height="96"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -152,7 +152,7 @@
                             <constraint firstItem="cSR-l5-BZW" firstAttribute="top" secondItem="dbp-Hj-MQM" secondAttribute="bottom" constant="8" symbolic="YES" id="972-oZ-U2k"/>
                             <constraint firstItem="Pgp-ey-br6" firstAttribute="top" secondItem="cSR-l5-BZW" secondAttribute="bottom" constant="8" symbolic="YES" id="AaM-cZ-vA8"/>
                             <constraint firstItem="cSR-l5-BZW" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="iiP-lG-D48"/>
-                            <constraint firstItem="Czy-4s-WTa" firstAttribute="top" secondItem="6Ak-YU-xT0" secondAttribute="bottom" id="kxr-3L-aSR"/>
+                            <constraint firstItem="Czy-4s-WTa" firstAttribute="top" secondItem="6Ak-YU-xT0" secondAttribute="bottom" constant="8" symbolic="YES" id="kxr-3L-aSR"/>
                             <constraint firstAttribute="centerX" secondItem="6Ak-YU-xT0" secondAttribute="centerX" id="rq2-cq-GBg"/>
                             <constraint firstItem="6Ak-YU-xT0" firstAttribute="top" secondItem="Pgp-ey-br6" secondAttribute="bottom" constant="8" symbolic="YES" id="vUS-W0-qGG"/>
                             <constraint firstItem="Pgp-ey-br6" firstAttribute="leading" secondItem="aDO-I4-29l" secondAttribute="leadingMargin" constant="5" id="wo2-eM-tPm"/>
