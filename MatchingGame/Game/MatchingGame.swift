@@ -22,6 +22,11 @@ struct PenaltyPointConfiguration {
     let mismatchPenalty: Int
 }
 
+struct CardChoiceResult<T> {
+    let unchosen: [T]
+    let matched: [T]
+    let added: [T]
+}
 
 // tracks picking cards and score
 class MatchingGame {
@@ -58,15 +63,15 @@ class MatchingGame {
         matcher.redeal()
     }
 
-    func chooseCardWithNumber(number: Int) {
+    func chooseCardWithNumber(number: Int) -> CardChoiceResult<Int> {
         if isCardMatched(number) {
-            return
+            return CardChoiceResult(unchosen: [], matched: [], added: [])
         }
 
         flipCard(number)
         if !isCardChosen(number) {
             chosenCardsIndexes.removeValueForKey(number)
-            return
+            return CardChoiceResult(unchosen: [number], matched: [], added: [])
         }
 
         score += pointsConfiguration.choosePenalty
@@ -74,21 +79,29 @@ class MatchingGame {
 
         let enoughCardsToCheckMatch = chosenCardsIndexes.count == numberOfCardsToMatch
         if !enoughCardsToCheckMatch {
-            return
+            return CardChoiceResult(unchosen: [], matched: [], added: [])
         }
 
         let (success, points) = matcher.match(numberOfCardsToMatch, chosenCardsIndexes: chosenCardsIndexes.keys.array)
+        var matched = [Int]()
+        var unchosen = [Int]()
+        var added = [Int]()
         if success {
             score += points
             for (number, _) in chosenCardsIndexes {
                 matchedCardsIndexes[number] = true
+                matched.append(number)
             }
             chosenCardsIndexes.removeAll(keepCapacity: true)
         } else {
+            matched.append(number)
+            unchosen = Array(dropLast(chosenCardsIndexes.keys.array))
+
             score += pointsConfiguration.mismatchPenalty
             chosenCardsIndexes.removeAll(keepCapacity: true)
             chosenCardsIndexes[number] = true
         }
+        return CardChoiceResult(unchosen: unchosen, matched: matched, added: added)
     }
 
     func isCardChosen(number: Int) -> Bool {

@@ -38,7 +38,7 @@ class GameViewModelTests: XCTestCase {
     func test_isCardChosen_ChoosingTwoMatchingCards_TracksThemAsMatched() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
 
-        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+        for i in 0...1 { viewModel.chooseCardWithNumber(i) }
 
         let matchedNumbers = [0, 1].filter { viewModel.isCardMatched($0) }
         XCTAssertEqual(matchedNumbers, [0, 1])
@@ -47,7 +47,7 @@ class GameViewModelTests: XCTestCase {
     func test_currentlyAvailableCardsNumbers_AfterMatch_DoesntContainMatchedCardsNumbers() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(twoRankMatchingCards)
 
-        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+        for i in 0...1 { viewModel.chooseCardWithNumber(i) }
 
         let numbers = viewModel.currentlyAvailableCardsNumbers()
         let containsMatchCardNumbers = contains(numbers, 0) && contains(numbers, 1)
@@ -57,7 +57,7 @@ class GameViewModelTests: XCTestCase {
     func test_currentlyAvailableCardsNumbers_AfterMismatch_ContainsNumberOfTheFirstChosenCard() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(threeMismatchedCards)
 
-        0.upto(1) { viewModel.chooseCardWithNumber($0) }
+        for i in 0...1 { viewModel.chooseCardWithNumber(i) }
 
         let numbers = viewModel.currentlyAvailableCardsNumbers()
         let containsFirstCardNumber = contains(numbers, 0)
@@ -68,7 +68,7 @@ class GameViewModelTests: XCTestCase {
     func test_redeal_RestartsGame() {
         let viewModel = makeGameViewModelWithPlayingCardsGame(threeSuitMatchingCards)
 
-        0.upto(2) { viewModel.chooseCardWithNumber($0) }
+        for i in 0...2  { viewModel.chooseCardWithNumber(i) }
         let scoreAfterMismatch = viewModel.score
         viewModel.redeal()
 
@@ -104,7 +104,7 @@ class GameViewModelTests: XCTestCase {
         let viewModel = makeGameViewModelWithPlayingCardsGame(threeSuitMatchingCards)
         let cleanStats = viewModel.currentlyAvailableCardsNumbers()
 
-        3.times{ viewModel.chooseCardWithNumber($0) }
+        for i in 0...2 { viewModel.chooseCardWithNumber(i) }
         viewModel.redeal()
 
         let statsAfterRestart = viewModel.currentlyAvailableCardsNumbers()

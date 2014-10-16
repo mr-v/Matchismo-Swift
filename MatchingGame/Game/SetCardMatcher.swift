@@ -36,6 +36,11 @@ class SetCardMatcher: Matcher {
         }
         let maxMatches = [maxElement(numberMatches.values), maxElement(symbolMatches.values), maxElement(shadingMatches.values), maxElement(colorMatches.values)]
         let matches = maxMatches.reduce(true) { acc, matchCount in acc && (matchCount == 3 || matchCount == 1) }
+
+        if matches {
+            removeCardsWithNumbers(chosenCardsIndexes)
+        }
+
         let points = matches ? matchReward : 0
         return (matches, points)
     }
@@ -47,5 +52,13 @@ class SetCardMatcher: Matcher {
 
     func cardWithNumber(number: Int) -> SetCard {
         return cards[number]
+    }
+
+    //MARK: -
+
+    func removeCardsWithNumbers(numbers: [Int]) {
+        for (index, number) in enumerate(numbers) {
+            cards.removeAtIndex(number - index)
+        }
     }
 }

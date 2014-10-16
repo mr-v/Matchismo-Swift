@@ -22,7 +22,9 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makePlayingCardMatchingGame()
 
         var chosen = false
-        game.numberOfCardsToMatch.times { chosen |= game.isCardChosen($0) }
+        for i in 0..<game.numberOfCardsToMatch {
+            chosen |= game.isCardChosen(i)
+        }
 
         XCTAssertFalse(chosen)
     }
@@ -39,7 +41,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_ChoosingCardTwoTimes_CardIsNotChosen() {
         let game = makePlayingCardMatchingGame()
 
-        2.times { game.chooseCardWithNumber(0) }
+        2.times { game.chooseCardWithNumber(0); return }
 
         var chosen = game.isCardChosen(0)
         XCTAssertFalse(chosen)
@@ -59,7 +61,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makePlayingCardMatchingGame()
 
         let expected = game.score + choosePenalty
-        2.times { game.chooseCardWithNumber(0)}
+        2.times { game.chooseCardWithNumber(0); return }
 
         let newScore = game.score
 
@@ -70,7 +72,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeCardsMatchingWithSuits()
 
         let expected = game.score + choosePenalty * 2 + suitReward
-        0.upto(1) { game.chooseCardWithNumber($0) }
+        0.upto(1) { game.chooseCardWithNumber($0); return }
         let newScore = game.score
         
         XCTAssertEqual(newScore, expected)
@@ -80,7 +82,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
         let expected = game.score + choosePenalty * 2 + rankReward
 
-        0.upto(1) { game.chooseCardWithNumber($0) }
+        0.upto(1) { game.chooseCardWithNumber($0); return }
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected)
@@ -90,7 +92,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeMismatchedCards()
 
         let expected = game.score + choosePenalty * 2 + mismatchPenalty
-        0.upto(1) { game.chooseCardWithNumber($0) }
+        0.upto(1) { game.chooseCardWithNumber($0); return }
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected)
@@ -99,7 +101,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_MatchedCards_AreInactiveTryingToFlipThemDoesntChangeTheScore() {
         let game = makeGameWithFirstThreeCardsMatchingWithSuits()
         func flipBothCards() {
-            0.upto(1) { game.chooseCardWithNumber($0) }
+            0.upto(1) { game.chooseCardWithNumber($0); return }
         }
 
         flipBothCards()
@@ -114,9 +116,9 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeMismatchedCards()
 
         let expected = game.score + choosePenalty * 2 + suitReward
-        0.upto(1) { game.chooseCardWithNumber($0) }
+        0.upto(1) { game.chooseCardWithNumber($0); return }
         let earlierScore = game.score
-        2.times { game.chooseCardWithNumber(1) }
+        2.times { game.chooseCardWithNumber(1); return }
         let result = game.score
 
         XCTAssertNotEqual(result, earlierScore)
@@ -125,7 +127,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_pickedCardWithNumber_PickingSameCardTwoTimesInTheRow_AppliesPenaltyTwice() {
         let game = makePlayingCardMatchingGame()
         func chooseWithPenaltyTwoTimes() {
-            3.times { game.chooseCardWithNumber(0) }
+            3.times { game.chooseCardWithNumber(0); return }
         }
         let expected = game.score + 2 * choosePenalty
         chooseWithPenaltyTwoTimes()
@@ -157,7 +159,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
         let currentMode = game.numberOfCardsToMatch
 
-        2.times { game.chooseCardWithNumber(1) }
+        2.times { game.chooseCardWithNumber(1); return }
         game.numberOfCardsToMatch = currentMode + 1
 
         let notChanged = game.numberOfCardsToMatch == currentMode
@@ -182,7 +184,10 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeCardsMatchingWithSuits()
         game.numberOfCardsToMatch = 3
         let scoreWithoutBonus = game.score + choosePenalty * 3 + suitReward
-        3.times { game.chooseCardWithNumber($0) }
+
+        for i in 0..<game.numberOfCardsToMatch {
+            game.chooseCardWithNumber(i)
+        }
 
         let newScore = game.score
         XCTAssertGreaterThan(newScore, scoreWithoutBonus)
@@ -194,7 +199,9 @@ class PlayingCardMatchingGameTests: XCTestCase {
         game.numberOfCardsToMatch = cardsToMatchCount
 
         let expected = game.score + choosePenalty * cardsToMatchCount + mismatchPenalty
-        cardsToMatchCount.times { game.chooseCardWithNumber($0) }
+        for i in 0..<cardsToMatchCount {
+            game.chooseCardWithNumber(i)
+        }
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected)
@@ -203,7 +210,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingThreeMismatchedCards_FirstTwoCardsAreAvailableToChose() {
         let game = makeGameWithFirstThreeMismatchedCards()
 
-        0.upto(2) { game.chooseCardWithNumber($0) }
+        0.upto(2) { game.chooseCardWithNumber($0); return }
 
         let cardsAreAvailable = !game.isCardChosen(0) && !game.isCardChosen(1)
         XCTAssertTrue(cardsAreAvailable)
@@ -213,7 +220,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeMismatchedCards()
         game.numberOfCardsToMatch = 3
 
-        0.upto(2) { game.chooseCardWithNumber($0) }
+        0.upto(2) { game.chooseCardWithNumber($0); return }
 
         let chosen = game.isCardChosen(0)
         XCTAssertFalse(chosen)
@@ -223,7 +230,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
         let game = makeGameWithFirstThreeMismatchedCards()
         game.numberOfCardsToMatch = 3
 
-       0.upto(2) { game.chooseCardWithNumber($0) }
+       0.upto(2) { game.chooseCardWithNumber($0); return }
 
         let chosen = game.isCardChosen(1)
         XCTAssertFalse(chosen)
@@ -232,7 +239,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingThreeMismatchedCards_LastCardIsNotAvailableToChose() {
         let game = makeGameWithFirstThreeMismatchedCards()
 
-        0.upto(2) { game.chooseCardWithNumber($0) }
+        0.upto(2) { game.chooseCardWithNumber($0); return }
 
         let cardIsChosen = game.isCardChosen(2)
         XCTAssertTrue(cardIsChosen)
@@ -241,7 +248,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_PickingThreeMatchingRanks_AppliesReward() {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
         let expected = game.score + choosePenalty * 3 + rankReward
-        0.upto(2) { game.chooseCardWithNumber($0) }
+        0.upto(2) { game.chooseCardWithNumber($0); return }
         let newScore = game.score
 
         XCTAssertEqual(newScore, expected)
@@ -250,7 +257,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_FullyFlippingCardAndFlippingOtherMatchingCardOnce_DoesntProduceAMatch() {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
 
-        2.times { game.chooseCardWithNumber(1) }
+        2.times { game.chooseCardWithNumber(1); return }
         game.chooseCardWithNumber(0)
 
         let expected = game.matchedCardsIndexes.isEmpty
@@ -260,7 +267,7 @@ class PlayingCardMatchingGameTests: XCTestCase {
     func test_chooseCardWithNumber_FullyFlippingCard_ClearsCurrenltyChosenIndexes() {
         let game = makeGameWithFirstTwoCardsMatchingWithRanks()
 
-        2.times { game.chooseCardWithNumber(1) }
+        2.times { game.chooseCardWithNumber(1); return }
 
         let noChosenIndexes = game.chosenCardsIndexes.isEmpty
         XCTAssertTrue(noChosenIndexes)
@@ -273,10 +280,11 @@ class PlayingCardMatchingGameTests: XCTestCase {
         game.numberOfCardsToMatch = matchCount
         let scoreWithNoBonus = game.score + choosePenalty * matchCount + Int(partialMatchMultiplier * Double(suitReward))
 
-        0.upto(2) { game.chooseCardWithNumber($0) }
+        0.upto(2) { game.chooseCardWithNumber($0); return }
 
         let currentScore = game.score
         XCTAssertGreaterThan(currentScore, scoreWithNoBonus)
     }
+
 }
 
