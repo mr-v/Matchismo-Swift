@@ -8,39 +8,6 @@
 
 import UIKit
 
-private struct GameStatistics: Equatable {
-    enum StatisticsComparisonResult {
-        case FlippedBackACard
-        case FlippedUpACard
-        case Match
-        case Mismatch
-    }
-    var currentlyChosen: [Int] = [Int]() {
-        didSet { numberOfChosenCards = currentlyChosen.count }
-    }
-    var numberOfChosenCards: Int = 0
-    var score: Int = 0
-    var numberOfMatchedCards: Int = 0
-
-    func compare(newStats: GameStatistics) -> StatisticsComparisonResult {
-        if numberOfMatchedCards == newStats.numberOfMatchedCards {
-            if numberOfChosenCards == newStats.numberOfChosenCards {
-                return .FlippedUpACard
-            } else if score == newStats.score {
-                return .FlippedBackACard
-            } else {
-                return .Mismatch
-            }
-        } else {
-            return .Match
-        }
-    }
-}
-
-private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
-    return lhs.score == rhs.score && lhs.numberOfChosenCards == rhs.numberOfChosenCards && lhs.numberOfMatchedCards == rhs.numberOfMatchedCards
-}
-
 class GameViewModel {
     var game: MatchingGame
     var scoreText: String {
@@ -49,16 +16,11 @@ class GameViewModel {
     var numberOfCards: Int {
         get { return game.numberOfCards }
     }
-    private var lastActionStatistics: GameStatistics
-
     init(game: MatchingGame) {
         self.game = game
-        lastActionStatistics = GameStatistics()
     }
 
     func chooseCardWithNumber(number: Int) -> CardChanges<NSIndexPath> {
-        lastActionStatistics = currentStatistics()
-        lastActionStatistics.currentlyChosen.append(number)
         let results = game.chooseCardWithNumber(number)
         return mapResultsToIndexPathsResults(results)
     }
@@ -84,7 +46,6 @@ class GameViewModel {
 
     func redeal() {
         game.redeal()
-        lastActionStatistics = GameStatistics()
     }
 
     func changeModeWithNumberOfCardsToMatch(count: Int) {
@@ -97,13 +58,5 @@ class GameViewModel {
 
     func isCardChosen(number: Int) -> Bool {
         return game.isCardChosen(number)
-    }
-
-    private func currentStatistics() -> GameStatistics {
-        var stats = GameStatistics()
-        stats.currentlyChosen = game.chosenCardsIndexes.keys.array
-        stats.score = game.score
-        stats.numberOfMatchedCards = game.matchedCardsIndexes.count
-        return stats
     }
 }
