@@ -19,8 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
 
-        let tabController =  window!.rootViewController as UITabBarController
+        // storyboard initialized via code - otherwise it did launch during unit tests and threw errors
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabController = storyboard.instantiateInitialViewController() as UITabBarController
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window!.rootViewController = tabController
         ApplicationBuilder().buildAppWithRootViewController(tabController)
+
+        window!.makeKeyAndVisible()
         return true
     }
     
