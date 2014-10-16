@@ -16,7 +16,7 @@ class PlayingCardViewBuilder: CardViewBuilder {
         self.matcher = matcher
     }
 
-    func buildViewForCardWithNumber(number: Int) -> CardView {
+    func viewForCardWithNumber(number: Int) -> CardView {
         let card = matcher.cardWithNumber(number)
         let suit = card.suit.rawValue
         let rank = letterMapping[card.rank] ?? String(card.rank.rawValue)

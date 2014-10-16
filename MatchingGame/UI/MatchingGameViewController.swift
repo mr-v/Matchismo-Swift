@@ -15,12 +15,10 @@ class MatchingGameViewController: UIViewController {
     var collectionDataSource: CardMatchingGameDataSource!
     var collectionDelegate: CardMatchingGameDelegate!
     var viewModel:GameViewModel!
-    var cellReuseId:String = "CardCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionDataSource = CardMatchingGameDataSource(viewModel: viewModel, cellReuseId: cellReuseId)
         collectionDelegate = CardMatchingGameDelegate(cardTappedClosure: didPickCard)
 
         cardCollectionView.allowsMultipleSelection = true

@@ -9,14 +9,20 @@
 import Foundation
 import UIKit
 
+protocol CardViewBuilder {
+    func viewForCardWithNumber(number: Int) -> CardView
+}
+
 class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     let cellReuseId: String
 
     private let viewModel: GameViewModel
+    private let cardViewBuilder: CardViewBuilder
 
-    init(viewModel: GameViewModel, cellReuseId: String) {
+    init(viewModel: GameViewModel, cardViewBuilder:CardViewBuilder, cellReuseId: String) {
         self.viewModel = viewModel
         self.cellReuseId = cellReuseId
+        self.cardViewBuilder = cardViewBuilder
         super.init()
     }
 
@@ -38,7 +44,7 @@ class CardMatchingGameDataSource: NSObject, UICollectionViewDataSource {
     }
 
     func configureCell(cell: CardViewCell, number: Int) {
-        cell.cardView = viewModel.viewForCardWithNumber(number)
+        cell.cardView = cardViewBuilder.viewForCardWithNumber(number)
         cell.enabled = !viewModel.isCardMatched(number)
         cell.selected = viewModel.isCardChosen(number)
     }

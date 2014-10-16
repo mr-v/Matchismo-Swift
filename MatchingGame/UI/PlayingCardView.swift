@@ -29,8 +29,7 @@ class PlayingCardView: CardView {
     override func drawSymbols(rect: CGRect) {
         if !selected {
             // loading this way to get a live preview
-            let backImage =  UIImage(named: "card_back")
-            //: "card_back", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
+            let backImage = UIImage(named: "card_back", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil)
             backImage!.drawInRect(bounds)
         } else {
             drawFace()

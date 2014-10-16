@@ -41,11 +41,6 @@ private func == (lhs: GameStatistics, rhs: GameStatistics) -> Bool {
     return lhs.score == rhs.score && lhs.numberOfChosenCards == rhs.numberOfChosenCards && lhs.numberOfMatchedCards == rhs.numberOfMatchedCards
 }
 
-protocol CardViewBuilder {
-    func buildViewForCardWithNumber(number: Int) -> CardView
-}
-
-
 class GameViewModel {
     var game: MatchingGame
     var scoreText: String {
@@ -55,11 +50,9 @@ class GameViewModel {
         get { return game.numberOfCards }
     }
     private var lastActionStatistics: GameStatistics
-    private let cardViewBuilder: CardViewBuilder
 
-    init(game: MatchingGame, cardViewBuilder: CardViewBuilder) {
+    init(game: MatchingGame) {
         self.game = game
-        self.cardViewBuilder = cardViewBuilder
         lastActionStatistics = GameStatistics()
     }
 
@@ -67,10 +60,6 @@ class GameViewModel {
         lastActionStatistics = currentStatistics()
         lastActionStatistics.currentlyChosen.append(number)
         game.chooseCardWithNumber(number)
-    }
-
-    func viewForCardWithNumber(number: Int) -> CardView {
-        return cardViewBuilder.buildViewForCardWithNumber(number)
     }
 
     func currentlyAvailableCardsNumbers() -> [Int] {

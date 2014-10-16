@@ -35,13 +35,7 @@
 		EA4475EF19EF2B94005EEF42 /* PlayingCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CD19EF2B67005EEF42 /* PlayingCardMatcher.swift */; };
 		EA4475F019EF2B94005EEF42 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CE19EF2B67005EEF42 /* SetCard.swift */; };
 		EA4475F119EF2B94005EEF42 /* SetCardMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475CF19EF2B67005EEF42 /* SetCardMatcher.swift */; };
-		EA4475F319EF2B9A005EEF42 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D719EF2B74005EEF42 /* CardView.swift */; };
-		EA4475F419EF2B9A005EEF42 /* FitToBoundsFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D819EF2B74005EEF42 /* FitToBoundsFlowLayout.swift */; };
 		EA4475F519EF2B9A005EEF42 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475D919EF2B74005EEF42 /* GameViewModel.swift */; };
-		EA4475F819EF2B9A005EEF42 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DC19EF2B74005EEF42 /* PlayingCardView.swift */; };
-		EA4475F919EF2B9A005EEF42 /* PlayingCardViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DD19EF2B74005EEF42 /* PlayingCardViewBuilder.swift */; };
-		EA4475FA19EF2B9A005EEF42 /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DE19EF2B74005EEF42 /* SetCardView.swift */; };
-		EA4475FB19EF2B9A005EEF42 /* SetCardViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */; };
 		EA44760019EF2D4E005EEF42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA4475FC19EF2D4E005EEF42 /* LaunchScreen.xib */; };
 		EA44760119EF2D4E005EEF42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA4475FE19EF2D4E005EEF42 /* Main.storyboard */; };
 		EA75C0B219E54CEF00CD9B14 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA75C0B119E54CEF00CD9B14 /* Factory.swift */; };
@@ -363,20 +357,14 @@
 				EA4475EF19EF2B94005EEF42 /* PlayingCardMatcher.swift in Sources */,
 				EA06FAA119E6F60F007501C6 /* SetCardMatcherTests.swift in Sources */,
 				EA75C0B219E54CEF00CD9B14 /* Factory.swift in Sources */,
-				EA4475F919EF2B9A005EEF42 /* PlayingCardViewBuilder.swift in Sources */,
-				EA4475F319EF2B9A005EEF42 /* CardView.swift in Sources */,
 				EA4475EB19EF2B90005EEF42 /* IntExtension.swift in Sources */,
 				EA4475EA19EF2B90005EEF42 /* CGPointExtension.swift in Sources */,
-				EA4475FB19EF2B9A005EEF42 /* SetCardViewBuilder.swift in Sources */,
 				EA4475F519EF2B9A005EEF42 /* GameViewModel.swift in Sources */,
-				EA4475FA19EF2B9A005EEF42 /* SetCardView.swift in Sources */,
 				EA4475F019EF2B94005EEF42 /* SetCard.swift in Sources */,
 				EA4475F119EF2B94005EEF42 /* SetCardMatcher.swift in Sources */,
-				EA4475F819EF2B9A005EEF42 /* PlayingCardView.swift in Sources */,
 				EA4475EC19EF2B94005EEF42 /* Deck.swift in Sources */,
 				EADE2B8219D9D7F900978F4B /* DeckTests.swift in Sources */,
 				EADE2B8319D9DC6200978F4B /* MatchingGameTests.swift in Sources */,
-				EA4475F419EF2B9A005EEF42 /* FitToBoundsFlowLayout.swift in Sources */,
 				EADE2B8419D9DC6D00978F4B /* GameViewModelTests.swift in Sources */,
 				EA4475ED19EF2B94005EEF42 /* MatchingGame.swift in Sources */,
 			);

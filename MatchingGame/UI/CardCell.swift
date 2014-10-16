@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@IBDesignable
 class CardViewCell: UICollectionViewCell {
     var cardView: CardView? {
         didSet {
@@ -22,5 +23,18 @@ class CardViewCell: UICollectionViewCell {
         didSet {
             cardView?.enabled = enabled
         }
+    }
+
+    override func prepareForInterfaceBuilder() {
+//        func setCardView() -> CardView {
+//            let card = SetCard(number: .Two, symbol: .Squiggle, shading: .Striped, color: .Purple)
+//            let drawer = SetCardViewBuilder().buildDrawerForSetCard(card)
+//            return SetCardView(drawer: drawer)
+//        }
+//
+//        let view = setCardView()
+        let view = PlayingCardView(suit: "♠", rank: "3")
+        cardView = view
+        selected = true
     }
 }

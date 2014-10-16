@@ -10,19 +10,19 @@ import UIKit
 
 class SetCardViewBuilder: CardViewBuilder
  {
-    let matcher: SetCardMatcher
+    let matcher: SetCardMatcher?
 
-    init(matcher: SetCardMatcher) {
+    init(matcher: SetCardMatcher?) {
         self.matcher = matcher
     }
 
-    func buildViewForCardWithNumber(number: Int) -> CardView {
-        let drawer = buildDrawerForCardWithNumber(number)
+    func viewForCardWithNumber(number: Int) -> CardView {
+        let card = matcher!.cardWithNumber(number)
+        let drawer = buildDrawerForSetCard(card)
         return SetCardView(drawer: drawer)
     }
 
-    func buildDrawerForCardWithNumber(number: Int) -> SetCardSymbolDrawingClosure {
-        let card = matcher.cardWithNumber(number)
+    func buildDrawerForSetCard(card: SetCard) -> SetCardSymbolDrawingClosure {
         var shadingColor: UIColor = colorForSetColor(card.color)
         var setupShading = shadingSetupForShading(card.shading, shadingColor: shadingColor)
         var drawSymbol = drawerForSymbol(card.symbol)
