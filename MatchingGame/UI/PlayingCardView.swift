@@ -40,7 +40,9 @@ class PlayingCardView: CardView {
     private func drawFace() {
         if let faceImage = UIImage(named: "\(rank)\(suit)", inBundle: NSBundle(forClass: self.dynamicType), compatibleWithTraitCollection: nil) {
             let insetScale: CGFloat = 1 - faceCardScaleFactor
-            let imageRect = bounds.rectByInsetting(dx: bounds.width * insetScale, dy: bounds.height * insetScale)
+            let xInset = floor(bounds.width * (1 - faceCardScaleFactor)/2)
+            let yInset = floor(bounds.height * (1 - faceCardScaleFactor)/3)
+            let imageRect = bounds.rectByInsetting(dx: xInset, dy: yInset)
             faceImage.drawInRect(imageRect)
         } else {
             drawPips()
