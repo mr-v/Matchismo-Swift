@@ -18,13 +18,12 @@ import UIKit
 
 class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
     let cardRatio: CGFloat
-    var insertItems: NSMutableSet
-    var deleteItems: NSMutableSet
+    var insertItems = NSMutableSet()
+    var deleteItems = NSMutableSet()
+    var reloading = false
 
     override init() {
         cardRatio = 2 / 3
-        insertItems = NSMutableSet()
-        deleteItems = NSMutableSet()
         super.init()
         minimumInteritemSpacing = 0
         minimumLineSpacing = 0
@@ -60,6 +59,8 @@ class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
                 insertItems.addObject(item.indexPathAfterUpdate.item)
             case .Delete:
                 deleteItems.addObject(item.indexPathBeforeUpdate.item)
+            case .Reload:
+                reloading = true
             default:
                 let uncustomizedAction = true
             }
@@ -71,24 +72,28 @@ class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
 
         insertItems.removeAllObjects()
         deleteItems.removeAllObjects()
+        reloading = false
     }
 
     override func initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         var attributes = super.initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath)!
+        attributes.alpha = 1
+        let bounds = collectionView!.bounds
         if insertItems.containsObject(itemIndexPath.item) {
-            let bounds = collectionView!.bounds
-            attributes.center =  CGPoint(x: bounds.midX, y: bounds.maxY)
-            attributes.alpha = 1
+            attributes.center = CGPoint(x: bounds.midX, y: bounds.maxY)
+        } else if reloading {
+            attributes.center = attributes.center.pointByOffsetting(0, dy: bounds.height)
         }
         return attributes
     }
 
     override func finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         var attributes = super.finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath)!
-        if deleteItems.containsObject(itemIndexPath.item) {
+        if deleteItems.containsObject(itemIndexPath.item) || reloading {
             let bounds = collectionView!.bounds
-            attributes.center =  attributes.center.pointByOffsetting(0, dy: -bounds.height)
+            attributes.center =  attributes.center.pointByOffsetting(0, dy: -bounds.height * 2)
             attributes.alpha = 1
+            attributes.zIndex = 1
         }
         return attributes
     }

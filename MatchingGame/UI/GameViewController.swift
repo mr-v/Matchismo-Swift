@@ -53,7 +53,11 @@ class GameViewController: UIViewController {
         viewModel.redeal()
 
         updateScoreLabel()
-        cardCollectionView.reloadData()
+
+        cardCollectionView.performBatchUpdates({
+            let sectionsRange = NSRange(0..<self.cardCollectionView.numberOfSections())
+            self.cardCollectionView.reloadSections(NSIndexSet(indexesInRange: sectionsRange))}, completion: nil)
+        //  self.cardCollectionView.reloadData()
     }
 
     func updateScoreLabel() {
