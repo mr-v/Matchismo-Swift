@@ -27,10 +27,9 @@ class CardViewCell: UICollectionViewCell {
         didSet {
             cardView?.selected = selected
             if let background = cardBackgroundView {
-                let from = selected ? background : cardView!
                 let to = selected ? cardView! : background
                 let options: UIViewAnimationTransition = selected ? .FlipFromLeft : .FlipFromRight
-                let time = 0.3
+                let time = selected ? 0.2 : 0.4
 
                 backgroundView = to
                 UIView.beginAnimations(nil, context:nil)
