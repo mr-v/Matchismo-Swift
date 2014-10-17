@@ -18,9 +18,13 @@ import UIKit
 
 class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
     let cardRatio: CGFloat
+    var insertItems: NSMutableSet
+    var deleteItems: NSMutableSet
 
     override init() {
         cardRatio = 2 / 3
+        insertItems = NSMutableSet()
+        deleteItems = NSMutableSet()
         super.init()
         minimumInteritemSpacing = 0
         minimumLineSpacing = 0
@@ -28,6 +32,8 @@ class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
 
     required init(coder aDecoder: NSCoder) {
         cardRatio = CGFloat(aDecoder.decodeFloatForKey("cardRatio"))
+        insertItems = NSMutableSet()
+        deleteItems = NSMutableSet()
         super.init(coder: aDecoder)
     }
 
@@ -43,6 +49,48 @@ class FitToBoundsFlowLayout: UICollectionViewFlowLayout {
         itemSize = sizeToFitCardsWithCount(collectionView!.numberOfItemsInSection(0), rectToFitIn: collectionView!.bounds)
 
         return super.layoutAttributesForElementsInRect(rect)
+    }
+
+    override func prepareForCollectionViewUpdates(updateItems: [AnyObject]!) {
+        super.prepareForCollectionViewUpdates(updateItems)
+        let items = updateItems as [UICollectionViewUpdateItem]
+        for item in items {
+            switch item.updateAction {
+            case .Insert:
+                insertItems.addObject(item.indexPathAfterUpdate.item)
+            case .Delete:
+                deleteItems.addObject(item.indexPathBeforeUpdate.item)
+            default:
+                let uncustomizedAction = true
+            }
+        }
+    }
+
+    override func finalizeCollectionViewUpdates() {
+        super.finalizeCollectionViewUpdates()
+
+        insertItems.removeAllObjects()
+        deleteItems.removeAllObjects()
+    }
+
+    override func initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        var attributes = super.initialLayoutAttributesForAppearingItemAtIndexPath(itemIndexPath)!
+        if insertItems.containsObject(itemIndexPath.item) {
+            let bounds = collectionView!.bounds
+            attributes.center =  CGPoint(x: bounds.midX, y: bounds.maxY)
+            attributes.alpha = 1
+        }
+        return attributes
+    }
+
+    override func finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        var attributes = super.finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath)!
+        if deleteItems.containsObject(itemIndexPath.item) {
+            let bounds = collectionView!.bounds
+            attributes.center =  attributes.center.pointByOffsetting(0, dy: -bounds.height)
+            attributes.alpha = 1
+        }
+        return attributes
     }
 
     private func sizeToFitCardsWithCount(count: Int, rectToFitIn: CGRect) -> CGSize {
