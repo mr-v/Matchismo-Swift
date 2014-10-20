@@ -43,10 +43,12 @@ import UIKit
         contentMode = .Redraw   // redraw on bounds change
     }
 
+    let greyColor = UIColor(red: 191/255, green: 191/255, blue: 191/255, alpha: 0.8)
+
     override func drawRect(rect: CGRect) {
         var roundedRect = UIBezierPath(roundedRect: self.bounds, cornerRadius: scaledCornerRadius)
         UIColor.whiteColor().setFill()
-        UIColor.blackColor().setStroke()
+        greyColor.setStroke()
         roundedRect.fill()
         roundedRect.stroke()
 
