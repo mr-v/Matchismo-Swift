@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EA06FAA119E6F60F007501C6 /* SetCardMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */; };
-		EA0BF16D19F3086500AE3629 /* SnappedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF16C19F3086500AE3629 /* SnappedLayout.swift */; };
+		EA0BF16D19F3086500AE3629 /* StackLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF16C19F3086500AE3629 /* StackLayout.swift */; };
+		EA0E6F0119F5A67900CE19D7 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E6F0019F5A67900CE19D7 /* delay.swift */; };
 		EA44758319EEF5B2005EEF42 /* ApplicationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */; };
 		EA4475C819EF2B5B005EEF42 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */; };
 		EA4475C919EF2B5B005EEF42 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475C719EF2B5B005EEF42 /* IntExtension.swift */; };
@@ -76,7 +77,8 @@
 
 /* Begin PBXFileReference section */
 		EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcherTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EA0BF16C19F3086500AE3629 /* SnappedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnappedLayout.swift; path = MatchingGame/UI/SnappedLayout.swift; sourceTree = SOURCE_ROOT; };
+		EA0BF16C19F3086500AE3629 /* StackLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackLayout.swift; path = MatchingGame/UI/StackLayout.swift; sourceTree = SOURCE_ROOT; };
+		EA0E6F0019F5A67900CE19D7 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
 		EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationBuilder.swift; sourceTree = "<group>"; };
 		EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtension.swift; path = Extensions/CGPointExtension.swift; sourceTree = "<group>"; };
 		EA4475C719EF2B5B005EEF42 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntExtension.swift; path = Extensions/IntExtension.swift; sourceTree = "<group>"; };
@@ -150,7 +152,7 @@
 				EA4475DF19EF2B74005EEF42 /* SetCardViewBuilder.swift */,
 				EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */,
 				EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */,
-				EA0BF16C19F3086500AE3629 /* SnappedLayout.swift */,
+				EA0BF16C19F3086500AE3629 /* StackLayout.swift */,
 			);
 			name = UI;
 			path = ../CardGameUI;
@@ -161,6 +163,7 @@
 			children = (
 				EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */,
 				EA4475C719EF2B5B005EEF42 /* IntExtension.swift */,
+				EA0E6F0019F5A67900CE19D7 /* delay.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				EA44758319EEF5B2005EEF42 /* ApplicationBuilder.swift in Sources */,
 				EA4475C919EF2B5B005EEF42 /* IntExtension.swift in Sources */,
 				EA4475D119EF2B67005EEF42 /* MatchingGame.swift in Sources */,
+				EA0E6F0119F5A67900CE19D7 /* delay.swift in Sources */,
 				EA4475D419EF2B67005EEF42 /* SetCard.swift in Sources */,
 				EA4475D019EF2B67005EEF42 /* Deck.swift in Sources */,
 				EA4475E719EF2B74005EEF42 /* PlayingCardViewBuilder.swift in Sources */,
@@ -364,7 +368,7 @@
 				EAA0ADEE19F05FB90029BFB2 /* PlayingCardBackView.swift in Sources */,
 				EA4475E519EF2B74005EEF42 /* GameViewController.swift in Sources */,
 				EA4475C819EF2B5B005EEF42 /* CGPointExtension.swift in Sources */,
-				EA0BF16D19F3086500AE3629 /* SnappedLayout.swift in Sources */,
+				EA0BF16D19F3086500AE3629 /* StackLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MatchingGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -513,6 +518,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MatchingGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

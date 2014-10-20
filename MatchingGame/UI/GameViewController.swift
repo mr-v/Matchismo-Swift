@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
     var collectionDataSource: GameDataSource!
     var viewModel:GameViewModel!
     private let gridLayout = FitToBoundsFlowLayout()
-    private let stackLayout = SnappedLayout()
+    private let stackLayout = StackLayout()
     private var collectionDelegate: GameCollectionDelegate!
     private var pinch: UIPinchGestureRecognizer!
     private var tap: UITapGestureRecognizer!
