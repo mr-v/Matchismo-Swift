@@ -14,6 +14,10 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
     var attachments = [UIAttachmentBehavior]()
     var layoutAttributes: [UICollectionViewLayoutAttributes]!
     lazy var pan: UIPanGestureRecognizer = UIPanGestureRecognizer(target: self, action: "move:")
+    var center: CGPoint {
+        let size = collectionViewContentSize()
+        return CGPoint(x: size.width/2, y: size.height/2)
+    }
 
     override func prepareForTransitionFromLayout(oldLayout: UICollectionViewLayout) {
         animator?.removeAllBehaviors()
@@ -40,7 +44,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             let dynamicAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: index, inSection: 0))
             dynamicAttributes.frame = attributes.frame
             layoutAttributes[index] = dynamicAttributes
-            let snap = UISnapBehavior(item: dynamicAttributes, snapToPoint: center())
+            let snap = UISnapBehavior(item: dynamicAttributes, snapToPoint: center)
             animator.addBehavior(snap)
         }
     }
@@ -61,11 +65,6 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
         return collectionView!.bounds.size
     }
 
-    func center() -> CGPoint {
-        let size = collectionViewContentSize()
-        return CGPoint(x: size.width/2, y: size.height/2)
-    }
-
     func move(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .Began:
@@ -78,36 +77,30 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             
             let lastAttribute = last(layoutAttributes)!
             itemBehavior.addItem(lastAttribute)
-            anchorAttachement = UIAttachmentBehavior(item: lastAttribute, attachedToAnchor: recognizer.locationInView(collectionView))
+            anchorAttachement = UIAttachmentBehavior(item: lastAttribute, attachedToAnchor: center)
             animator.addBehavior(anchorAttachement)
             attachments.append(anchorAttachement)
 
             let count = collectionView!.numberOfItemsInSection(0)
             for i in 0..<count-2 {
                 let current = layoutAttributes[i]
+                current.center = center
                 itemBehavior.addItem(current)
                 let attach = UIAttachmentBehavior(item: current, attachedToItem: lastAttribute)
                 animator.addBehavior(attach)
                 attachments.append(attach)
             }
+            anchorAttachement.anchorPoint = recognizer.locationInView(collectionView)
         case .Changed:
             anchorAttachement.anchorPoint = recognizer.locationInView(collectionView)
-//            let item = anchorAttachement.items[0] as UICollectionViewLayoutAttributes
-//            let attributes = layoutAttributesForItemAtIndexPath(item.indexPath)
-//            attributes.center = recognizer.locationInView(collectionView)
-//            animator.updateItemUsingCurrentState(attributes)
         case .Ended:
-//            let topItem = attachments[0].items[0] as UIDynamicItem
             let v = recognizer.velocityInView(collectionView)
 
-            for behavior in attachments {   //  as [UIAttachmentBehavior]
+            for behavior in attachments {
                 let item = behavior.items[0] as UIDynamicItem
                 let push = UIPushBehavior(items: [item], mode: UIPushBehaviorMode.Instantaneous)
-                push.pushDirection = CGVectorMake(v.x/200, v.y/200)
+                push.pushDirection = CGVectorMake(v.x/300, v.y/300)
                 animator.addBehavior(push)
-
-//                let snap = UISnapBehavior(item: item, snapToPoint: center())
-//                animator.addBehavior(snap)
                 animator.removeBehavior(behavior)
             }
 
@@ -117,7 +110,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             delay(Double(time)) {
                 for behavior in closureAttachments {
                     let item = behavior.items[0] as UIDynamicItem
-                    let snap = UISnapBehavior(item: item, snapToPoint: self.center())
+                    let snap = UISnapBehavior(item: item, snapToPoint: self.center)
                     self.animator.addBehavior(snap)
                 }
             }
