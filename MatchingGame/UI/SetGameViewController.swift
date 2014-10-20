@@ -19,7 +19,7 @@ class SetGameViewController: GameViewController {
     @IBAction func requestAdditionalCards() {
         let added = viewModel.requestNewCards()
         requestMoreCardsView.enabled = !added.isEmpty
-        requestMoreCardsView.alpha = !added.isEmpty ? 1 : 0
+        requestMoreCardsView.alpha = !added.isEmpty ? 1 : 0.5
         cardCollectionView.performBatchUpdates({ self.cardCollectionView.insertItemsAtIndexPaths(added) }, completion: nil)
     }
 

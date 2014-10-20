@@ -25,7 +25,7 @@ class GameViewModel {
         return mapResultsToIndexPathsResults(results)
     }
 
-    func mapResultsToIndexPathsResults(results: CardChanges<Int>) -> CardChanges<NSIndexPath> {
+    private func mapResultsToIndexPathsResults(results: CardChanges<Int>) -> CardChanges<NSIndexPath> {
         func mapToIndexPath(numbers: [Int]) -> [NSIndexPath] {
             return numbers.map { NSIndexPath(forItem: $0, inSection: 0) }
         }

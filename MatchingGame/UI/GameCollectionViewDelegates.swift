@@ -61,18 +61,23 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
 
 class GameCollectionDelegate: NSObject, UICollectionViewDelegateFlowLayout {
     let cardTappedClosure: (cardNumber: Int) -> ()
+    var selectable: Bool
 
-    init(cardTappedClosure: (Int) -> ()) {
+    init(cardTappedClosure: (Int) -> (), selectable: Bool = true) {
         self.cardTappedClosure = cardTappedClosure
+        self.selectable = selectable
         super.init()
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // pick a card
         cardTappedClosure(cardNumber: indexPath.row)
     }
 
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         cardTappedClosure(cardNumber: indexPath.row)
+    }
+
+    func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return selectable
     }
 }
