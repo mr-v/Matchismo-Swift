@@ -10,6 +10,7 @@
 		EA06FAA119E6F60F007501C6 /* SetCardMatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */; };
 		EA0BF16D19F3086500AE3629 /* StackLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF16C19F3086500AE3629 /* StackLayout.swift */; };
 		EA0E6F0119F5A67900CE19D7 /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0E6F0019F5A67900CE19D7 /* delay.swift */; };
+		EA40132C19F69F5D00BCFD5F /* TabBarImageFromText.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA40132B19F69F5D00BCFD5F /* TabBarImageFromText.swift */; };
 		EA44758319EEF5B2005EEF42 /* ApplicationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */; };
 		EA4475C819EF2B5B005EEF42 /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */; };
 		EA4475C919EF2B5B005EEF42 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4475C719EF2B5B005EEF42 /* IntExtension.swift */; };
@@ -79,6 +80,7 @@
 		EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcherTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA0BF16C19F3086500AE3629 /* StackLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackLayout.swift; path = MatchingGame/UI/StackLayout.swift; sourceTree = SOURCE_ROOT; };
 		EA0E6F0019F5A67900CE19D7 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
+		EA40132B19F69F5D00BCFD5F /* TabBarImageFromText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarImageFromText.swift; sourceTree = SOURCE_ROOT; };
 		EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationBuilder.swift; sourceTree = "<group>"; };
 		EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtension.swift; path = Extensions/CGPointExtension.swift; sourceTree = "<group>"; };
 		EA4475C719EF2B5B005EEF42 /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntExtension.swift; path = Extensions/IntExtension.swift; sourceTree = "<group>"; };
@@ -103,7 +105,7 @@
 		EA4D721119D9C3A20014E293 /* MatchingGameTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MatchingGameTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA75C0B119E54CEF00CD9B14 /* Factory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Factory.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EAA0ADE719EFFB4A0029BFB2 /* ChoiceIndexesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ChoiceIndexesTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardGameViewController.swift; path = MatchingGame/UI/PlayingCardGameViewController.swift; sourceTree = SOURCE_ROOT; };
+		EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = PlayingCardGameViewController.swift; path = MatchingGame/UI/PlayingCardGameViewController.swift; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlayingCardBackView.swift; path = MatchingGame/UI/PlayingCardBackView.swift; sourceTree = SOURCE_ROOT; };
 		EABACF3119D5A90300FDEEAB /* MatchingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatchingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABACF3519D5A90300FDEEAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				EAA0ADE919F0119C0029BFB2 /* PlayingCardGameViewController.swift */,
 				EAA0ADED19F05FB90029BFB2 /* PlayingCardBackView.swift */,
 				EA0BF16C19F3086500AE3629 /* StackLayout.swift */,
+				EA40132B19F69F5D00BCFD5F /* TabBarImageFromText.swift */,
 			);
 			name = UI;
 			path = ../CardGameUI;
@@ -352,6 +355,7 @@
 				EA4475D019EF2B67005EEF42 /* Deck.swift in Sources */,
 				EA4475E719EF2B74005EEF42 /* PlayingCardViewBuilder.swift in Sources */,
 				EACA178E19EFD31B00E18BEA /* SetGameViewController.swift in Sources */,
+				EA40132C19F69F5D00BCFD5F /* TabBarImageFromText.swift in Sources */,
 				EA4475E619EF2B74005EEF42 /* PlayingCardView.swift in Sources */,
 				EAA0ADEA19F0119C0029BFB2 /* PlayingCardGameViewController.swift in Sources */,
 				EA4475E919EF2B74005EEF42 /* SetCardViewBuilder.swift in Sources */,
