@@ -21,6 +21,9 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var cardCollectionView: UICollectionView!
+    @IBOutlet weak var redealButton: UIButton!
+    @IBOutlet weak var requestMoreCardsButton: UIButton?
+
     var collectionDataSource: GameDataSource!
     var viewModel:GameViewModel!
     private let gridLayout = FitToBoundsFlowLayout()
@@ -56,6 +59,7 @@ class GameViewController: UIViewController {
         
         updateScoreLabel()
     
+        unfold()
         cardCollectionView.performBatchUpdates({
             let sectionsRange = NSRange(0..<self.cardCollectionView.numberOfSections())
             self.cardCollectionView.reloadSections(NSIndexSet(indexesInRange: sectionsRange))}, completion: nil)
@@ -71,6 +75,12 @@ class GameViewController: UIViewController {
  
     private func switchLayout(layoutOptions options: LayoutSwitchOptions) {
         collectionDelegate.selectable = options.cellsSelectable
+        let buttons = [requestMoreCardsButton, redealButton]
+        for b in buttons {
+            let enabled = options.cellsSelectable
+            b?.enabled = enabled
+            b?.alpha = enabled ? 1 : 0.5
+        }
         cardCollectionView.removeGestureRecognizer(options.recognizerToRemove)
         cardCollectionView.addGestureRecognizer(options.recognizerToAdd)
         if options.animated {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6246" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OdU-lU-kDv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OdU-lU-kDv">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6239"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -81,6 +81,7 @@
                     <navigationItem key="navigationItem" id="17p-gm-8Xh"/>
                     <connections>
                         <outlet property="cardCollectionView" destination="OcG-1A-G6u" id="765-1j-9k9"/>
+                        <outlet property="redealButton" destination="VZz-9W-SLc" id="Q94-Dk-wSo"/>
                         <outlet property="scoreLabel" destination="yaA-wD-wmi" id="c7f-cx-99D"/>
                     </connections>
                 </viewController>
@@ -179,6 +180,8 @@
                     <navigationItem key="navigationItem" id="kZb-dj-ke5"/>
                     <connections>
                         <outlet property="cardCollectionView" destination="Pgp-ey-br6" id="MdS-bn-KNh"/>
+                        <outlet property="redealButton" destination="6Ak-YU-xT0" id="5hQ-N4-fzc"/>
+                        <outlet property="requestMoreCardsButton" destination="o6P-Td-wf0" id="hzR-Nb-Nv3"/>
                         <outlet property="requestMoreCardsView" destination="o6P-Td-wf0" id="1Gs-xJ-kPa"/>
                         <outlet property="scoreLabel" destination="cSR-l5-BZW" id="r59-GM-lOa"/>
                     </connections>
