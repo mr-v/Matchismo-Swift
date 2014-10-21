@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
 
         collectionDelegate = GameCollectionDelegate(cardTappedClosure: didPickCard)
-    
+
         cardCollectionView.allowsMultipleSelection = true
         cardCollectionView.backgroundColor = UIColor.clearColor()
         cardCollectionView.dataSource = collectionDataSource
@@ -44,7 +44,7 @@ class GameViewController: UIViewController {
 
         pinch = UIPinchGestureRecognizer(target: self, action: "switchLayout:")
         tap = UITapGestureRecognizer(target: self, action: "unfold")
-    
+
         gridLayoutOptions = LayoutSwitchOptions(layout: gridLayout, cellsSelectable: true, animated: true)
         stackLayoutOptions = LayoutSwitchOptions(layout: stackLayout, cellsSelectable: false, animated: false)
 
@@ -55,9 +55,9 @@ class GameViewController: UIViewController {
 
     @IBAction func redeal(sender: UIButton) {
         viewModel.redeal()
-        
+
         updateScoreLabel()
-    
+
         unfold()
         cardCollectionView.performBatchUpdates({
             let sectionsRange = NSRange(0..<self.cardCollectionView.numberOfSections())
@@ -81,12 +81,10 @@ class GameViewController: UIViewController {
 
     private func switchLayout(layoutOptions options: LayoutSwitchOptions) {
         collectionDelegate.selectable = options.cellsSelectable
-        let buttons = [requestMoreCardsButton, redealButton]
-        for b in buttons {
-            let enabled = options.cellsSelectable
-            b?.enabled = enabled
-            b?.alpha = enabled ? 1 : 0.5
-        }
+        let enabled = options.cellsSelectable
+        requestMoreCardsButton?.enabled = enabled
+        requestMoreCardsButton?.alpha = enabled ? 1 : 0.5
+
         if options.animated {
             cardCollectionView.setCollectionViewLayout(options.layout, animated: options.animated)
         } else {
