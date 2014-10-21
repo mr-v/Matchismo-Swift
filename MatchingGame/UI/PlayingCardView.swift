@@ -2,8 +2,8 @@
 //  PlayingCardView.swift
 //  MatchingGame
 //
-//  Created by Witold Skibniewski on 15/10/14.
-//  Copyright (c) 2014 Witold Skibniewski. All rights reserved.
+//  Created by Paul Hegarty
+//  ported to Swift
 //
 
 import UIKit
