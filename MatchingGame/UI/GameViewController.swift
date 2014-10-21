@@ -12,8 +12,6 @@ private struct LayoutSwitchOptions {
     let layout: UICollectionViewLayout
     let cellsSelectable: Bool
     let animated: Bool
-    let recognizerToAdd: UIGestureRecognizer
-    let recognizerToRemove: UIGestureRecognizer
 }
 
 class GameViewController: UIViewController {
@@ -44,14 +42,15 @@ class GameViewController: UIViewController {
         cardCollectionView.dataSource = collectionDataSource
         cardCollectionView.delegate = collectionDelegate
 
-        pinch = UIPinchGestureRecognizer(target: self, action: "fold")
+        pinch = UIPinchGestureRecognizer(target: self, action: "switchLayout:")
         tap = UITapGestureRecognizer(target: self, action: "unfold")
     
-        gridLayoutOptions = LayoutSwitchOptions(layout: gridLayout, cellsSelectable: true, animated: true, recognizerToAdd: pinch, recognizerToRemove: tap)
-        stackLayoutOptions = LayoutSwitchOptions(layout: stackLayout, cellsSelectable: false, animated: false, recognizerToAdd: tap, recognizerToRemove: pinch)
+        gridLayoutOptions = LayoutSwitchOptions(layout: gridLayout, cellsSelectable: true, animated: true)
+        stackLayoutOptions = LayoutSwitchOptions(layout: stackLayout, cellsSelectable: false, animated: false)
 
         updateScoreLabel()
         unfold()
+        cardCollectionView.addGestureRecognizer(pinch)
     }
 
     @IBAction func redeal(sender: UIButton) {
@@ -65,14 +64,21 @@ class GameViewController: UIViewController {
             self.cardCollectionView.reloadSections(NSIndexSet(indexesInRange: sectionsRange))}, completion: nil)
     }
 
+    func switchLayout(recognizer: UIPinchGestureRecognizer) {
+        let pinchIn = recognizer.scale < 1
+        pinchIn ? fold() : unfold()
+    }
+
     func unfold() {
         switchLayout(layoutOptions: gridLayoutOptions)
+        cardCollectionView.removeGestureRecognizer(tap)
     }
 
     func fold() {
         switchLayout(layoutOptions: stackLayoutOptions)
+        cardCollectionView.addGestureRecognizer(tap)
     }
- 
+
     private func switchLayout(layoutOptions options: LayoutSwitchOptions) {
         collectionDelegate.selectable = options.cellsSelectable
         let buttons = [requestMoreCardsButton, redealButton]
@@ -81,8 +87,6 @@ class GameViewController: UIViewController {
             b?.enabled = enabled
             b?.alpha = enabled ? 1 : 0.5
         }
-        cardCollectionView.removeGestureRecognizer(options.recognizerToRemove)
-        cardCollectionView.addGestureRecognizer(options.recognizerToAdd)
         if options.animated {
             cardCollectionView.setCollectionViewLayout(options.layout, animated: options.animated)
         } else {
