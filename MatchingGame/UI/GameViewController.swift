@@ -82,9 +82,10 @@ class GameViewController: UIViewController {
     private func switchLayout(layoutOptions options: LayoutSwitchOptions) {
         collectionDelegate.selectable = options.cellsSelectable
         let enabled = options.cellsSelectable
-        requestMoreCardsButton?.enabled = enabled
-        requestMoreCardsButton?.alpha = enabled ? 1 : 0.5
-
+        for button in [redealButton, requestMoreCardsButton] {
+            button?.enabled = enabled
+            button?.alpha = enabled ? 1 : 0.5
+        }
         if options.animated {
             cardCollectionView.setCollectionViewLayout(options.layout, animated: options.animated)
         } else {
