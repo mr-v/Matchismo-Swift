@@ -72,6 +72,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
 
             let topAttribute = last(layoutAttributes)!
             topAttribute.center = center
+            topAttribute.zIndex = 1
             // fixed case when panning was recognized and stack didn't finish snapping - moving cards was sluggish
             animator.updateItemUsingCurrentState(topAttribute)
 
@@ -86,9 +87,10 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             animator.addBehavior(anchorAttachement)
 
             let count = collectionView!.numberOfItemsInSection(0)
-            for i in 0..<count-2 {
+            for i in reverse(0..<count-2) {
                 let current = layoutAttributes[i]
                 current.center = center
+                current.zIndex = -i
                 itemBehavior.addItem(current)
                 let attach = UIAttachmentBehavior(item: current, attachedToItem: topAttribute)
                 animator.addBehavior(attach)
@@ -99,24 +101,30 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             anchorAttachement.anchorPoint = recognizer.locationInView(collectionView)
         case .Ended:
             let v = recognizer.velocityInView(collectionView)
-
-            for behavior in attachments {
-                let item = behavior.items[0] as UIDynamicItem
-                let push = UIPushBehavior(items: [item], mode: UIPushBehaviorMode.Instantaneous)
-                push.pushDirection = CGVectorMake(v.x/300, v.y/300)
+            for attachement in attachments {
+                let item = attachement.items[0] as UIDynamicItem
+                let push = UIPushBehavior(items: [item], mode: .Instantaneous)
+                push.pushDirection = CGVectorMake(v.x/200, v.y/200)
                 animator.addBehavior(push)
-                animator.removeBehavior(behavior)
+                animator.removeBehavior(attachement)
             }
 
             let closureAttachments = attachments
-            let distance = sqrt(v.x * v.x + v.y * v.y)
-            let time = distance / 20000
+            let bounds = collectionView?.bounds
+            let boundsDiagonal = hypot(bounds!.width, bounds!.height)
+            let distance = hypot(v.x, v.y)
+            let damping = min(boundsDiagonal/distance, 0.5)
+            let time = distance / 100000
             delay(Double(time)) {
                 for behavior in closureAttachments {
                     let item = behavior.items[0] as UIDynamicItem
                     let snap = UISnapBehavior(item: item, snapToPoint: self.center)
+                    snap.damping = damping
                     self.animator.addBehavior(snap)
                 }
+            }
+            for attribute in layoutAttributes {
+                attribute.zIndex = 0
             }
             attachments.removeAll()
         default:
