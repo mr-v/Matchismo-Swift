@@ -9,7 +9,7 @@
 import UIKit
 
 class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
-    var anchorAttachement: UIAttachmentBehavior!
+    var anchorAttachement: UIAttachmentBehavior { return first(attachments)! }
     var animator: UIDynamicAnimator!
     var attachments = [UIAttachmentBehavior]()
     var layoutAttributes: [UICollectionViewLayoutAttributes]!
@@ -22,7 +22,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
     override func prepareForTransitionFromLayout(oldLayout: UICollectionViewLayout) {
         animator?.removeAllBehaviors()
         animator = UIDynamicAnimator(collectionViewLayout: self)
-        
+
         let bounds = CGRect(origin: CGPointZero, size: collectionViewContentSize())
         let previousAttributes = oldLayout.layoutAttributesForElementsInRect(bounds) as [UICollectionViewLayoutAttributes]
         layoutAttributes = previousAttributes.map {
@@ -31,7 +31,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
             attributes.transform = $0.transform
             return attributes
         }
-        
+
         collectionView?.addGestureRecognizer(pan)
     }
 
@@ -39,7 +39,7 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
         if !animator.behaviors.isEmpty {
             return
         }
-       
+
         for (index, attributes) in enumerate(layoutAttributes) {
             let dynamicAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: NSIndexPath(forItem: index, inSection: 0))
             dynamicAttributes.frame = attributes.frame
@@ -69,24 +69,28 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
         switch recognizer.state {
         case .Began:
             attachments.removeAll(keepCapacity: true)
+
+            let topAttribute = last(layoutAttributes)!
+            topAttribute.center = center
+            // fixed case when panning was recognized and stack didn't finish snapping - moving cards was sluggish
+            animator.updateItemUsingCurrentState(topAttribute)
+
             animator.removeAllBehaviors()
 
             let itemBehavior = UIDynamicItemBehavior()
             itemBehavior.density = 0
             animator.addBehavior(itemBehavior)
-            
-            let lastAttribute = last(layoutAttributes)!
-            itemBehavior.addItem(lastAttribute)
-            anchorAttachement = UIAttachmentBehavior(item: lastAttribute, attachedToAnchor: center)
+
+            itemBehavior.addItem(topAttribute)
+            attachments.append(UIAttachmentBehavior(item: topAttribute, attachedToAnchor: center))
             animator.addBehavior(anchorAttachement)
-            attachments.append(anchorAttachement)
 
             let count = collectionView!.numberOfItemsInSection(0)
             for i in 0..<count-2 {
                 let current = layoutAttributes[i]
                 current.center = center
                 itemBehavior.addItem(current)
-                let attach = UIAttachmentBehavior(item: current, attachedToItem: lastAttribute)
+                let attach = UIAttachmentBehavior(item: current, attachedToItem: topAttribute)
                 animator.addBehavior(attach)
                 attachments.append(attach)
             }
@@ -115,8 +119,6 @@ class StackLayout: UICollectionViewLayout, UIDynamicAnimatorDelegate {
                 }
             }
             attachments.removeAll()
-            animator.removeBehavior(anchorAttachement)
-            anchorAttachement = nil
         default:
             false
         }
