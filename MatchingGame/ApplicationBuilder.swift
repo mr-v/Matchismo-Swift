@@ -27,8 +27,9 @@ class ApplicationBuilder {
         let setVM = GameViewModel(game: setGame)
 
         var configurations = [(GameViewModel, CardViewBuilder, TabBarImageFromText)]()
-        configurations.append((setVM, SetCardViewBuilder(matcher: setCardMatcher), TabBarImageFromText(text: "◇")))
         configurations.append((playingCardVM, PlayingCardViewBuilder(matcher: playingCardMatcher), TabBarImageFromText(text: "♡")))
+        configurations.append((setVM, SetCardViewBuilder(matcher: setCardMatcher), TabBarImageFromText(text: "◇")))
+
         let gameControllers = rootController.viewControllers as [GameViewController]
         for (index, (vm, builder, imageFactory)) in enumerate(configurations) {
             var vc = gameControllers[index]
