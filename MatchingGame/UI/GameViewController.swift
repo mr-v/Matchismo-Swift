@@ -34,7 +34,13 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let didPickCard = {
+            [unowned self] (number: Int) -> () in
+            let results = self.viewModel.chooseCardWithNumber(number)
+            self.updateUnchosenCards(results.unchosen)
+            self.updateMatchedCards(results.matched)
+            self.updateScoreLabel()
+        }
         collectionDelegate = GameCollectionDelegate(cardTappedClosure: didPickCard)
 
         cardCollectionView.allowsMultipleSelection = true
@@ -91,14 +97,6 @@ class GameViewController: UIViewController {
         } else {
             cardCollectionView.collectionViewLayout = options.layout
         }
-    }
-
-    private func didPickCard(number: Int) {
-        let results = viewModel.chooseCardWithNumber(number)
-        updateUnchosenCards(results.unchosen)
-        updateMatchedCards(results.matched)
-
-        updateScoreLabel()
     }
 
     private func updateUnchosenCards(indexPaths: [NSIndexPath]) {
