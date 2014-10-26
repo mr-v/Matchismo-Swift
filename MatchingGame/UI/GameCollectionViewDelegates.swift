@@ -56,6 +56,7 @@ class GameDataSource: NSObject, UICollectionViewDataSource {
     func configureCell(cell: CardViewCell, number: Int) {
         cell.cardView = cardViewBuilder.viewForCardWithNumber(number)
         cell.cardBackgroundView = cardViewBuilder.backgroundView()
+        cell.enabled = !viewModel.isCardMatched(number)
     }
 }
 

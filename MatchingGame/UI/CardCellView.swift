@@ -48,11 +48,10 @@ class CardViewCell: UICollectionViewCell {
     }
 
     override func prepareForReuse() {
-        super.prepareForReuse()
-
         userInteractionEnabled = true
         cardView = nil
         cardBackgroundView = nil
+        super.prepareForReuse()
     }
 
     //    override func prepareForInterfaceBuilder() {
