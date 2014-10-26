@@ -79,7 +79,7 @@
 /* Begin PBXFileReference section */
 		EA06FAA019E6F60F007501C6 /* SetCardMatcherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SetCardMatcherTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		EA0BF16C19F3086500AE3629 /* StackLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StackLayout.swift; path = MatchingGame/UI/StackLayout.swift; sourceTree = SOURCE_ROOT; };
-		EA0E6F0019F5A67900CE19D7 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = delay.swift; sourceTree = "<group>"; };
+		EA0E6F0019F5A67900CE19D7 /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = delay.swift; path = Utilities/delay.swift; sourceTree = "<group>"; };
 		EA40132B19F69F5D00BCFD5F /* TabBarImageFromText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarImageFromText.swift; path = MatchingGame/UI/TabBarImageFromText.swift; sourceTree = SOURCE_ROOT; };
 		EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationBuilder.swift; sourceTree = "<group>"; };
 		EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPointExtension.swift; path = Extensions/CGPointExtension.swift; sourceTree = "<group>"; };
@@ -136,6 +136,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EA132ECA19FD79DF00BA45BA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				EA0E6F0019F5A67900CE19D7 /* delay.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		EA1CDD9B19DED11D006C2906 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +174,6 @@
 			children = (
 				EA4475C619EF2B5B005EEF42 /* CGPointExtension.swift */,
 				EA4475C719EF2B5B005EEF42 /* IntExtension.swift */,
-				EA0E6F0019F5A67900CE19D7 /* delay.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -195,6 +202,7 @@
 				EA44758019EEF430005EEF42 /* Extensions */,
 				EAE4435F19E2C7DE00785909 /* Game */,
 				EA1CDD9B19DED11D006C2906 /* UI */,
+				EA132ECA19FD79DF00BA45BA /* Utilities */,
 				EABACF3619D5A90300FDEEAB /* AppDelegate.swift */,
 				EA44758219EEF5B2005EEF42 /* ApplicationBuilder.swift */,
 				EABACF3D19D5A90300FDEEAB /* Images.xcassets */,
